@@ -1,0 +1,169 @@
+<?php
+
+namespace Produce\ServiciosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Employees
+ *
+ * @ORM\Table(name="Employees")
+ * @ORM\Entity
+ */
+class Employees
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="EmployeeID", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $employeeid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="LastName", type="string", length=20, nullable=false)
+     */
+    private $lastname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="FirstName", type="string", length=10, nullable=false)
+     */
+    private $firstname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Title", type="string", length=30, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TitleOfCourtesy", type="string", length=25, nullable=true)
+     */
+    private $titleofcourtesy;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="BirthDate", type="datetime", nullable=true)
+     */
+    private $birthdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="HireDate", type="datetime", nullable=true)
+     */
+    private $hiredate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Address", type="string", length=60, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="City", type="string", length=15, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Region", type="string", length=15, nullable=true)
+     */
+    private $region;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PostalCode", type="string", length=10, nullable=true)
+     */
+    private $postalcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Country", type="string", length=15, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="HomePhone", type="string", length=24, nullable=true)
+     */
+    private $homephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Extension", type="string", length=4, nullable=true)
+     */
+    private $extension;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Photo", type="text", nullable=true)
+     */
+    private $photo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Notes", type="text", nullable=true)
+     */
+    private $notes;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PhotoPath", type="string", length=255, nullable=true)
+     */
+    private $photopath;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Territories", inversedBy="employeeid")
+     * @ORM\JoinTable(name="employeeterritories",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="EmployeeID", referencedColumnName="EmployeeID")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="TerritoryID", referencedColumnName="TerritoryID")
+     *   }
+     * )
+     */
+    private $territoryid;
+
+    /**
+     * @var \Employees
+     *
+     * @ORM\ManyToOne(targetEntity="Employees")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ReportsTo", referencedColumnName="EmployeeID")
+     * })
+     */
+    private $reportsto;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->territoryid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

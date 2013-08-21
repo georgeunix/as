@@ -1,0 +1,134 @@
+{% block stylesheet%} 
+<style type="text/css">
+        #pnl_anexo{ font-size: 12px;}
+        #pnl_anexo table{ margin: 0 auto;padding: 10px}
+        #pnl_anexo table td{text-indent: 0px;padding: 3px 0px}
+        #pnl_anexo table td select{width: 220px}
+
+        /*DataTables*/
+        .dataTables_length{margin-bottom: 25px;font-size: 12px;margin-top: 10px}
+        .dataTables_filter{margin-bottom: 18px;font-size: 12px;margin-top: -38px}
+        .paging_full_numbers{margin-top: -13px}
+        .dataTables_info{margin-top: 15px}
+
+    </style>
+
+{% endblock%} 
+
+{% block javascript%} 
+    <script type="text/javascript">
+         $(document).ready(function() {/*start jquery*/
+                
+                $("#grilla-anexo").dataTable( {                    
+                         "aaSorting": [[4,'asc']],
+                         "bProcessing": true,
+                         "bServerSide": true,
+                         "sPaginationType": "full_numbers",
+                         "oLanguage"	: {
+                                 "oPaginate" : { 
+                                         "sFirst" : "Primero",
+                                         "sNext" : "Siguiente",
+                                         "sPrevious" : "Anterior",
+                                         "sLast" : "Ultimo"
+                                 },
+                                 "sInfo" : "_START_ a _END_ de _TOTAL_ registros",
+                                 "sLengthMenu": "Mostrar _MENU_ registros",
+                                 "sSearch": "Buscar: ",
+                                 "sProcessing": "Procesando Informaci&oacute;n...",
+                                 "sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
+                                 "sZeroRecords": "No se encontro registros",
+                                 "sInfoEmpty": "No hay registros para mostrar"
+
+                         },
+
+                         "iDisplayLength": 10,
+                         "aLengthMenu": [ 5,10 ],
+                         //"bJQueryUI" : true,
+                         "sAjaxSource": "{{path('listadoAnexoResolucion')}}",
+                         /*
+                         "fnServerParams": function ( aoData ) {
+                                    aoData.push( { "name": "tipo_dependencia", "value": $("#seldepen").val()},{ "name": "cod_departamento", "value": $("#seldepa").val()},{ "name": "cod_servicio", "value": $("#selserv").val()},{ "name": "cod_indicador", "value": $("#selind").val()},{ "name": "cod_municipalidad", "value": $("#selmuni").val()} )
+                         },
+                         */
+                         "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
+                                 //$(nRow.getElementsByTagName('td')[0]).attr("hidden","true");
+                                 $(nRow.getElementsByTagName('td')[0]).css("display","none");
+                         },
+
+                         "fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
+                                 //$(nHead.getElementsByTagName('th')[0]).attr("hidden","true");
+                                 $(nHead.getElementsByTagName('th')[0]).css("display","none");
+                         }
+                     });
+               
+               });/*end jquery*/
+        </script>
+{% endblock%} 
+
+{%block panel1%} 
+
+        <div style="width: 90%;height: 80%;margin: 5px auto;background: #ffffff;border:1px solid #000000;padding: 20px 30px;">
+
+
+            <div style="width: 50%; float: left;">
+
+                <table id="grilla-anexo" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="20%">ID</th>
+                            <th width="40%">RESOLUCIÓN</th>
+                            <th width="40%">FECHA</th>
+                        </tr>
+                    </thead> 
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        
+                        </tr>
+                    </tbody>           
+                </table>
+            </div>
+
+            <div id="pnl_anexo" style="width:40%; height: 300px; margin: 0 auto; margin-left: 3%;border: 1px solid #004163;float: left">
+                <table width="100%" height="100%" align="center">
+                    <tr>
+                        <td  style="background-color:#004163; height: 10px;">
+                            <p style="font-family:arial;color:#fff;font-size:13px;text-align:center;">
+                                <span class="titulo_perfil"><label id="lblTitulo">Detalle de Modificación</label></span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Resolución:<br>
+                            <select name="cboresolucionanexo" id="cboresolucionanexo">
+                                <option value="0">--Seleccione--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nueva Resolución:<br>
+                            <select name="cbonuevaresolucionanexo" id="cbonuevaresolucionanexo">
+                                <option value="0">--Seleccione--</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Observaciones:<br>
+                            <textarea name="txtobservacionesanexo" id="txtobservacionesanexo" cols="50" rows="5"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="0">
+                            <a class="button" href="javascript:;" onClick="agregar_res_anexo();"><span class="icon icon67"></span><span class="label">Agregar</span></a>                            
+                            <a class="button" href="javascript:;" onClick="cancelar_anexo();"><span class="icon icon188"></span><span class="label">Cancelar</span></a>
+                        </td>
+                    </tr> 
+                </table>
+                <div>
+                    <div style="clear:both;"></div>
+                </div> 
+
+{% endblock%} 

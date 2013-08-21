@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
+<pdf>
+    <dynamic-page>
+        <placeholders>
+            <header>
+                <div height="15px" width="100%" border.type="bottom" >
+                <span  font-style="bold">POSTULANTE:
+                </span>{{persona}}
+                </div>
+            </header>
+        </placeholders>
+        <div>
+            <div text-align="center" text-decoration="underline" font-style="bold" margin-top="20px" margin-bottom="20px">
+                PRUEBA DE CONOCIMIENTO DEL CONCURSO DE MÉRITOS N° 
+                02-2013-PRODUCE/OGA –SELECCIÓN AUXILIAR COACTIVO</div>
+
+
+    {% for row in examen%}
+
+
+
+            <div text-align="justify">
+        {{row.PREGUNTA_ID}})
+        {{row.DESCRIPCION}}.
+                </div>
+                <div margin='5px'  padding-left="30px" >
+                      <span font-style="bold">Opci&oacute;n Marcada:  {{row.OPCION_MARCADA}})</span> {{row.puntos}}
+                      <br></br>
+                      <span font-style="bold">Respuesta:  {{row.respuesta}})</span>
+                    
+                </div>
+
+    {% endfor%}
+            </div>
+
+            
+        </dynamic-page>
+    </pdf>

@@ -1,0 +1,716 @@
+{% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+{% block stylesheet%} 
+{{parent()}}
+<link rel="stylesheet" href="{{asset('plugins/menu/css/general.css')}}" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu-v.css')}}" />
+<link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+<style>
+        .menu-content{
+            background: #004467;
+            position:relative;
+            height: 30px;
+        }
+        .titulo{
+            position:absolute;
+            top:5px;
+            right: 5px;
+            color:#ffffff;
+            font-weight: bold;
+        }
+        #tabs{height: 650px;font-size: 12px}
+        #tabs-table-1{ width: 90%;border: 0px solid;border-spacing: 2px }
+        #tabs-table-1 input{ height: 20px}
+        #tabs-table-1 td{ border: 1px solid #ffffff;padding: 5px}
+        #tabs-table-1 select{ width: 150px;height: 25px}
+        #tabs-table-3{width: 400px}
+       
+        /*css table tabs especies*/
+        label{ display:block; }
+        input.text { margin-bottom:12px; width:95%; padding: .4em; }
+        fieldset { padding:0; border:0; margin-top:25px; }
+        h1 { font-size: 1.2em; margin: .6em 0; }
+        div#especies-contain { width: 350px; margin: 20px 0; }
+        div#especies-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+        div#especies-contain table td, div#especies-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+        /*end css table tabs especies*/
+        /*scrollbar*/
+        #content{margin:0px 0 0px 0px; width:350px; height:200px; padding:10px 5px; overflow:auto;}
+        #content img{max-width:100%; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; padding:4px; border:solid 1px #666;}
+        .content_3{height:220px; border:1px dashed #26beff; padding:0 10px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
+        .content_3 p:nth-child(3n+0){color:#26beff;}
+        /**/
+
+    </style>
+    <link rel="stylesheet" href="{{asset('plugins/datatable/media/css/demo_table.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/jquery-ui/css/custom-theme/jquery-ui-1.10.3.custom.css')}}" />
+{% endblock%} 
+
+{% block javascript%} 
+{{parent()}}
+    <script type="text/javascript" src="{{asset('plugins/menu/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/menu/ddsmoothmenu.js')}}"></script>
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+            mainmenuid: "smoothmenu1", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            //customtheme: ["#1c5a80", "#18374a"],
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+        </script>
+        <!-- start include js datatable -->
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.dataTables.js')}}"></script>
+        <script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
+        <!-- end include js datatable -->
+
+        <!--start js personal -->
+        <script type="text/javascript" src="{{asset('bundles/diac/js/autorizacion.js')}}"></script>
+        <!-- end js personal -->
+
+        <!-- start js funciones -->          
+        <script type="text/javascript">
+
+            function devolverProvincias(cod_dep){
+
+                $.post('{{path('devolverProvincias')}}',{cod_dep:cod_dep},function(datahtml){
+                        $("#cboProvincia").html(datahtml);
+                        if(cod_dep=='00')$("#cboDistrito").html(datahtml);  
+                        else{devolverDistritos(0,0)} 
+                 });
+            }
+            function devolverDistritos(cod_dep,cod_prov){
+
+                $.post('{{path('devolverDistritos')}}',{cod_dep:cod_dep,cod_prov:cod_prov},function(datahtml){
+                     $("#cboDistrito").html(datahtml);
+                });
+            }
+            function verDialogRecursoh(){                      
+                $.ajax({
+                  url:"{{path('recursohDialog')}}",
+                  type:"post",
+                  data:{}
+                }).done(function(msg){                          
+                      $("#dialogRecursoh").dialog("open");
+                      $("#dialogRecursoh").html(msg);
+                });    
+            }
+            function verDialogDicapi(){                      
+                $.ajax({
+                  url:"{{path('dicapiDialog')}}",
+                  type:"post",
+                  data:{}
+                }).done(function(msg){                          
+                      $("#dialogDicapi").dialog("open");
+                      $("#dialogDicapi").html(msg);
+                });    
+            }
+            function verDialogEmpresa(){                      
+                $.ajax({
+                  url:"{{path('empresaDialog')}}",
+                  type:"post",
+                  data:{}
+                }).done(function(msg){                          
+                      $("#dialogEmpresa").dialog("open");
+                      $("#dialogEmpresa").html(msg);
+                });    
+            }
+            function verDialogAnexo(){                      
+                $.ajax({
+                  url:"{{path('anexoDialog')}}",
+                  type:"post",
+                  data:{}
+                }).done(function(msg){                          
+                      $("#dialogAnexo").dialog("open");
+                      $("#dialogAnexo").html(msg);
+                });    
+            }
+             function verDialogMapaAcuicola(){                      
+                $.ajax({
+                  url:"{{path('mapaAcuicolaDialog')}}",
+                  type:"post",
+                  data:{}
+                }).done(function(msg){                          
+                      $("#dialogMapaAcuicola").dialog("open");
+                      $("#dialogMapaAcuicola").html(msg);
+                });    
+            }
+            function quitar_especie(id_remove){
+
+                $("#"+id_remove+"").remove();
+                myspecies.splice(id_remove);
+            }
+            
+            var myspecies = new Array();
+            var key=0;
+            function agregar_especie(){                   
+                for (i=0;i<myspecies.length;i++){
+                     if(myspecies[i]==$("#cboespecie").val()){
+                         alert('Ya ingreso la especie selccionada');
+                         return false;
+                     }
+                }
+                 msg='';
+                 if($("#cbofamilia").val()==0){
+                     msg+="-Seleccione Familia\n";
+                 }
+                 if($("#cboespecie").val()==0){
+                     msg+="-Seleccione Especie\n";
+                 }
+                  if(msg!=''){
+                      alert(msg);
+                      return false;
+                  }
+                 html='<tr id='+key+'>'+
+                         '<td>'+$("#cboespecie option[value='"+$("#cboespecie").val()+"']").text()+'</td>'+
+                         '<td>'+$("#cbofamilia option[value='"+$("#cbofamilia").val()+"']").text()+'</td>'+
+                         '<td style="margin-left:auto;margin-right:auto"><a href="javascript:;" onclick="quitar_especie('+key+')"><input type="button" class="icono cus-cross-gray"></a>'+
+                       '</tr>'+
+                       '<input type="text" name="itemsEspecies[]" id="indice_'+$("#cboespecie").val()+'"  value="'+$("#cboespecie").val()+'">';
+                 $("#especies_list tbody").append(html);
+                 myspecies[key]=$("#cboespecie").val();
+                 key=key+1;
+             }
+
+            </script>
+            <!-- end js funciones -->  
+
+            <!-- start js jquery -->  
+            <script type="text/javascript">
+
+                $(document).ready(function() {/*start jquery*/
+                
+                    /*-- start tabs*/
+                        $( "#tabs" ).tabs();
+                    /*end tabs*/
+                
+                    /*start datepicker*/
+                        $( "#txtfecemisiontab1" ).datepicker();
+                        $( "#txtfecemisiontab1" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        $( "#txtfvigenciatab1" ).datepicker();
+                        $( "#txtfvigenciatab1" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                    /*end datpicker*/
+                    
+                    /*start eventos auto*/
+                        /*tipo derecho*/
+                        $.post('{{path('devolverTipoDerecho')}}',{},function(datahtml){
+                            $("#sltipoderecho").html(datahtml);
+                        });
+                        /*tipo resolucion*/
+                        $.post('{{path('devolverTipoResolucion')}}',{},function(datahtml){
+                            $("#sltiporesolucion").html(datahtml);
+                        });
+                        /*tipo desarrollo*/
+                        $.post('{{path('devolverTipoDesarrollo')}}',{},function(datahtml){
+                            $("#slnivelproduccion").html(datahtml);
+                        });
+                        /*tipo estado*/
+                        $.post('{{path('devolverTipoEstado')}}',{},function(datahtml){
+                            $("#slestado").html(datahtml);
+                        });
+                        /*tipo tipo recurso*/
+                        $.post('{{path('devolverTipoRecurso')}}',{},function(datahtml){
+                            $("#sltiporecurso").html(datahtml);
+                        });
+                    /*end eventos auto*/
+                    
+                    /*start ubigeo*/
+
+                        /*Devolver Listado de Provincias al Seleccionar Departamento*/              
+                        $("#cboDepartamento").change(function (){                  
+                             devolverProvincias($("#cboDepartamento").val())            
+                        });
+                        /*Devolver Listado de Distritos al Seleccionar Provincia*/
+                        $("#cboProvincia").change(function (){
+                             devolverDistritos($("#cboDepartamento").val(),$("#cboProvincia").val())
+                        });
+                        $("#sltiporecurso").change(function (){
+                             $.post('{{path('devolverRecursosxTipo')}}',{cod_tipo_recurso:$("#sltiporecurso").val()},function(datahtml){
+                                $("#slrecursosxtipo").html(datahtml);
+                             });
+                        });
+                        
+                        
+                    
+                    /*end ubigeo*/
+                    /*start dialog*/                        
+                            $("#dialogRecursoh").dialog({/*Dialog Anexo*/
+                                autoOpen:false,
+                                width:"80%",
+                                height:"800",
+                                modal:true,
+                                resizable: false,
+                                show: {
+                                     effect: "blind",
+                                     duration: 1000                    
+                                },
+                                 hide: {
+                                    effect: "blind",
+                                    duration: 1000
+                                },
+                                close:function(){$(this).html("");},
+                                buttons:{
+                                        Aceptar:function(){$(this).dialog("close")}
+                                }
+                            });
+                             $("#dialogDicapi").dialog({/*Dialog Dicapi*/
+                                autoOpen:false,
+                                width:"50%",
+                                height:"250",
+                                modal:true,
+                                resizable: false,
+                                show: {
+                                     effect: "blind",
+                                     duration: 1000                    
+                                },
+                                 hide: {
+                                    effect: "blind",
+                                    duration: 1000
+                                },
+                                close:function(){$(this).html("");},
+                                buttons:{
+                                       // Aceptar:function(){$(this).dialog("close")}
+                                }
+                            });
+                            $("#dialogMapaAcuicola").dialog({/*Dialog Dicapi*/
+                                autoOpen:false,
+                                width:"30%",
+                                height:"250",
+                                modal:true,
+                                resizable: false,
+                                show: {
+                                     effect: "blind",
+                                     duration: 1000                    
+                                },
+                                 hide: {
+                                    effect: "blind",
+                                    duration: 1000
+                                },
+                                close:function(){$(this).html("");},
+                                buttons:{
+                                       // Aceptar:function(){$(this).dialog("close")}
+                                }
+                            });
+                            $("#dialogEmpresa").dialog({/*Dialog Dicapi*/
+                                autoOpen:false,
+                                width:"60%",
+                                height:"750",
+                                modal:true,
+                                resizable: false,
+                                show: {
+                                     effect: "blind",
+                                     duration: 100                    
+                                },
+                                 hide: {
+                                    effect: "blind",
+                                    duration: 100
+                                },
+                                close:function(){$(this).html("");},
+                                buttons:{
+                                       // Aceptar:function(){$(this).dialog("close")}
+                                }
+                            });
+                             $("#dialogAnexo").dialog({/*Dialog Anexo*/
+                                autoOpen:false,
+                                width:"60%",
+                                height:"450",
+                                modal:true,
+                                resizable: false,
+                                show: {
+                                     effect: "blind",
+                                     duration: 100                    
+                                },
+                                 hide: {
+                                    effect: "blind",
+                                    duration: 100
+                                },
+                                close:function(){$(this).html("");},
+                                buttons:{
+                                       // Aceptar:function(){$(this).dialog("close")}
+                                }
+                            });
+                    /*end dialog*/
+                    
+                    /*---start eventos jquery tabs-3---*/
+                    
+                        /*Listado de especies por familia*/
+                        $("#cbofamilia").change(function (){                  
+                             $.post('{{path('devolverEspeciexfamilia')}}',{id:$("#cbofamilia").val()},function(datahtml){
+                             $("#cboespecie").html(datahtml);     
+                          });          
+                        });
+                        
+                        $("#chkvigencia").click(function (){  
+                              if($('#chkvigencia').is(':checked') ){
+                                   $("#lblfecvigencia").hide();
+                                   $("#txtfecvigencia").hide();
+                              }else{
+                                  $("#lblfecvigencia").show();
+                                  $("#txtfecvigencia").show();
+                              }
+                         });
+                        $("#raddigesa,#raditp").click(function (){
+                            if($('input[name=raddigitp]:checked').val()=='digesa'){
+                                $("#lblfecvigenciatab5").hide();
+                                $("#txtfecvigenciatab5").hide();
+                            }else{
+                                $("#lblfecvigenciatab5").show();
+                                $("#txtfecvigenciatab5").show();
+                            }
+                        });
+                    /*end eventos jquery tabs-3*/
+                  
+                });
+                
+                </script>
+                <!-- end js jquery -->
+{% endblock%} 
+            {%block panel1%}
+                <div class="menu-content">
+                  {{menutotal|raw('html')}}
+                        <div class="titulo">DIRECCIÓN DE ACUICULTURA (DIAC)</div>  
+                    </div>
+
+                    <div style="width: 85%;margin: 15px auto;background: #ffffff;border:1px solid #000000;padding: 25px;">
+
+                        <div id="tabs">
+                            <ul>
+                                <li><a href="#tabs-1">Datos de Autorización/Concesión</a></li>
+                                <li><a href="#tabs-2">Coordenadas</a></li>
+                                <li><a href="#tabs-3">Especies</a></li>
+                                <li><a href="#tabs-4">Resolución Dicapi</a></li>
+                                <li><a href="#tabs-5">Resolución Digesa/ITP</a></li>
+                                <li><a href="#tabs-6">DIA/EIA</a></li>
+                            </ul>
+                            <div id="tabs-1">
+
+                                <table id="tabs-table-1" style="width: 70%">
+                                    
+                                   <tr>
+                                        <td width="15%">Prod. Estimada:</td>                            
+                                        <td ><input type="text" name="txtprodestimada" id="txtprodestimada" size="20">&nbsp;Toneladas</td>
+                                        <td width="20%">Num. Estanques / Jaulas / Otros:</td>                            
+                                        <td ><input type="text" name="txtnumjaulas" id="txtnumjaulas" size="20"></td>
+                                    </tr> 
+                                    <tr>
+                                        <td>Empresa:</td>                            
+                                        <td colspan="3">
+                                            <input type="text" name="txtempresa" id="txtempresa" size="50" style="float:left;margin-right: 15px;margin-top: 5px" readonly>
+                                            <a class="button" href="javascript:;" onClick="verDialogEmpresa()" style="margin-top: 0px"><span class="icon icon198"></span><span class="label">Buscar</span></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo Derecho:</td>                            
+                                        <td ><select name="sltipoderecho" id="sltipoderecho"><option value="0">--Seleccione--</option></select></td>
+                                        <td>Tipo Resolución:</td>                            
+                                        <td ><select name="sltiporesolucion" id="sltiporesolucion"><option value="0">--Seleccione--</option></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nivel de Producción:</td>                            
+                                        <td ><select name="slnivelproduccion" id="slnivelproduccion"><option value="0">--Seleccione--</option></select></td>
+                                        <td>Estado:</td>                            
+                                        <td><select name="slestado" id="slestado"><option value="0">--Seleccione--</option></select></td>
+                                    </tr>
+                                </table>
+
+                                <table id="tabs-table-1" style="width: 70%">
+                                    <tr>
+                                        <td width="20%">N° RD de Habilitación - Dicapi</td>                            
+                                        <td><input type="text" name="txtrddicapi" id="txtrddicapi" size="35" style="float:left;margin-right: 15px;margin-top: 5px" readonly>
+                                            <a class="button" href="javascript:;" onClick="verDialogDicapi()" style="margin-top: 0px"><span class="icon icon198"></span><span class="label">Buscar</span></a></td>
+                                    </tr>
+                                </table>
+                                <table id="tabs-table-1" style="width: 70%">
+                                    <tr>
+                                        <td>Departamento: </td>
+                                        <td>{{departamento|raw('html')}}</td>
+                                        <td>Provincia: </td><td><select name="cboProvincia" id="cboProvincia">
+                                                <option value="">--Seleccione--</option>
+                                            </select></td>
+                                        <td>Distrito: </td>
+                                        <td><select name="cboDistrito" id="cboDistrito">
+                                                <option value="">--Seleccione--</option>
+                                            </select></td>
+                                        <td><input type="radio" name="radconmar" id="radcontinental"></td>
+                                        <td>Continental</td>
+                                        <td><input type="radio" name="radconmar" id="radmaricultura"></td>
+                                        <td>Maricultura</td>     
+                                    </tr>
+                                </table>
+                                <table id="tabs-table-1" style="width:70%">
+                                    <tr>
+                                        <td>Zona: </td><td><input type="text" name="txtzona" id="txtzona" size="30"></td>
+                                        <td>Mapa Acuicola: </td><td><input type="text" name="txtmapaacuicola" id="txtmapaacuicola" size="50" style="float:left;margin-right: 15px;margin-top: 5px" readonly>
+                                                                    <a class="button" href="javascript:;" onClick="verDialogMapaAcuicola()" style="margin-top: 0px"><span class="icon icon198"></span><span class="label">Buscar</span></a></td>                                        
+                                    </tr>
+                                    <tr>
+                                        <td>Área Otorgada:</td><td colspan="3"><input type="text" name="txtareaot" id="txtareaot" size="30"></td>
+                                    </tr>
+                                </table>
+                                <table id="tabs-table-1" style="width: 70%">
+                                    <tr>
+                                        <td width="15%">Recurso Hídrico</td><td  width="20%">
+                                            <input type="checkbox" name="chkrecurso" id="chkrecurso" value="recursoh" style="float:left;margin-right: 10px;margin-top: 5px">
+                                            <a class="button" href="javascript:;" onClick="verDialogRecursoh()" style="margin-top: 0px"><span class="icon icon68"></span><span class="label">Agregar</span></a></td>
+                                        <td width="20%">Tipo Recurso Hidríco</td><td  width="25%"><select name="sltiporecurso" id="sltiporecurso"><option value="0">--Seleccione--</option></select></td>      
+                                        <td width="20%">Nombre Recurso Hidríco</td><td  width="20%"><select name="slrecursosxtipo" id="slrecursosxtipo"><option value="0">--Seleccione--</option></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha Emisión:</td><td><input type="text" name="txtfecemisiontab1" id="txtfecemisiontab1" size="10"></td>
+                                        <td >Fecha Vigencia:</td><td><input type="text" name="txtfvigenciatab1" id="txtfvigenciatab1" size="10"></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4"><a class="button" href="javascript:;" onClick="verDialogAnexo()"><span class="icon icon68"></span><span class="label">Modificatorias</span></a>
+                                            <a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Ver RD</span></a>
+                                            <a class="button" href="javascript:;" onClick=""><span class="icon icon92"></span><span class="label">Anexar RD</span></a></td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">Observaciones:<br>
+                                            <textarea name="txtobservaciones" id="txtobservaciones" rows="5" cols="100"></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <div id="tabs-2">
+
+                            </div>
+
+                            <div id="tabs-3">
+
+                                <div style="width: 85%;"> 
+                                    <div id="especies-contain" class="ui-widget" style="float: left">                                   
+                                        <div class="content_3" id="content"><!--The Scrollbar-->
+                                            <table id="especies_list" class="ui-widget ui-widget-content">
+                                                <thead>
+                                                    <tr class="ui-widget-header ">
+                                                        <th>Especie</th>
+                                                        <th>Familia</th>
+                                                        <th>Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div><!--End Scrollbar-->
+                                    </div>                                
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px;margin-top: 30px">   
+                                        <table id="tabs-table-3" class="ui-widget ui-widget-content">
+                                            <thead>
+                                                <tr class="ui-widget-header ">
+                                                    <th style="text-align: center" colspan="3">Seleccionar Especie</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Familia:</td>
+                                                    <td>{{familia|raw('html')}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Especie:</td>
+                                                    <td><select name="cboespecie" id="cboespecie"><option value="0">--Seleccione--</option></select></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="button" href="javascript:;" onClick="agregar_especie()"><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
+                                                    <td><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="clear:left;"></div>                                
+                                </div>      
+                            </div>
+                            <div id="tabs-4">
+
+                                <div style="width: 85%;"> 
+                                    <div id="especies-contain" class="ui-widget" style="float: left">                                   
+                                        <div class="content_3" id="content"><!--The Scrollbar-->
+                                            <table id="resdicapi_list" class="ui-widget ui-widget-content">
+                                                <thead>
+                                                    <tr class="ui-widget-header ">
+                                                        <th>RESOLUCIÓN</th>
+                                                        <th>FECHA EMISIÓN</th>
+                                                        <th>FECHA VIGENCIA</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div><!--End Scrollbar-->
+                                    </div>                                
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px;margin-top: 30px">   
+                                        <table id="tabs-table-3" class="ui-widget ui-widget-content" style="width: 400px">
+                                            <thead>
+                                                <tr class="ui-widget-header ">
+                                                    <th style="text-align: center" colspan="4">Seleccionar Resolución</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Resolución:</td>
+                                                    <td colspan="3"><input type="text" name="txtresolucion" id="txtresolucion" size="30"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fecha&nbsp;Emisión:</td>
+                                                    <td><input type="text" name="txtfecemision" id="txtfecemision" size="10"></td>
+                                                    <td><label id="lblfecvigencia">Fecha&nbsp;Vigencia:</label></td>
+                                                    <td><input type="text" name="txtfecvigencia" id="txtfecvigencia" size="10"></td>
+                                                </tr>
+                                                <tr>                                                    
+                                                    <td colspan="2">Sin Fecha Vigencia</td>
+                                                    <td colspan="2"><input type="checkbox" name="chkvigencia" id="chkvigencia"></td>                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
+                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="clear:left;"></div>                                
+                                </div>   
+
+
+                            </div>
+                            <div id="tabs-5"><!--tabs-5-->
+
+                                <div style="width: 85%;"> 
+                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 650px">                                   
+                                        <div class="content_3" id="content" style="width: 600px"><!--The Scrollbar-->
+                                            <table id="digesaitp_list" class="ui-widget ui-widget-content" >
+                                                <thead>
+                                                    <tr class="ui-widget-header ">
+                                                        <th>TIPO</th>
+                                                        <th>DESCRIPCIÓN</th>
+                                                        <th>FECHA EMISIÓN</th>
+                                                        <th>FECHA VIGENCIA</th>
+                                                        <th>OBSERVACIONES</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div><!--End Scrollbar-->
+                                    </div>                                
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px ;margin-top: 30px">   
+                                        <table id="tabs-table-3" class="ui-widget ui-widget-content" style="width: 400px">
+                                            <thead>
+                                                <tr class="ui-widget-header ">
+                                                    <th style="text-align: center" colspan="4">Seleccionar Resolución</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Digesa</td>
+                                                    <td><input type="radio" name="raddigitp" id="raddigesa" value="digesa"></td>
+                                                    <td>ITP</td>
+                                                    <td><input type="radio" name="raddigitp" id="raditp" value="itp"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Descripción:</td>
+                                                    <td colspan="3"><input type="text" name="txtdescripcion" id="txtdescripcion" size="30"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fecha&nbsp;Emisión:</td>
+                                                    <td><input type="text" name="txtfecemision" id="txtfecemision" size="10"></td>
+                                                    <td><label id="lblfecvigenciatab5">Fecha&nbsp;Vigencia:</label></td>
+                                                    <td><input type="text" name="txtfecvigencia" id="txtfecvigenciatab5" size="10"></td>
+                                                </tr>
+                                                <tr>                                                    
+                                                    <td colspan="2">Sin Fecha</td>
+                                                    <td colspan="2"><input type="checkbox" name="chkvigencia" id="chkvigencia"></td>                                                    
+                                                </tr>
+                                                <tr>                                                    
+                                                    <td colspan="4">Observaciones:<br><br>
+                                                        <textarea name="txtareaobservacion" id="txtareaobservacion" rows="5" cols="50"></textarea>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
+                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="clear:left;"></div>                                
+                                </div>   
+                            </div><!--End tabs-5-->
+                            <div id="tabs-6"><!--tabs-6-->
+
+                                <div style="width: 85%;"> 
+                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 650px">                                   
+                                        <div class="content_3" id="content" style="width: 600px"><!--The Scrollbar-->
+                                            <table id="dia_list" class="ui-widget ui-widget-content" >
+                                                <thead>
+                                                    <tr class="ui-widget-header ">
+                                                        <th>NUMERO DE DIA/EIA</th>
+                                                        <th>FECHA EMISIÓN</th>
+                                                        <th>OBSERVACIONES</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div><!--End Scrollbar-->
+                                    </div>                                
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px ;margin-top: 30px">   
+                                        <table id="tabs-table-3" class="ui-widget ui-widget-content" style="width: 400px">
+                                            <thead>
+                                                <tr class="ui-widget-header ">
+                                                    <th style="text-align: center" colspan="4">Seleccionar Resolución</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>                                                
+                                                <tr>
+                                                    <td>Número de Día/EIA:</td>
+                                                    <td colspan="3"><input type="text" name="txtdescripcion" id="txtdescripcion" size="30"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fecha&nbsp;Emisión:</td>
+                                                    <td><input type="text" name="txtfecemisiontab6" id="txtfecemisiontab6" size="10"></td>
+                                                    <!--
+                                                    <td><label id="lblfecvigenciatab5">Fecha&nbsp;Vigencia:</label></td>
+                                                    <td><input type="text" name="txtfecvigencia" id="txtfecvigenciatab5" size="10"></td>
+                                                    -->
+                                                </tr>
+                                                <tr>                                                    
+                                                    <td colspan="2">Sin Fecha</td>
+                                                    <td colspan="2"><input type="checkbox" name="chkvigenciatab6" id="chkvigenciatab6"></td>                                                    
+                                                </tr>
+                                                <tr>                                                    
+                                                    <td colspan="4">Observaciones:<br><br>
+                                                        <textarea name="txtareaobservaciontab6" id="txtareaobservaciontab6" rows="5" cols="50"></textarea>
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
+                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="clear:left;"></div>                                
+                                </div>   
+
+
+                            </div><!--End tabs-6-->
+                        </div>
+                    </div>
+                    <div id="dialogRecursoh"></div>
+                    <div id="dialogDicapi"></div>
+                    <div id="dialogMapaAcuicola"></div>
+                    <div id="dialogEmpresa"></div>
+                    <div id="dialogAnexo"></div>
+
+{%endblock%}
+

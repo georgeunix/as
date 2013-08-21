@@ -1,0 +1,52 @@
+#DIVDATA {font-family: Verdana; 
+font-size: 10px;
+color: #777;
+border: 1px solid #AAA;
+height: 400px;
+position: relative;
+}
+
+#DIVMENU {color: #FF0000; 
+position: absolute; top: 5px; left: 5px}
+#DIVMENU li {display: inline-block;
+ text-align: center; margin: 1px}
+#DIVMENU a {line-height: 20px; color: #777;
+height: 20px; width: 150px; border: 1px solid #777;           
+font-weight: bold; font-family: Verdana; display: block;
+text-decoration: none; background: #FFF}
+#DIVMENU a:hover {color: #222;
+background: #CCC}
+
+#DIVAREA {font-family: Verdana; 
+top: 30px; left: 6px;          
+font-size: 10px;
+color: #777;
+border: 1px solid #AAA;
+height: 361px; width: 850px;
+position: absolute;
+border: 1px solid #777
+}
+#DIVAREA h1 { background: #8f8f9b; font-size: 15px; color: #FFF;
+     font-family: Arial; letter-spacing: -1px; line-height: 20px;  }
+
+
+
+.CSS_btn_TXT {font-family: verdana;
+font-size: 10px; font-weight: bold; height: 22px; }
+.CSS_inp_TXT {font-family: verdana;
+font-size: 10px; font-weight: bold; height: 14px; }
+
+.CSS_title1 {font-family: Verdana; font-size: 14px; 
+         font-weight: bold; letter-spacing: -1px; color: #555; margin: 5px}
+
+
+#CSS_data {margin: 5px}
+#CSS_data td { background: #FFF; border: 1px #CCC solid;
+padding: 1px 5px 1px 5px;}
+#CSS_data th { background: #777; color: #FFF; border: 1px #555 solid;
+padding: 1px 5px 1px 5px;}
+
+#CSS_dataPerfil td { border: 1px #CCC solid;
+padding: 1px 5px 1px 5px;}
+#CSS_dataPerfil th { background: #777; color: #FFF; border: 1px #555 solid;
+padding: 1px 5px 1px 5px;}

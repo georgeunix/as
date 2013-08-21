@@ -1,0 +1,147 @@
+<?php
+
+namespace Produce\ServiciosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Orders
+ *
+ * @ORM\Table(name="Orders")
+ * @ORM\Entity
+ */
+class Orders
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="OrderID", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $orderid;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="OrderDate", type="datetime", nullable=true)
+     */
+    private $orderdate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="RequiredDate", type="datetime", nullable=true)
+     */
+    private $requireddate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="ShippedDate", type="datetime", nullable=true)
+     */
+    private $shippeddate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Freight", type="integer", nullable=true)
+     */
+    private $freight;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ShipName", type="string", length=40, nullable=true)
+     */
+    private $shipname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ShipAddress", type="string", length=60, nullable=true)
+     */
+    private $shipaddress;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ShipCity", type="string", length=15, nullable=true)
+     */
+    private $shipcity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ShipRegion", type="string", length=15, nullable=true)
+     */
+    private $shipregion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ShipPostalCode", type="string", length=10, nullable=true)
+     */
+    private $shippostalcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ShipCountry", type="string", length=15, nullable=true)
+     */
+    private $shipcountry;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Products", inversedBy="orderid")
+     * @ORM\JoinTable(name="order details",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="OrderID", referencedColumnName="OrderID")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="ProductID", referencedColumnName="ProductID")
+     *   }
+     * )
+     */
+    private $productid;
+
+    /**
+     * @var \Customers
+     *
+     * @ORM\ManyToOne(targetEntity="Customers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="CustomerID", referencedColumnName="CustomerID")
+     * })
+     */
+    private $customerid;
+
+    /**
+     * @var \Employees
+     *
+     * @ORM\ManyToOne(targetEntity="Employees")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="EmployeeID", referencedColumnName="EmployeeID")
+     * })
+     */
+    private $employeeid;
+
+    /**
+     * @var \Shippers
+     *
+     * @ORM\ManyToOne(targetEntity="Shippers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="ShipVia", referencedColumnName="ShipperID")
+     * })
+     */
+    private $shipvia;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->productid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

@@ -1,0 +1,46 @@
+<?php
+
+namespace Produce\ServiciosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Categories
+ *
+ * @ORM\Table(name="Categories")
+ * @ORM\Entity
+ */
+class Categories
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CategoryID", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $categoryid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CategoryName", type="string", length=15, nullable=false)
+     */
+    private $categoryname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Picture", type="text", nullable=true)
+     */
+    private $picture;
+
+
+}

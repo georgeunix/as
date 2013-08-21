@@ -1,0 +1,706 @@
+{% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+{% block stylesheet%} 
+{{parent()}}
+<link rel="stylesheet" href="{{asset('bundles/sitradoc/css/sitradoc.css')}}">
+<link rel="stylesheet" href="{{asset('plugins/jquery-ui/css/redmond/jquery-ui-1.10.3.custom.css')}}">
+<link rel="stylesheet" href="{{asset('plugins/jqgrid/css/ui.jqgrid.css')}}" />
+<link rel="stylesheet" href="{{asset('plugins/comboAdd/comboAdd.css')}}" />
+<link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+
+
+<link rel="stylesheet" type="text/css" media="screen" href="{{asset('plugins/jqgrid/css/ui.jqgrid.css')}}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{{asset('plugins/JAlert/jquery.alerts.css')}}" />
+
+
+<link rel=stylesheet type=text/css href="{{asset('plugins/msgbox/jquery.msgbox.css')}}">
+
+
+{% endblock%} 
+{% block javascript%} 
+{#{parent()}#}
+
+<script type="text/javascript" src="{{asset('plugins/jquery/jquery-1.8.3.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('plugins/comboAdd/comboAdd.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/jqgrid/js/i18n/grid.locale-es.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/jqgrid/js/jquery.jqGrid.src.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/JAlert/jquery.alerts.js')}}"></script>
+<script type=text/javascript src="{{asset('plugins/msgbox/jquery.dragndrop.min.js')}}"></script>
+<script type=text/javascript src="{{asset('plugins/msgbox/jquery.msgbox.js')}}"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        $(".inhabilitar-pantalla").css("display", "none");
+        carga_grilla_documento_proyecto();
+
+        $(".search-destinos").live("click", function() {
+            buscarDestinatarios($("#destinatarios"));
+        });
+
+        $(".search-firmantes").live("click", function() {
+            buscafirmantes($("#firmantes"));
+        });
+
+        function buscafirmantes(obj) {
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                data: "filtro=" + obj.val(),
+                url: "{{path('_cboFirmantes')}}",
+                success: function(e) {
+
+                    $("#cbo_data1").html(e);
+                }
+            });
+        }
+        function buscarDestinatarios(obj) {
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                data: "filtro=" + obj.val(),
+                url: "{{path('_cboDestinatarios')}}",
+                success: function(e) {
+
+                    $("#cbo_data2").html(e);
+                }
+            });
+        }
+
+
+
+        $("#table-documento").jqGrid({
+            data: [],
+            datatype: 'local',
+            colNames: ["CODIGO", "TIPO DOCUMENTO", "FECHA DE CREACION", "CICLO", "INDICATIVO", "ASUNTO", "USUARIO", "ACCION"],
+            colModel: [
+                {name: 'CODIGO', index: 'CODIGO', width: "50px", resizable: true,sortable: true, align: "center"},
+                {name: 'TIPO_DE_DOCUMENTO', index: 'TIPO_DE_DOCUMENTO', width: "140px", resizable: true, sortable: true, align: "center"},
+                {name: 'FECHA_CREACION', index: 'FECHA_CREACION', width: "",resizable: true, sortable: false, align: "center"},
+                {name: 'CICLO', index: 'CICLO', width: "80px",resizable: true, sortable: false, align: "center"},
+                {name: 'INDICATIVO_DEL_DOCUMENTO', width: "170px",resizable: true, sortable: false, align: "center"},
+                {name: 'ASUNTO', index: 'ASUNTO', width: "80px", resizable: false, sortable: false, align: "center"},
+                {name: 'USUARIO', index: 'USUARIO', width: "70px", resizable: false, sortable: false, align: "center"},
+                {name: 'ACCION', index: 'ACCION', width: "", resizable: false, sortable: false, align: "center"}
+            ],
+            height: 320,
+            pager: "#table-documento-paginator",
+            rowList: [10, 20],
+            caption: 'DOCUMENTOS ',
+            
+
+        }).jqGrid("filterToolbar");
+
+
+
+        function carga_grilla_documento_proyecto() {
+
+            var url = "{{path('_listacicloProyecto')}}";
+            carga_grilla_documento(url);
+
+        }
+
+        function carga_grilla_documento_para_firmar() {
+
+            var url = "{{path('_listaParaFirmar')}}";
+            carga_grilla_documento(url);
+        }
+
+        function carga_grilla_documento_para_visto_bueno() {
+
+            var url = "{{path('_listaParavistoBueno')}}";
+            carga_grilla_documento(url);
+        }
+
+
+
+
+        function carga_grilla_documento(url) {
+            var grilla = "#table-documento";
+
+            $(".ajax-icon").css("display", "block");
+            $.ajax({
+                type: "POST",
+                dataType: "text",
+                url: url,
+                success: function(e) {
+
+                    $(".ajax-icon").css("display", "none");
+
+                    var mydata = JSON.parse(e);
+
+                    $(grilla).clearGridData(true).trigger("reloadGrid");
+                    $(grilla).jqGrid('setGridParam', {data: mydata, autowidth: true}).trigger('reloadGrid');
+
+                }
+            });
+
+        }
+
+
+
+        /*--------------END INSTANCIA DE PLUGINS--------------------*/
+        $(".buscar-data").button();
+        $(".upload").button();
+        $("#link_enProyecto").css("background", "#666666");
+        $("#link_enProyecto").css("color", "#ffffff");
+
+        $(".item_menu").click(function() {
+            var menu_option = $(this).attr("id");
+            switch (menu_option) {
+                case "link_nuevo":
+                    nuevo_documento();
+                    break;
+
+                case "link_enProyecto":
+
+                    $(".option_menu").css("display", "none");
+                    $("#documento_proyecto_content").css("display", "block");
+                    $(".inhabilitar-pantalla").css("display", "none");
+
+                    $(".item_menu").css("background", "");
+                    $(".item_menu").css("color", "");
+
+                    $(this).css("background", "#666");
+                    $(this).css("color", "#ffffff");
+
+                    carga_grilla_documento_proyecto();
+                    break;
+                case "link_paraFirmar":
+                    $(".option_menu").css("display", "none");
+                    $("#documento_firmar_content").css("display", "block");
+                    $(".inhabilitar-pantalla").css("display", "none");
+                    $(".item_menu").css("background", "");
+                    $(".item_menu").css("color", "");
+                    $(this).css("background", "#666");
+                    $(this).css("color", "#ffffff");
+
+                    carga_grilla_documento_para_firmar();
+                    break;
+                case "link_vistoBueno":
+                    $(".option_menu").css("display", "none");
+                    $(".inhabilitar-pantalla").css("display", "none");
+                    $("#documento_vistobueno_content").css("display", "block");
+                    $(".item_menu").css("background", "");
+                    $(".item_menu").css("color", "");
+                    $(this).css("background", "#666");
+                    $(this).css("color", "#ffffff");
+                    carga_grilla_documento_para_visto_bueno();
+
+                    break;
+            }
+
+        });
+        $(".close-tooltip").live("click", function() {
+
+            $(".frmcapa").css("display", "none");
+            $(".inhabilitar-pantalla").css("display", "none");
+        });
+
+        $("#nuevoDocumentoAction").live("click", function() {
+            if (valida_formulario() === true) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{path('_newProyectoDocumento')}}",
+                    data: $("#nuevoDocumento").serialize(),
+                    dataType: "text",
+                    success: function(e) {
+                        jAlert(e, "Mantenimiento Sitradoc");
+                        $("#link_enProyecto").click();
+                    }
+                });
+            }
+        });
+
+
+        $("#editarDocumentoAction").live("click", function() {
+
+            if (valida_formulario() === true) {
+
+                jConfirm('¿Estas seguro que deseas modificar el documento?', 'Mantenimiento Sitradoc', function(r) {
+                    if (r === true) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{path('_editarDocumento')}}",
+                            data: $("#nuevoDocumento").serialize() + "&num_doc=" + $("#editarDocumentoAction").attr("rel"),
+                            dataType: "text",
+                            success: function(e) {
+                                jAlert(e, "Mantenimiento Sitradoc");
+                                $("#link_enProyecto").click();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+
+
+
+        $(".generar_word").live("click", function() {
+            var id_docu = $(this).attr("rel");
+            generarword(id_docu);
+
+        });
+
+        $(".subir_documento").live("click", function() {
+            $(".inhabilitar-pantalla").css("display", "block");
+            $(".frmcapa").css("display", "none");
+            $(".capa-upload-documento").css("display", "block");
+            $(".tooltip-tittle > .title").html("MANTENIMIENTO DE ARCHIVOS");
+
+            var id_docu = $(this).attr("rel");
+            $("#upload_id").val(id_docu);
+        });
+
+
+        $(".para-firma").live("click", function() {
+            var accion = "SIGN";
+            var num_firma = "";
+            var id_docu = $(this).attr("rel");
+            var array = id_docu.split("-");
+            var id_proy = array[0];
+            var cod_firmante = array[1];
+            var num_firma = array[2];
+            var cant_firmas = array[3];
+            var user = array[4];
+            var asunto = array[5];
+
+
+
+            firmarDocumento(id_proy, cod_firmante, num_firma, accion, cant_firmas, user, asunto);
+
+        });
+
+        $(".para-firma-vb").live("click", function() {
+            var accion = "VB";
+            var id_docu = $(this).attr("rel");
+            var array = id_docu.split("-");
+            var id_proy = array[0];
+            var cod_firmante = array[1];
+            var num_firma = array[2];
+            var cant_firmas = array[3];
+            var user = array[4];
+            var asunto = array[5];
+
+            firmarDocumento(id_proy, cod_firmante, num_firma, accion, cant_firmas, user, asunto);
+
+        });
+
+
+        function firmarDocumento(id_proy, cod_firmante, num_firma, accion, cant_firmas) {
+            var var1 = "doc=" + id_proy + "&cod_firmante=" + cod_firmante + "&num_firma=" + num_firma + "&accion=" + accion + "&cant_firmas=" + cant_firmas;
+
+            var strWidth = 850;
+            var strHeight = 800;
+            var leftStr = (screen.width - strWidth) / 2;
+            var topStr = (screen.height - strHeight) / 2 - 50;
+            var windowProperties = "toolbar=no,menubar=no,scrollbars=yes,resizable=1,statusbar=no,height=" + strHeight + ",width=" + strWidth + ",left=" + leftStr + ",top=" + topStr + "";
+            var url = "http://172.16.247.20";
+
+            popup = window.open(url + "/framework/FIRMA/PhpProject1/firmarDocumento.php?" + var1, "popup1", windowProperties);
+            popup.focus();
+            return false;
+        }
+        function actualizar() {
+            document.getElementById("if56").src = "test2.jsp";
+        }
+
+
+
+        $(".edit-doc").live("click", function() {
+            var id_doc = $(this).attr("rel");
+            editar_documento(id_doc);
+        });
+
+
+        $(".return-doc-proye").live("click", function() {
+            var id_doc = $(this).attr("rel");
+            jConfirm('¿Confirmas cambiar el documento a estado en proyecto?', 'Mantenimiento Sitradoc', function(r) {
+                if (r === true) {
+
+                    $.ajax({
+                        type: "POST",
+                        data: "id_docu=" + id_doc,
+                        url: "{{path('_ajax_retornar_estado_Documento')}}",
+                        success: function(e) {
+                            jAlert(e, "Mantenimiento Sitradoc");
+                            $("#link_enProyecto").click();
+                        }
+                    });
+                }
+            });
+        });
+
+        $("#uploading-doc-Action").click(function() {
+            var archivo = $("#pdf-doc").val();
+            if (archivo !== "") {
+                var extension = archivo.split(".");
+                var punto = extension.length;
+                if (extension[punto - 1] === "pdf" || extension[punto - 1] === "PDF") {
+                    $("#uploading-doc").submit();
+                } else {
+                    jAlert("La extension del archivo no es del formato pdf.", "Mantenimiento Sitradoc");
+                }
+            } else {
+                jAlert("No se agrego ningun archivo.", "Mantenimiento Sitradoc");
+            }
+        });
+
+        function nuevo_documento() {
+            $(".inhabilitar-pantalla").css("display", "block");
+            $(".frmcapa").css("display", "none");
+            $(".capa-documento-nuevo").css("display", "block");
+
+            $(".tooltip-tittle > .title").html("NUEVO DOCUMENTO");
+
+            limpiar_formulario();
+            cbo_data1 = [];
+            listaOpciones();
+            cbo_data2 = [];
+            listaOpciones2();
+            $("#editarDocumentoAction").val("Guardar");
+            $("#editarDocumentoAction").attr("id", "nuevoDocumentoAction");
+        }
+
+        function editar_documento(id_doc) {
+
+
+            $(".inhabilitar-pantalla").css("display", "block");
+            $(".frmcapa").css("display", "none");
+            $(".capa-documento-nuevo").css("display", "block");
+
+
+            $(".tooltip-tittle > .title").html("EDITAR DOCUMENTO #" + id_doc);
+            $("#nuevoDocumentoAction").val("Actualizar");
+            $("#nuevoDocumentoAction").attr("id", "editarDocumentoAction");
+            $("#editarDocumentoAction").attr("rel", id_doc);
+
+
+            limpiar_formulario();
+            var firmantes = [];
+            var destinos = [];
+            $.ajax({
+                type: "POST",
+                data: "id_doc=" + id_doc,
+                url: "{{path('_mostrarDocumento')}}",
+                success: function(e) {
+
+                    var tip_doc = "";
+                    var asunto = "";
+                    var observaciones = "";
+
+                    var filas = (e).split("$$");
+
+                    tip_doc = filas[0];
+                    asunto = filas[1];
+                    observaciones = filas[2];
+                    var array_firmantes = (filas[3]).split("#");
+                    var array_destinos = (filas[4]).split("#");
+
+                    if (array_firmantes[0] !== undefined && array_firmantes[0] !== "") {
+
+                        for (var i in array_firmantes) {
+                            var column = array_firmantes[i].split("|");
+                            var row = [];
+
+                            row.push(column[0]);
+                            row.push(column[1]);
+                            firmantes.push(row);
+                        }
+                    }
+                    cbo_data1 = firmantes;
+                    listaOpciones();
+
+                    if (array_destinos[0] !== undefined && array_destinos[0] !== "") {
+
+                        for (var j in array_destinos) {
+                            var column = array_destinos[j].split("|");
+                            var row = [];
+
+                            row.push(column[0]);
+                            row.push(column[1]);
+                            destinos.push(row);
+                        }
+                    }
+                    cbo_data2 = destinos;
+                    listaOpciones2();
+
+
+
+                    $(".txt_asunto").val(asunto);
+                    $(".txt_observaciones").val(observaciones);
+                    $(".cbo_tipo_documento").val(tip_doc);
+
+                    var ruta = "http://172.16.247.20/";
+                    $("#div-upload").attr("src", ruta + "framework/data/uploading.php?doc=" + id_doc);
+                }
+            });
+        }
+        function limpiar_formulario() {
+            $("#firmantes").val("");
+            $("#destinatarios").val("");
+            $("#cbo_data1").html("");
+            $("#cbo_data2").html("");
+            $(".textarea").val("");
+        }
+
+        function valida_formulario() {
+
+            var cbo_destinatarios = $("#input_response2").val();
+            var txt_asunto = $(".txt_asunto").val();
+            var txt_observaciones = $(".txt_observaciones").val();
+
+            var valido = true;
+
+            var mensaje = "";
+
+
+            if (trim(cbo_destinatarios).length > 0) {
+                valido = true;
+                if (trim(txt_asunto).length > 0) {
+                    valido = true;
+                    if (trim(txt_observaciones).length > 0) {
+                        valido = true;
+
+                    } else {
+                        valido = false;
+                        mensaje = "No ingresaste la observacion.";
+                    }
+                } else {
+                    mensaje = "No ingresaste el asunto.";
+                    valido = false;
+                }
+            } else {
+                mensaje = "Ingresa almenos un destinatario.";
+                valido = false;
+            }
+
+
+            if (valido === false) {
+                jAlert(mensaje, 'Mantenimiento Sitradoc');
+                return mensaje;
+            }
+            return valido;
+        }
+
+        function generarword(id) {
+            var url = "http://172.16.247.20";
+            $("#word-doc").attr("src", url + "/framework/FIRMA/PhpProject1/convertirWORD.php?id=" + id);
+        }
+
+
+
+        /**********************AGREGAR DATA DEL COMBO BOX**********************/
+
+
+        /*********PARA EL PRIMER COMBO*******/
+        var cbo_data1 = [];
+
+        $(".add-item1").click(function() {
+            var val_cbo = $("#cbo_data1").val();
+            var validar = false;
+            if (cbo_data1.length > 0) {
+
+                for (var i in (cbo_data1)) {
+                    if (cbo_data1[i][0] === val_cbo) {
+
+                        validar = false;
+                        break;
+                    } else {
+
+
+                        validar = true;
+                    }
+                }
+            } else {
+                validar = true;
+            }
+
+            if (validar === true) {
+                var seleccionado = $("#cbo_data1 option:selected").text();
+                if (seleccionado !== "") {
+
+                    var row = [];
+                    var text_cbo = $("#cbo_data1 option:selected").text();
+                    row.push(val_cbo);
+                    row.push(text_cbo);
+                    cbo_data1.push(row);
+                    listaOpciones();
+                }
+            } else {
+                validar = false;
+            }
+        });
+
+        $("#cbo_response1 > .item_cbo").live("click", function() {
+            $("#cbo_response1 > .item_cbo").removeClass("item_cbo_selected");
+            $(this).addClass("item_cbo_selected");
+        });
+
+        $(".remove-item1").click(function() {
+            var posicion = $("#cbo_response1 > .item_cbo_selected").attr("rel");
+            if (posicion !== undefined) {
+                cbo_data1.splice(posicion, 1);
+                listaOpciones();
+            }
+
+        });
+        function listaOpciones() {
+            var data_combo_response = "";
+            if (cbo_data1.length > 0) {
+                for (var i in (cbo_data1)) {
+                    data_combo_response += "<div class='item_cbo' rel='" + i + "'>" + cbo_data1[i][1] + "</div>";
+                }
+            }
+            $("#cbo_response1").html(data_combo_response);
+            llena_input(cbo_data1);
+        }
+
+        function llena_input(data) {
+            var string_data = "";
+            var count = 0;
+            for (var row in data) {
+                count++;
+                string_data += data[row][0] + ",";
+            }
+            string_data = string_data.substring(0, (string_data.length - 1));
+            $("#input_response1").val(string_data);
+
+        }
+        function limpia_data() {
+            $("#cbo_response1").html("");
+        }
+        /*********PARA EL 2DO COMBO*******/
+        var cbo_data2 = [];
+
+        $(".add-item2").click(function() {
+            var val_cbo = $("#cbo_data2").val();
+            var validar = false;
+            if (cbo_data2.length > 0) {
+
+                for (var i in (cbo_data2)) {
+                    if (cbo_data2[i][0] === val_cbo) {
+
+                        validar = false;
+                        break;
+                    } else {
+                        validar = true;
+                    }
+                }
+            } else {
+                validar = true;
+            }
+
+            if (validar === true) {
+                var seleccionado = $("#cbo_data2 option:selected").text();
+                if (seleccionado !== "") {
+
+                    var row = [];
+                    var text_cbo = $("#cbo_data2 option:selected").text();
+                    row.push(val_cbo);
+                    row.push(text_cbo);
+                    cbo_data2.push(row);
+                    listaOpciones2();
+                }
+            } else {
+                validar = false;
+            }
+
+        });
+        $("#cbo_response2 > .item_cbo").live("click", function() {
+            $("#cbo_response2 > .item_cbo").removeClass("item_cbo_selected");
+            $(this).addClass("item_cbo_selected");
+        });
+
+        $(".remove-item2").click(function() {
+            var posicion = $("#cbo_response2 > .item_cbo_selected").attr("rel");
+            if (posicion !== undefined) {
+                cbo_data2.splice(posicion, 1);
+                listaOpciones2();
+            }
+
+        });
+        function listaOpciones2() {
+            var data_combo_response = "";
+            if (cbo_data2.length > 0) {
+                for (var i in (cbo_data2)) {
+                    data_combo_response += "<div class='item_cbo' rel='" + i + "'>" + cbo_data2[i][1] + "</div>";
+                }
+            }
+            $("#cbo_response2").html(data_combo_response);
+            llena_input2(cbo_data2);
+        }
+
+        function llena_input2(data) {
+            var string_data = "";
+            var count = 0;
+            for (var row in data) {
+                count++;
+                string_data += data[row][0] + ",";
+            }
+            string_data = string_data.substring(0, (string_data.length - 1));
+            $("#input_response2").val(string_data);
+
+        }
+        function limpia_data2() {
+            $("#cbo_response2").html("");
+        }
+        function trim(myString) {
+            return myString.replace(/^\s+/g, '').replace(/\s+$/g, '');
+        }
+
+    });
+    </script>
+
+
+{% endblock javascript%} 
+{%block capa_inhabilitada%}
+
+    <div class='capa-documento-nuevo frmcapa' style="display:none;position:absolute;top: 20%;left:36%;z-index: 11;border:solid 3px #004467;"> 
+        <div class="tooltip-tittle">
+            <div class="botn close-tooltip" title="cerrar ventana"><i class="cus cus-cancel"></i></div>
+            <span class="title"> NUEVO DOCUMENTO</span>
+        </div>
+     {% include 'SitradocBundle::Interfaz_documentos/documento_nuevo.html.twig' %}
+    </div>
+    <div class='capa-upload-documento frmcapa' style="display:none;position:absolute;top: 35%;left:40%;z-index: 11;border:solid 3px #004467;">
+        <div class="tooltip-tittle">
+            <div class="botn close-tooltip" title="cerrar ventana"><i class="cus cus-cancel"></i></div>
+            <span class="title">Subir archivo</span>
+        </div>
+        {% include 'SitradocBundle::Interfaz_documentos/upload_documento.html.twig' %}
+    </div>    
+
+ {% endblock %}
+
+{%block panel1%}
+{% include 'SitradocBundle::plantillas/sitradoc/menu_documentos_sitradoc.html.twig' %}
+
+    <div id="documento_firmar_content" class="option_menu" style="display:none;">
+        <div class="title_interfaz">INTERFAZ DOCUMENTOS PARA FIRMAR</div>
+    </div> 
+    <div id="documento_proyecto_content" class="option_menu" style="display:block;">
+        <div class="title_interfaz">INTERFAZ DOCUMENTOS EN PROYECTO</div>
+
+    </div> 
+    <div id="documento_vistobueno_content" class="option_menu" style="display:none;">
+        <div class="title_interfaz">INTERFAZ DOCUMENTOS PARA VISTO BUENO</div>
+    </div> 
+    <div class="panel-sitradoc-content">
+        <div class="load-ajax ajax-icon"></div>
+
+        <div class="grid-content" style="display:block">
+            <div id="capa-grilla-documento" style="display:block">
+                <table id="table-documento"></table>
+                <div id="table-documento-paginator"></div>
+            </div>
+        </div>
+
+        <iframe src="" id="word-doc" style="display: none;"></iframe>
+
+    </div>
+{%endblock%}

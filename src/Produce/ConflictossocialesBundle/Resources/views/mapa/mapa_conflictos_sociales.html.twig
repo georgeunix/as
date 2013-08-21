@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="{{asset('bundles/ConflictossocialesBundle/css/estilo.css')}}" />
+        <link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+
+        <script src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
+        <script src="{{asset('plugins/selectivizr/selectivizr.js')}}"></script>
+
+
+        <script>
+            $(document).ready(function() {
+                var fecha = new Date();
+
+                /*LLENAR COMBOS*/
+                var data_mes = data_mes();
+                var content_month_cbo = "";
+                for (var i = 0; i < data_mes.length; i++) {
+
+                    var selected = "";
+
+                    if (fecha.getMonth() === i) {
+                        selected = "selected";
+                    }
+                    content_month_cbo += "<option value='" + (i + 1) + "' " + selected + ">" + data_mes[i] + "</option>";
+                }
+                $(".cbo_mes").html(content_month_cbo);
+
+
+
+                var data_anio = data_anio();
+                var content_year_cbo = "";
+                for (var i = 0; i < data_anio.length; i++) {
+                    var selected = "";
+
+                    if (fecha.getFullYear() === i) {
+                        selected = "selected";
+                    }
+                    content_year_cbo += "<option value='" + data_anio[i] + "'" + selected + ">" + data_anio[i] + "</option>";
+                }
+                $(".cbo_anio").html(content_year_cbo);
+
+
+
+                var data_region = data_regiones();
+                var content_region_cbo = "";
+                for (var i = 0; i < data_region.length; i++) {
+                    content_region_cbo += "<option value='" + (i + 1) + "'>" + data_region[i] + "</option>";
+                }
+                $(".cbo_region").html(content_region_cbo);
+                /*---*/
+
+                $(".div-tooltip").live("mouseover", function() {
+
+
+
+                    var pos = $(".div-tooltip").index(this);
+                    $(".Info-Section").eq(pos).css("display", "block");
+                    $(".flecha_nube").eq(pos).css("display", "block");
+                    $(".Info-Section").eq(pos).append("<div class='data-tooltip'></div>");
+                    $(".data-tooltip").html("<div class='ajax-loader'></div>");
+
+                    var conflicto_id = $(this).attr("rel");
+                    var titulo = $(this).attr("title");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{path('_listaObservaciones')}}",
+                        data: "conflicto_id=" + conflicto_id,
+                        dataType: "text",
+                        success: function(e) {
+                            e = "<div class='tooltip-title'>" + titulo + "</div>" + e;
+                            $(".data-tooltip").html(e);
+                        }
+                    });
+                });
+
+                $(".div-tooltip").live("mouseout", function() {
+                    var pos = $(".div-tooltip").index(this);
+                    $(".Info-Section").eq(pos).css("display", "none");
+                    $(".flecha_nube").eq(pos).css("display", "none");
+                    $(".data-tooltip").remove();
+                });
+
+
+
+                $(".nuevo_conflicto").click(function() {
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{path('_departamentosValidos')}}",
+                        dataType: "text",
+                        success: function(e) {
+                            if ((trim(e))=== '') {
+                                alert("Ya se completaron todos los Departamentos en este mes.");
+                            } else {
+                                $(".capa-inhabilitada").css("display", "block")
+                                $(".mantenimiento-conflicto").css("display", "block");
+                                $(".cbo_region1").html(e);
+                            }
+                        }
+                    });
+
+                });
+
+
+                $(".frm_close").click(function() {
+                    $(".capa-inhabilitada").css("display", "none")
+                    $(".mantenimiento-conflicto").css("display", "none");
+                });
+
+
+                $(".cancelar_detalle").live("click", function() {
+
+                    var position = $(this).attr("rel");
+                    $(".observacion" + position).remove();
+                    $(".nueva-observacion").css("display", "block");
+                    cant_observaciones--;
+                    $(".cancelar_detalle").css("display", "none");
+                    $(".cancelar_detalle:last").css("display", "block");
+
+                });
+
+
+
+
+
+                var cant_observaciones = 1;
+
+                $(".nueva-observacion").click(function() {
+                    if (cant_observaciones < 3) {
+                        $(".nueva-observacion").css("display", "block");
+                        cant_observaciones++;
+                        var observacion = '<div class="observacion' + cant_observaciones + ' observacion">';
+                        observacion += '<br><textarea class="textarea-content"></textarea>';
+                        observacion += '<div rel="' + cant_observaciones + '" class="cancelar_detalle"><div class="cus cus-cross"></div></div><div class="msg_error"></div></div>';
+                        $(".observaciones").append(observacion);
+                        $(".cancelar_detalle").css("display", "none");
+                        $(".cancelar_detalle:last").css("display", "block");
+                    } else {
+                        $(".nueva-observacion").css("display", "none");
+                    }
+                    if (cant_observaciones === 3) {
+                        $(".nueva-observacion").css("display", "none");
+                    }
+
+                });
+
+
+
+
+                $(".form-search-Action").click(function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{path('_buscarMapa')}}",
+                        dataType: "text",
+                        data: $("#form-search-ajax").serialize(),
+                        success: function(e) {
+                            $("#map-content").html(e);
+                        }
+                    });
+                });
+
+                $("#agrega_conflicto_action").click(function() {
+
+                    $(".msg_error").html("");
+
+                    var msg_error = false;
+
+                    $(".textarea-content").each(function(i) {
+                        var content_val = $(".textarea-content").eq(i).val();
+                        if (content_val.length < 100) {
+                            msg_error = true;
+                            $(".msg_error").eq(i).html("( * )Debes ingresar como m&iacute;nimo 100 caracteres.");
+                        }
+
+                    });
+                    if (msg_error === false) {
+                        var observaciones = "";
+
+                        for (var i = 0; i < cant_observaciones; i++) {
+                            observaciones += trim($(".textarea-content").eq(i).val()) + "|";
+                        }
+                        observaciones = observaciones.substring(0, (observaciones.length - 1));
+
+                        $.ajax({
+                            type: "POST",
+                            url: "{{path('_newconflicto') }}",
+                            dataType: "text",
+                            data: $("#frm_agrega_conflicto_action").serialize() + "&detalles=" + observaciones,
+                            success: function(e) {
+
+                            }
+                        });
+
+                        $(".frm_close").click();
+                    }
+                });
+                $(".textarea-content").live("keypress", function() {
+                    var contenido = $(this).val();
+                    if (contenido.length > 300) {
+                        $(this).val(contenido.substring(0, 300));
+                    }
+                });
+
+                $(".textarea-content").live("keyup", function() {
+                    var contenido = $(this).val();
+                    if (contenido.length > 300) {
+                        $(this).val(contenido.substring(0, 300));
+                    }
+                });
+
+                function data_regiones() {
+                    var array_region = [
+                        "Amazonas", "Ancash", "Apurimac", "Arequipa", "Ayacucho", "Cajamarca", "Callao",
+                        "Cusco", "Huancavelica", "Huanuco", "Ica", "Junin", "La Libertad", "Lambayeque", "Lima",
+                        "Loreto", "Madre De Dios", "Moquegua", "Pasco", "Piura", "Puno", "San Martin", "Tacna",
+                        "Tumbes", "Ucayali"];
+                    return array_region;
+
+                }
+
+                function data_mes() {
+                    var array_mes = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+                    return array_mes;
+                }
+
+                function data_anio() {
+                    var fecha = new Date();
+                    var anio_actual = fecha.getFullYear();
+                    var array_anio = [];
+                    for (var i = 2013; i <= anio_actual; i++) {
+                        array_anio.push(i);
+                    }
+                    return array_anio;
+                }
+
+                function trim(string)
+                {
+                    for (i = 0; i < string.length; )
+                    {
+                        if (string.charAt(i) == " ")
+                        {
+                            string = string.substring(i + 1, string.length);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    for (i = string.length - 1; i >= 0; i = string.length - 1)
+                    {
+                        if (string.charAt(i) == " ")
+                        {
+                            string = string.substring(0, i);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    return string;
+                }
+
+            });
+
+            </script>
+
+
+        </head>
+        <body>
+            <div class="capa-inhabilitada"></div>
+            <div class="mantenimiento-conflicto">
+                <div class="frm_close cus cus-cross"></div>
+
+                <div class="frm-title">Mantenimiento Conflictos Sociales</div>
+                <div class="frm_agregar_observaciones">
+                    <div class="title">Nuevo Conflicto social</div>
+                    <div class="frm_agrega_conflicto_div">
+                        <form id="frm_agrega_conflicto_action">
+                            <div class="frm-registro-2" >
+                                <table>
+
+                                    <tr>
+                                        <td><label>Region:</label></td>
+                                        <td>
+                                            <select class="cbo_region1" name="cbo_region"></select>
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="2">
+
+                                            <div class="observaciones">
+                                                <label>Observacion:</label>
+                                                <span style='font-style: italic;font-size: 11px;'>(S&oacute;lo puedes ingresar 300 caracteres por detalle.)</span>
+                                                <div class="observacion1 observacion">    
+                                                    <div class="nueva-observacion cus cus-add"></div><br>
+                                                    <textarea class="textarea-content"></textarea><br>
+                                                    <span class="msg_error"></span>
+
+                                                </div>    
+                                            </div>  
+
+                                        </td>
+                                    </tr>
+                                </table>    
+
+                                <input type="button" id="agrega_conflicto_action" value="Agregar">    
+                            </div>     
+
+
+                        </form>
+                    </div>
+                </div>    
+
+
+            </div>
+
+
+
+            <div id="main-content">
+                <div id="map-content">
+                    {% for rs in punto_conflicto%}
+                        <div class="{{rs.region_variable}}-area">
+                            <div class="div-tooltip {{rs.region_variable}}-alert alert-icon" rel="{{rs.conflicto_id}}" title="{{rs.region_nombre}}">
+                                <div class="flecha_nube"></div>
+                                <div class="Info-Section">
+                                </div>
+                            </div>
+
+                        </div>
+
+                  {%endfor%}
+
+
+                    </div>
+                    <div class="form-search">
+                        <div style="background: #000000;color:#ffffff;font-weight: bold;padding: 5px 0px 5px 70px;">Buscar Conflictos</div>
+                        <div style="width: 200px; margin: 5px auto;">
+                            <form id="form-search-ajax">
+                                <table>
+                                    <tr>
+                                        <td>A&ntilde;o:</td>
+                                        <td>
+                                            <select class="cbo_anio" name="cbo_anio"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mes:</td>
+                                        <td>
+                                            <select class="cbo_mes" name="cbo_mes"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="button" class="form-search-Action" value="Buscar"></td>
+                                        <td><input type="button" class="nuevo_conflicto" value="Nuevo"></td>
+                                    </tr>
+
+                                </table>
+                            </form>
+                        </div>
+
+                    </div>        
+                </div>
+
+            </body>
+        </html>

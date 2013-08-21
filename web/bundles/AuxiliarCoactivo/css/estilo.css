@@ -1,0 +1,103 @@
+body{
+    background: #cccccc;
+    font-family: Arial;
+}
+.hoja{
+    margin: 10px auto;
+    width: 1000px;
+    border:1px #666666 solid;
+    background: #ffffff;
+    padding: 1% 5%;
+}
+.instrucciones{
+    font-size: 14px;
+    text-align: justify;
+}
+.cabecera > .titulo-principal{
+    text-align: center;
+    font-weight: bold;
+    text-decoration: underline;
+    font-size: 25px;
+    margin-bottom: 12px;
+
+}
+.cabecera > .datos-personales{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.datos-personales label{
+    font-weight: bold;
+    font-size: 14px;
+}
+.datos-personales input[type="text"]{
+    border:none;
+    border-bottom: 1px solid #000000;
+}
+.cuestionario{
+}
+.cuestionario > .opciones{
+    padding:10px 20px 5px 20px;
+    text-align: justify;
+    background: #fffce8;
+    color: #0d562b;
+    border:1px solid #ffcc33;
+}
+.opciones label{
+    cursor:pointer;
+}
+.pregunta{
+    padding: 10px 5px;
+    font-weight: bold;
+    text-align: justify;
+}
+.div-confirmacion{
+    position:fixed;
+    top:100px;
+    right: 0px;
+    height: 280px;
+    width: 220px;
+    background: #ffffff;
+    border: 1px #000000 solid;
+    padding: 15px 15px 0px 15px;
+    text-align: center;
+}
+.timelabel{
+    font-size: 35px;
+}
+
+.exit-quiz{
+    padding:10px;
+    font-size: 20px;
+    cursor:pointer;
+}
+.div-ini{
+    position: fixed;
+    top:0;
+    left:0;
+    height: 1200px;
+    width: 100%;
+    background-color:  #112324;
+    z-index: 3;
+    font-size: 55px;
+    color:#ffffff;
+    padding-top: 20%;
+    text-align: center;
+}
+.init-quiz{
+    font-size: 30px;
+    padding: 15px;
+    cursor:pointer;
+}
+.datos-personales{
+    background: #ffffff;
+    font-style: oblique;
+    font-size: 15px;
+    font-weight: bold;
+    color: #666666;
+}
+.logo-produce{
+    background: url('../img/logo-ogrh.jpg') no-repeat;
+    width: 1002px;
+    height: 118px;
+    margin-bottom: 15px;
+}

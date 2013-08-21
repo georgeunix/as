@@ -1,0 +1,55 @@
+parameters:
+  #CONEXIONES#
+        database_driver:  pdo_sqlsrv
+        #pdo_sqlsrv mssqlsrv
+        
+        #DB_DESARROLLO
+        database_host:     172.16.247.22
+        database_port:     ~
+        database_name:     DB_DESARROLLO
+        database_user:     usr_desarrollo
+        database_password: 1234567
+        
+        #DB_GENERAL 172.16.247.22
+        database_host2:    172.16.247.22
+        database_port2:     ~
+        database_name2:     DB_GENERAL
+        database_user2:     web_tramite
+        database_password2: deimos
+        
+        #DB_TRAMITE_DOCUMENTARIO
+        database_host3:     172.16.247.22
+        database_port3:     ~
+        database_name3:     DB_TRAMITE_DOCUMENTARIO
+        database_user3:     web_tramite
+        database_password3: deimos 
+      
+        #DB_CONFLICTOS_SOCIALES
+        database_host4:     172.16.247.22
+        database_port4:     ~
+        database_name4:     DB_CONFLICTOS_SOCIALES
+        database_user4:     usr_conflictos
+        database_password4: 1234567
+        
+        #DNA
+        database_host5:     172.16.247.22
+        database_port5:     
+        database_name5:     DNA
+        database_user5:     user_dna
+        database_password5: paraguay         
+        
+        #EXAMEN
+        database_host6:     172.16.247.22
+        database_port6:     
+        database_name6:     DB_EXAMEN_AUX_COACTIVO
+        database_user6:     user_exam_coactivo
+        database_password6: produceexamen2013   
+      
+
+        mailer_transport:  smtp
+        mailer_host:       127.0.0.1
+        mailer_user:       ~
+        mailer_password:   ~
+
+        locale:            en
+        secret:            ThisTokenIsNotSoSecretChangeIt

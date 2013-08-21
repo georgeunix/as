@@ -1,0 +1,99 @@
+
+<div class="form">
+
+    <form id="nuevoDocumento">
+        <table border="0" width="100%" cellspacing="10px">
+            <tbody>
+                <tr>
+                    <td  width="20%"><div class="label">Tipo documento:</div></td>
+                    <td >
+                        <select style="width:200px;" name="cbo_tipo_documento" class="cbo_tipo_documento">
+                         {% for cbo in comboTipoDocumento%}
+                                <option value="{{cbo.ID}}">{{cbo.DESCRIPCION}}</option>
+                        {% endfor %}
+                            </select>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td valign="top"><div class="label">Firmantes:</div></td>
+                        <td>
+                            <input type="text" id="firmantes" style="width: 135px;" >
+                            <span class='btn search-firmantes'>
+                                <i class="cus cus-zoom"></i>
+                            </span>
+                            </br> 
+                            <select id="cbo_data1" style="width: 140px;" >
+                            </select>
+
+                            <span class='btn add-item1'>
+                                <i class="cus cus-add"></i>
+                            </span>
+                            <span class='btn remove-item1'>
+                                <i class="cus cus-delete"></i>
+                            </span>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="hidden" id="input_response1" value="" name="cbo_firmantes">
+
+                            <div class="combo_response" name="cbo_firmantes" id="cbo_response1"></div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td valign="top"><div class="label">Destinatarios:</div></td>
+                        <td>
+                            <input type="text" id="destinatarios" style="width: 135px;">
+                            <span class='btn search-destinos'>
+                                <i class="cus cus-zoom"></i>
+                            </span>
+                            </br> 
+
+                            <select id="cbo_data2" style="width: 140px;" name="cbo_destinatarios">
+                            </select>
+                            <span class='btn add-item2'>
+                                <i class="cus cus-add"></i>
+                            </span>
+                            <span class='btn remove-item2'>
+                                <i class="cus cus-delete"></i>
+                            </span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <input type="hidden" name="cbo_destinatarios" id="input_response2" value="">
+                            <div class="combo_response" id="cbo_response2"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top;"><div class="label">Asunto:</div></td>
+                        <td>
+                            <textarea class="textarea txt_asunto" name="txt_asunto"></textarea>
+                        </td>
+                    </tr>   
+                    <tr>
+                        <td style="vertical-align: top;"><div class="label">Observaciones:</div></td>
+                        <td>
+                            <textarea class="textarea txt_observaciones" name="txt_observaciones"></textarea>
+                        </td>
+
+                    </tr> 
+                    <tr>
+                        <td>
+
+
+                        </td>
+                        <td style="text-align: right;"><input type="button" id="nuevoDocumentoAction" class="buscar-data" value="Agregar" /></td>
+                    </tr>  
+
+                </tbody>
+            </table>
+        </form>
+    </div>
+

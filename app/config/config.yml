@@ -1,0 +1,159 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    #translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:         ~
+    fragments:       ~
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+    
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+      default_connection: DB_GENERAL
+      connections:
+            DB_DESARROLLO:
+              
+                  driver:   %database_driver%
+                  host:     %database_host%
+                  port:     %database_port%
+                  dbname:   %database_name%
+                  user:     %database_user%
+                  password: %database_password%
+                  charset:  UTF8
+
+            DB_GENERAL:
+              
+                  driver:   %database_driver%
+                  host:     %database_host2%
+                  port:     %database_port2%
+                  dbname:   %database_name2%
+                  user:     %database_user2%
+                  password: %database_password2%
+                  charset:  UTF8
+            
+            DB_TRAMITE_DOCUMENTARIO:
+              
+                  driver:   %database_driver%
+                  host:     %database_host3%
+                  port:     %database_port3%
+                  dbname:   %database_name3%
+                  user:     %database_user3%
+                  password: %database_password3%
+                  charset:  UTF8  
+                  
+            DB_CONFLICTOS_SOCIALES:
+              
+                  driver:   %database_driver%
+                  host:     %database_host4%
+                  port:     %database_port4%
+                  dbname:   %database_name4%
+                  user:     %database_user4%
+                  password: %database_password4%
+                  charset:  UTF8      
+                  
+            DNA:
+
+                 driver:   %database_driver%
+                 host:     %database_host5%
+                 port:     %database_port5%
+                 dbname:   %database_name5%
+                 user:     %database_user5%
+                 password: %database_password5%
+                 charset:  UTF8
+                 
+            EXAMEN:
+
+                 driver:   %database_driver%
+                 host:     %database_host6%
+                 port:     %database_port6%
+                 dbname:   %database_name6%
+                 user:     %database_user6%
+                 password: %database_password6%
+                 charset:  UTF8     
+          
+
+#    orm:
+#        auto_generate_proxy_classes: %kernel.debug%
+#        auto_mapping: true
+        
+    orm:
+        default_entity_manager:    ENTITY_DB_GENERAL
+        entity_managers:
+              ENTITY_DB_DESARROLLO:
+                      connection:       DB_DESARROLLO
+                      mappings:
+                          ServiciosBundle: ~
+                          
+              ENTITY_DB_GENERAL:
+                      connection:       DB_GENERAL
+                      mappings:
+                          SitradocBundle: ~
+                          
+              ENTITY_DB_TRAMITE_DOCUMENTARIO:
+                      connection:       DB_TRAMITE_DOCUMENTARIO
+                      mappings:
+                          SitradocBundle: ~     
+                          
+              ENTITY_DB_CONFLICTOS_SOCIALES:
+                      connection:       DB_CONFLICTOS_SOCIALES
+                      mappings:
+                          ConflictosSocialesBundle: ~       
+                 
+                           
+                      
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    spool:     { type: memory }
+
+
+ps_pdf:
+    nodes_file: ~
+    fonts_file: ~
+    complex_attributes_file: ~
+    colors_file: ~
+    use_cache_in_stylesheet: ~
+    cache:
+      type: ~
+      options: ~
+    markdown_stylesheet_filepath: ~
+    markdown_document_template_filepath: ~
+    document_parser_type: ~
+

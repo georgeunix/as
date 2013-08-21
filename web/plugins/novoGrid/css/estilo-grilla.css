@@ -1,0 +1,551 @@
+/* 
+    Document   : estilo-grilla
+    Created on : 22-jul-2013, 12:11:21
+    Author     : Luis Antonio Santos Chavez
+    Description:
+        plugin.
+*/
+
+.ico-search{
+    background-image: url(../../layer-view-image/common/iconostabla.png);
+    background-repeat: no-repeat;
+    background-position: -180px -70px;
+    width: 17px;
+    height: 16px;
+} 
+.draw-paginator{
+    font-size: 10px;
+    font-family: Arial;
+    color: #818181;
+    margin-left: 4px;
+    margin-top: 10px;
+}
+#grilla_price{
+    margin-top: 8px;
+}
+.columns-grid{
+    position: relative;
+    height: 19px;
+    background-color: #0681BC;
+    font-size: 11px;
+    color: #ffffff;
+    font-weight: bold;
+}
+.columns-grid .column{
+    top:4px;
+    position:absolute;
+    font-family: Arial;
+}
+.row-grid{
+    cursor: pointer;
+    position: relative;
+    height: 18px;
+    font-size: 11px;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-bottom-color: #75bce5;
+    padding-bottom: 2px;
+    color: #5E5E5E;
+    font-family: arial;
+    -pie-background: linear-gradient(top , #f9f9f9 0%, #e5e8e9 100%);
+    background: -moz-linear-gradient(top, #f9f9f9 0%, #e5e8e9 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9f9f9), to(#e5e8e9));
+    background: -webkit-linear-gradient(top, #f9f9f9 0%, #e5e8e9 100%);
+    background: -o-linear-gradient(top, #f9f9f9 0%, #e5e8e9 100%);
+    background: -ms-linear-gradient(top, #f9f9f9 0%, #e5e8e9 100%);
+}
+.row-grid2{
+    position: relative;
+    height: 18px;
+    font-size: 11px;
+    color: #000;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-bottom-color: #46b9ed;
+    padding-bottom: 2px;
+    color: #666;
+    cursor: pointer;
+    font-family: arial;
+
+    background: -moz-linear-gradient(top, #eff5f7 0%, #dcf0f6 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eff5f7), to(#dcf0f6));
+    background: -webkit-linear-gradient(top, #eff5f7 0%, #dcf0f6 100%);
+    background: -o-linear-gradient(top, #eff5f7 0%, #dcf0f6 100%);
+    background: -ms-linear-gradient(top, #eff5f7 0%, #dcf0f6 100%);
+
+}
+.row-grid .row{
+
+    position: absolute;
+    top:4px;
+}
+.row-grid2 .row{
+
+    position: absolute;
+    top:4px;
+}
+
+.row-acu{
+    cursor: pointer;
+    position: relative;
+    height: 18px;
+    font-size: 11px;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-bottom-color: #acaeae;
+    padding-bottom: 2px;
+    color: #5E5E5E;
+    font-family: arial;
+
+    background: -moz-linear-gradient(top, #e5e8e9 0%, #cccccc 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#e5e8e9), to(#cccccc));
+    background: -webkit-linear-gradient(top, #e5e8e9 0%, #cccccc 100%);
+    background: -o-linear-gradient(top, #e5e8e9 0%, #cccccc 100%);
+    background: -ms-linear-gradient(top, #e5e8e9 0%, #cccccc 100%);
+
+}
+.row-acu .acu-item{
+    color:#0681BC;
+    position:absolute;
+    top:4px;
+}
+
+.tab-intro{
+    margin-left: 6px;
+    margin-right: 6px;
+
+} 
+.tab-intro .enlace{    
+    font-family: Arial;
+    font-size: 11px;
+    font-weight: bold;
+    color: #0681BC; 
+}
+
+
+
+#num_link{
+    margin-top: 5px;
+    margin-left: 32px;
+    font-size: 10px;
+    font-family: Arial;
+    color: #818181;
+}
+.num_page_on{
+    cursor:pointer;
+    text-decoration: underline;
+    color:#818181;
+}
+.num_page_off{
+    cursor:pointer;
+    text-decoration: none;
+    color:#818181;
+}
+
+.row_null{
+    display:none; 
+}
+#scroll-grid{
+    margin-left: 7px;
+    overflow-x: scroll;
+    width: 560px;
+    height:200px;
+    margin-top: 6px;
+}
+#grilla_result{
+    font-family: Arial;
+    width: 700px;
+}
+.boleto_cabecera{
+    position: relative;
+    height: 34px;
+    background-color: #0681BC; 
+    font-size: 11px;
+    color:#ffffff;
+    font-weight: bold;
+}
+
+.head_title_1{
+    position: absolute;
+    left: 10px;
+    top:13px;
+}
+
+.head_title_2{
+    position: absolute;
+    left: 47px;
+    top: 13px;
+}
+
+.head_title_3{
+    left: 190px;
+    position: absolute;
+    top: 13px;
+}
+.head_title_4{
+    left: 288px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+}
+.head_title_5{
+    left: 345px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+}
+
+.head_title_6{
+    left: 417px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+}
+.head_title_7{
+    left: 471px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+}
+.head_title_8{
+    left: 571px;
+    position: absolute;
+    text-align: center;
+    top: 4px;
+}
+
+
+.row_grid{
+    cursor: pointer;
+    position: relative;
+    height: 18px; 
+    font-size: 11px;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-bottom-color: #75bce5;
+    padding-bottom: 2px;
+    color:#5E5E5E;
+    font-family: arial;
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f9', endColorstr='#e5e8e9', gradientType='0')";
+    background: -moz-linear-gradient(top,  #f9f9f9 0%, #e5e8e9 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9f9f9), to(#e5e8e9));
+    background: -webkit-linear-gradient(top,  #f9f9f9 0%, #e5e8e9 100%);
+    background: -o-linear-gradient(top,  #f9f9f9 0%, #e5e8e9 100%);
+    background: -ms-linear-gradient(top,  #f9f9f9 0%, #e5e8e9 100%);
+}
+.row_grid_mouseover{
+    position: relative;
+    height: 18px; 
+    font-size: 11px;
+    color:#000;
+    border-bottom-style: solid;
+    border-width: thin;
+    border-bottom-color: #46b9ed;
+    padding-bottom: 2px;
+    color:#666;
+    cursor: pointer;
+    font-family: arial;
+    -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr='#eff5f7', endColorstr='#dcf0f6', gradientType='0')";
+    background: -moz-linear-gradient(top,  #eff5f7 0%, #dcf0f6 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eff5f7), to(#dcf0f6));
+    background: -webkit-linear-gradient(top,  #eff5f7 0%, #dcf0f6 100%);
+    background: -o-linear-gradient(top,  #eff5f7 0%, #dcf0f6 100%);
+    background: -ms-linear-gradient(top,  #eff5f7 0%, #dcf0f6 100%);
+}
+
+.column_1{
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    width: 20px;
+    text-align: center;
+}
+.column_2{
+    position: absolute;
+    left: 30px;
+    top: 4px;
+    width: 103px;
+    text-align: center;
+}
+.column_3{
+    left: 145px;
+    position: absolute;
+    text-align: center;
+    top: 2.5px;
+    width: 125px;
+}
+.column_4{
+    left: 287px;
+    position: absolute;
+    text-align: center;
+    top: 2.5px;
+    width: 41px;
+}
+.column_5{
+    left: 345px;
+    position: absolute;
+    text-align: center;
+    top: 2.5px;
+    width: 53px;
+}
+.column_6{
+    left: 418px;
+    position: absolute;
+    text-align: center;
+    top: 2.5px;
+    width: 38px;
+}
+.column_7{
+    left: 471px;
+    position: absolute;
+    text-align: center;
+    top: 2.5px;
+    width: 77px;
+}
+.column_8{
+    left: 581px;
+    position: absolute;
+    text-align: center;
+    top: 2.5px;
+    width: 77px;
+}
+/*END STYLE GRID*/
+
+
+
+
+
+
+#content-client-balance{
+    float: left;
+    margin-left: 33px;
+    margin-top: 8px;
+}
+
+#content-my_account{
+    width: 605px;   
+    height: 451px;
+    background-color: #fff;  
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 0px 0px 5px 5px;
+
+} 
+.tab-item{
+    position: relative;
+    background-color: #ccffff;
+    height: 35px;
+    margin-bottom: 7px;
+    border-width: thin;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #acaeae;
+    cursor: pointer;
+
+    background: -moz-linear-gradient(top, #f9f9f9 0%, #b7b5b5 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f9f9f9), to(#b7b5b5));
+    background: -webkit-linear-gradient(top, #ffffff 20%, #cdcccc 100%);
+    background: -o-linear-gradient(top, #f9f9f9 0%, #b7b5b5 100%);
+    background: -ms-linear-gradient(top, #f9f9f9 0%, #b7b5b5 100%);
+
+
+}
+.text-item1{
+    position: absolute;
+    font-family: Arial; 
+    top: 11px;
+    color: #666;
+    left: 35px;
+    font-weight: bold;
+    font-size: 13px;
+}
+.text-item2{
+    position: absolute;
+    font-family: Arial;
+    top: 11px;
+    color: #666;
+    left: 225px;
+    font-weight: bold;
+    font-size: 13px;
+    width: 310px;
+    text-align: right;
+}
+
+#tab1-account{
+    background: #fff;
+    width: 139px;
+    color: #ff6600;
+    font-family: Arial;
+    font-weight: bold;
+    padding-left: 20px;
+    padding-top: 6px;
+    border-radius: 5px 5px 0px 0px;
+
+}
+.tab-content{
+    display: none;
+    border-style: solid;
+    border-radius: 8px;
+    border-style: solid;
+    border-width: thin;
+    border-color: #ff6600;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 7px;
+    height: 265px;
+
+
+}
+.head-tab-content{
+    position:relative;
+    height: 35px;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-color: #ff6600;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #ff6600;
+    cursor:pointer;
+}
+.head-tab-content .item-title1{
+    position: absolute;
+    font-family: Arial; 
+    top: 11px;
+    color: #ff6600;
+    left: 26px;
+    font-weight: bold;
+    font-size: 13px;  
+}
+.head-tab-content .item-title2{
+    position: absolute;
+    font-family: Arial;
+    top: 11px;
+    color:  #ff6600;
+    left: 214px;
+    font-weight: bold;
+    font-size: 13px;
+    width: 310px;
+    text-align: right;
+}
+.item_ico1_off{
+    position:absolute;
+    top: 7px;
+    left: 7px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+}
+.item_ico2_off{
+    position:absolute;
+    top: 7px;
+    left: 7px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: 0px -44px;
+}
+.item_ico3_off{
+    position:absolute;
+    top: 7px;
+    left: 7px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: 0px -88px;
+}
+.item_ico4_off{
+    position:absolute;
+    top: 7px;
+    left: 7px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: 0px -131px;
+}
+.item_ico5_off{
+    position:absolute;
+    top: 7px;
+    left: 7px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: 0px -173px;
+}
+.item_off{
+    position: absolute;
+    width: 24px;
+    height: 14px;
+    top: 11px;
+    left: 539px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: 0px -210px;
+}
+
+.item_ico1_on{
+    position:absolute;
+    top: 7px;
+    left: -3px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+}
+.item_ico2_on{
+    position:absolute;
+    top: 7px;
+    left: -1px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: -25px -44px;
+}
+.item_ico3_on{
+    position:absolute;
+    top: 7px;
+    left: -1px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: -25px -88px;
+}
+.item_ico4_on{
+    position:absolute;
+    top: 7px;
+    left: -1px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: -25px -131px;
+}
+.item_ico5_on{
+    position:absolute;
+    top: 7px;
+    left: -1px;
+    width: 24px;
+    height: 24px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: -25px -173px;
+}
+.item_on{
+    position: absolute;
+    width: 24px;
+    height: 14px;
+    top: 11px;
+    left: 529px;
+    background: url(../../../layer-view-image/common/img-micuenta.png);
+    background-repeat: no-repeat;
+    background-position: -23px -210px;
+}

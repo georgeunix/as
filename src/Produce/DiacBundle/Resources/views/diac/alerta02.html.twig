@@ -1,0 +1,154 @@
+{% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+{% block stylesheet%} 
+{{parent()}}
+<link rel="stylesheet" href="{{asset('plugins/menu/css/general.css')}}" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu-v.css')}}" />
+
+<link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+
+<style>
+        .menu-content{
+            background: #004467;
+            position:relative;
+            height: 30px;
+        }
+        .titulo{
+            position:absolute;
+            top:5px;
+            right: 5px;
+            color:#ffffff;
+            font-weight: bold;
+        }
+    </style>
+    <link rel="stylesheet" href="{{asset('plugins/datatable/media/css/demo_table.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('plugins/jquery-ui/css/custom-theme/jquery-ui-1.10.3.custom.css')}}" />
+{% endblock%} 
+
+{% block javascript%} 
+{{parent()}}
+    <script type="text/javascript" src="{{asset('plugins/menu/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/menu/ddsmoothmenu.js')}}"></script>
+    
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+            mainmenuid: "smoothmenu1", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            //customtheme: ["#1c5a80", "#18374a"],
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+        </script>
+        <!-- Para el Datatable -->
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.dataTables.js')}}"></script>
+        <script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                /*--------------INSTANCIA DE PLUGINS--------------------*/
+                $("#grilla-usuarios").dataTable( {
+                    "sPaginationType": "full_numbers",
+                        "oLanguage"	: {
+                                "oPaginate" : { 
+                                        "sFirst" : "Primero",
+                                        "sNext" : "Siguiente",
+                                        "sPrevious" : "Anterior",
+                                        "sLast" : "Ultimo"
+                                },
+                                "sInfo" : "<br><b>_START_ a _END_ de _TOTAL_  registros</b>",
+                                "sLengthMenu": "Mostrar _MENU_  registros<br><br>",
+                                "sSearch": "Buscar: ",
+				
+                                "sProcessing": "Procesando Informaci&oacute;n...",
+                                "sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
+                                "sZeroRecords": "No se encontro registros",
+                                "sInfoEmpty": "No hay registros para mostrar"
+                        },
+                        "iDisplayLength": 20,
+                        "aLengthMenu": [ 20, 50, 100 ],
+                        
+                        "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
+                                $(nRow.getElementsByTagName('td')[0]).css("display","none");
+                        },
+                       
+                        "fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
+                                $(nHead.getElementsByTagName('th')[0]).css("display","none");
+                        }
+                });
+                
+                /*Dialog*/
+                
+                $("#dialogAlerta02").dialog({
+                    autoOpen:false,
+                    width:"50%",
+                    height:"600",
+                    modal:true,
+                    resizable: false,
+                    show: {
+                         effect: "blind",
+                         duration: 10                    
+                    },
+                     hide: {
+                        effect: "blind",
+                        duration: 1000
+                    },
+                    close:function(){$(this).html("");},
+                    buttons:{
+                            Aceptar:function(){$(this).dialog("close")}
+                    }
+                });
+
+                /*End Dialog*/
+                
+            });
+             function dialogAlerta02(cod_derecho){                      
+                      $.ajax({
+                        url:"alerta02D/"+cod_derecho,
+                        type:"post",
+                        data:{}
+                      }).done(function(msg){                          
+                            $("#dialogAlerta02").dialog("open");
+                            $("#dialogAlerta02").html(msg);
+                      });
+                      
+             }
+            </script>
+
+
+{% endblock%} 
+            {%block panel1%}
+            <div class="menu-content">
+                  {{menutotal|raw('html')}}
+                    <div class="titulo">DIRECCIÓN DE ACUICULTURA (DIAC)</div>  
+                </div>
+                <div style="width: 50%;margin: 20px auto;background: #ffffff;border:1px solid #000000;padding: 65px;">
+                    <table id="grilla-usuarios" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="10%">CODIGO</th>
+                                <th width="60%">TIPO DERECHO</th>
+                                <th width="10%" align="center">TIPO ESTADO</th>
+                                <th width="10%" align="center">CANTIDAD</th>
+                                <th width="10%" align="center">DETALLE</th>
+
+                            </tr>
+                        </thead> 
+
+                        <tbody>
+                             {% for row in listado%}
+                                <tr>
+                                    <td align="center">{{row.codigo_tip_derecho}}</td>
+                                    <td>{{row.descrip_tip_derecho}}</td>
+                                    <td align="center">{{row.descrip_estado}}</td>
+                                    <td align="center">{{row.cuenta}}</td>
+                                    <td align="center"><a href="javascript:;" onclick="dialogAlerta02({{row.codigo_tip_derecho}})"><input type="button" class="icono cus-disk" /></a></td>
+                                </tr>
+                             {% endfor %}
+                            </tbody>        
+                        </table>
+                    </div>
+            <div id="dialogAlerta02"></div>
+
+{%endblock%}

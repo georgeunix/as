@@ -1,0 +1,31 @@
+examen:
+    resource: "@ExamenBundle/Controller/"
+    type:     annotation
+    prefix:   /examen
+
+diac:
+    resource: "@DiacBundle/Controller/"
+    type:     annotation
+    prefix:   /diac
+    
+conflictos_sociales:
+    resource: "@ConflictosSocialesBundle/Controller/"
+    type:     annotation
+    prefix:   /conflictos_sociales
+
+sitradoc:
+    resource: "@SitradocBundle/Controller/"
+    type:     annotation
+    prefix:   /sitradoc
+
+servicios:
+    resource: "@ServiciosBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+producepmce:
+    resource: "@ProducepmceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+

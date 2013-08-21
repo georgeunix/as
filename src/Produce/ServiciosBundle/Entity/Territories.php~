@@ -1,0 +1,56 @@
+<?php
+
+namespace Produce\ServiciosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Territories
+ *
+ * @ORM\Table(name="Territories")
+ * @ORM\Entity
+ */
+class Territories
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TerritoryID", type="string", length=20, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $territoryid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="TerritoryDescription", type="string", length=50, nullable=false)
+     */
+    private $territorydescription;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Employees", mappedBy="territoryid")
+     */
+    private $employeeid;
+
+    /**
+     * @var \Region
+     *
+     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="RegionID", referencedColumnName="RegionID")
+     * })
+     */
+    private $regionid;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->employeeid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

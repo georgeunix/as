@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{asset('bundles/AuxiliarCoactivo/css/estilo.css')}}" />
+        <script src="{{asset('plugins/jquery/jquery-1.8.3.js')}}"></script>
+        <script>
+            $(document).ready(function() {
+
+                fecha_hoy();
+                $(".init-quiz").click(function() {
+                    var tiempo;
+                    var min = 0;
+                    var seg = 0;
+
+
+                    $(".div-ini").css("display", "none");
+                    tiempo = setInterval(
+                            function() {
+                                if (seg === 60) {
+                                    seg = 0;
+                                    min++;
+                                }
+                                var minutos = llenarCeros("" + min);
+                                var segundos = llenarCeros("" + seg);
+
+                                $(".minuto").html(minutos);
+                                $(".segundo").html(segundos);
+                                seg++;
+
+                                if (min === 60) {
+                                    clearInterval(tiempo);
+                                    $(".div-ini").css("display", "block");
+                                    $(".div-ini").html("Gracias por su tiempo.");
+                                    agregar_examen();
+                                }
+
+                            }, 1000);
+
+                });
+
+
+                $(".exit-quiz").click(function() {
+
+                    if ($(".NOMBRES_APELLIDOS").val() === "") {
+                        alert("No ingreso su nombre completo");
+                    } else {
+                        $(".div-ini").css("display", "block");
+                        $(".div-ini").html("Gracias por su tiempo.");
+                        agregar_examen();
+                    }
+                });
+
+                function agregar_examen() {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{path('_termina_examen')}}",
+                        data: $("#cuestionario").serialize(),
+                        success: function(e) {
+                            alert(e);
+                        }
+
+                    });
+                }
+
+
+                function fecha_hoy() {
+                    var dias_semana = new Array("Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
+                    var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+                    var fecha_actual = new Date();
+
+                    var fecha_hoy = (dias_semana[fecha_actual.getDay()] + " dia " + fecha_actual.getDate() + " de " + meses[fecha_actual.getMonth()] + " de " + fecha_actual.getFullYear());
+                    $(".fecha-hoy").val(fecha_hoy);
+                }
+
+
+                function llenarCeros(cade) {
+                    if (cade.length === 1) {
+                        cade = "0" + cade;
+                    }
+                    return cade;
+                }
+
+
+
+            });
+
+            </script>
+
+        </head>
+        <body>
+            <div class='div-ini'>
+                Tienes un tiempo estimado de 60 minutos...<br>
+                <input type="button" class='init-quiz'value="Empezar la prueba">
+
+            </div>
+            <div class='hoja'>
+                <form id="cuestionario">
+                    <div class="cabecera">
+                        <div class="logo-produce"></div>
+                        <div class="titulo-principal">PRUEBA DE CONOCIMIENTO DEL CONCURSO DE MÉRITOS N° 02-2013-PRODUCE/OGA –SELECCIÓN<br>AUXILIAR COACTIVO</div>
+                        <div class="datos-personales">
+                            <label>APELLIDOS Y NOMBRES:&nbsp;&nbsp;</label><input class='datos-personales NOMBRES_APELLIDOS' name="NOMBRES_APELLIDOS"type="text" size="100%"><br><br>
+                            <label>FECHA:</label>&nbsp;&nbsp;<input class='datos-personales fecha-hoy' type="text" disabled="true" size="50px">
+                        </div>
+                        <p class="instrucciones">
+
+                            <b><u>Instrucciones:</u></b><br>
+                            Lea detenidamente cada una de las siguientes cuarenta (40) preguntas, 
+                            y marque con una (x) la alternativa que considere correcta. 
+                            Sólo una de las alternativas es la correcta.  
+                            Las preguntas desde la N°1 al N° 40 tienen un valor de 0.5 medio punto 
+                            cada una, sumando así un total de 20 puntos. No existen puntos en contra por respuestas incorrectas. Mucha Suerte.
+
+
+                        </p>   
+                    </div>
+                    <div class="cuestionario">
+            {{cuestionario|raw('html')}}
+                        </div>
+                    </form>
+
+                </div>
+
+
+
+                <div class="div-confirmacion">
+                    <div>
+                        <div class='timelabel'>Tienes un tiempo estimado de <span class="minuto">00</span>:<span class="segundo">00</span> minutos.</div>
+                        <input type="button" class="exit-quiz" value="Terminar">
+                    </div>
+
+                </div>
+
+            </body>
+        </html>

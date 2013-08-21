@@ -1,0 +1,147 @@
+.sitradoc{
+    background: #fff;
+}
+.sitradoc > .head{
+    height: 116px;
+    position: relative;
+}
+
+.sitradoc > .head > .navi{
+    font-size: 14px;
+    height: 20px;
+    position:absolute;
+    top:0;
+    left: 0;
+    margin: 15px 0 0 15px;
+}
+.navi a{
+    text-decoration: none;
+    color: #0099ff;
+}
+.navi > .item-selec{
+    font-weight: bold;
+    color:#666;
+}
+
+.sitradoc > .head > .option{
+    color:#666;
+    font-size: 13px;
+    text-align: right;
+    position: absolute;
+    top:0;
+    right: 0;
+    margin: 15px 5px 0 0;
+}
+.option > .title{
+    font-size: 15px;
+    margin: 0 5px 10px 0;
+    font-weight: bold;
+}
+.option > .botom{
+    display: inline-block;
+    color:#666;
+    background: #ccc;
+    padding: 10px;
+    text-align: center;
+    width: 100px;
+    cursor:pointer;
+    vertical-align: top;
+    font-weight: bold;
+}
+.option > .doc-type{
+    display: inline-block;
+    width: 150px;
+    vertical-align: top;
+    font-weight: thin;
+    background-color: #ffffff;
+    border:1px #000 solid;
+    padding: 5px;
+    text-align: left;
+    color:#000;
+}
+.option > .doc-type div:hover{
+    background: #666;
+    color:#ffffff;
+    cursor: pointer;
+}
+.option > .doc-type a{
+    text-decoration: none;
+    color:#000;
+    border:0;
+}
+
+
+.combo_response{
+    width: 95%;
+    height: 100px;
+    border:1px #666 solid;
+    background: #fff;
+    overflow-y: scroll;
+}
+
+.form{
+    background: #ffffff;
+    margin: auto;
+    width: 470px;
+    padding: 10px;
+    border: 1px #666 solid;
+}
+
+.label{
+    text-align: right;
+    color:#666;
+}
+.center{
+    text-align: center;
+    vertical-align: bottom;
+}
+.form_search{
+    background: #ffffff;
+    width: 75%;
+    margin: 0 auto;
+
+    border: 1px #666 solid;
+}
+.form_search  .form-column-1{
+    float: left;
+    width: 30%;
+    padding: 0 2% 0 2%;
+}
+.form_search  .form-column-2{
+    float: left;
+    width: 35%;
+}
+.form_search  .form-column-3{
+    float: left;
+    width: 29%;
+}
+.grid-content{
+    width: 950px;
+    margin: 15px auto;
+    overflow-x: scroll;
+}
+.textarea{
+    width: 95%;
+    height: 50px;
+}
+.tooltip-tittle{
+    background-color:#004467;
+    background-image: -o-linear-gradient(top, #004467 7%, #2E6C91 93%);
+    background-image: -moz-linear-gradient(top, #004467 7%, #2E6C91 93%);
+    background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#004467), to(#2E6C91));
+    background-image: -webkit-linear-gradient(top, #004467 7%, #2E6C91 93%);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#004467', endColorstr='#2E6C91', gradientType='0')";
+    color: #ffffff; 
+    text-align: center;
+    padding: 10px 4px 4px 0;
+    font-weight: bold;
+    font-size: 13px;
+    position:relative
+}
+.tooltip-tittle > .botn{
+    position:absolute;
+    right: 5px;
+    top:9px;
+    cursor:pointer;
+
+}

@@ -1,0 +1,133 @@
+{% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+{% block stylesheet%} 
+{{parent()}}
+<link rel="stylesheet" href="{{asset('plugins/menu/css/general.css')}}" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu-v.css')}}" />
+<link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+<style>
+        .menu-content{
+            background: #004467;
+            position:relative;
+            height: 30px;
+        }
+        .titulo{
+            position:absolute;
+            top:5px;
+            right: 5px;
+            color:#ffffff;
+            font-weight: bold;
+        }
+         /*DataTables*/
+        .dataTables_length{margin-bottom: 25px;font-size: 12px;margin-top: 10px}
+        .dataTables_filter{margin-bottom: 18px;font-size: 12px;margin-top: -38px}
+        .paging_full_numbers{margin-top: 50px}
+        .dataTables_info{margin-top: 50px}
+        .btn{margin-left: 18px}
+        
+    </style>
+    <link rel="stylesheet" href="{{asset('plugins/datatable/media/css/demo_table.css')}}">
+{% endblock%} 
+
+{% block javascript%} 
+{{parent()}}
+    <script type="text/javascript" src="{{asset('plugins/menu/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/menu/ddsmoothmenu.js')}}"></script>
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+            mainmenuid: "smoothmenu1", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            //customtheme: ["#1c5a80", "#18374a"],
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+        </script>
+        <!-- Para el Datatable -->
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.dataTables.js')}}"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                /*--------------INSTANCIA DE PLUGINS--------------------*/
+                $("#grilla-empresas").dataTable( {
+                        "aaSorting": [[1,'asc']],
+                        "bProcessing": true,
+                        "bServerSide": true,
+                        "sPaginationType": "full_numbers",
+                        "oLanguage"	: {
+                                "oPaginate" : { 
+                                        "sFirst" : "Primero",
+                                        "sNext" : "Siguiente",
+                                        "sPrevious" : "Anterior",
+                                        "sLast" : "Ultimo"
+                                },
+                                "sInfo" : "_START_ a _END_ de _TOTAL_ registros",
+                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                "sSearch": "Buscar: ",
+                                "sProcessing": "Procesando Informaci&oacute;n...",
+                                "sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
+                                "sZeroRecords": "No se encontro registros",
+                                "sInfoEmpty": "No hay registros para mostrar"
+
+                        },
+
+                        "iDisplayLength": 20,
+                        "aLengthMenu": [ 20,50,100 ],
+                        //"bJQueryUI" : true,
+                        "sAjaxSource": "{{path('listadoEmpresas')}}",
+                        /*
+                        "fnServerParams": function ( aoData ) {
+                                   aoData.push( { "name": "codigo_sucursal", "value":} )
+                        },
+                        */
+                        "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
+                                //$(nRow.getElementsByTagName('td')[0]).attr("hidden","true");
+                                $(nRow.getElementsByTagName('td')[0]).css("display","none");
+                        },
+
+                        "fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
+                                //$(nHead.getElementsByTagName('th')[0]).attr("hidden","true");
+                                $(nHead.getElementsByTagName('th')[0]).css("display","none");
+                        }
+                });
+                
+                
+            });
+            </script>
+            <!-- End DataTable-->
+
+{% endblock%} 
+            {%block panel1%}
+            <div class="menu-content">
+                  {{menutotal|raw('html')}}
+                    <div class="titulo">DIRECCIÓN DE ACUICULTURA (DIAC)</div>  
+                </div>
+                <div style="width: 85%;margin: 25px auto;background: #ffffff;border:1px solid #000000;padding: 25px 25px 125px 25px;">
+
+                    <table id="grilla-empresas" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="0%">ID</th>
+                                <th width="87%">PERSONA</th>
+                                <th width="5%" align="center">ESTADO</th>
+                                <th width="8%" align="center">ACCIÓN</th>
+                            </tr>
+                        </thead> 
+
+                        <tbody>
+
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
+
+                        </tbody>        
+                    </table>
+
+                </div>
+
+{%endblock%}

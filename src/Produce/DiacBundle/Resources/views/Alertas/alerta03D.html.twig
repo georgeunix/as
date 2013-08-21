@@ -1,0 +1,80 @@
+{# empty Twig template #}
+{% block javascript%} 
+
+<!-- Para el Datatable -->
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        /*--------------INSTANCIA DE PLUGINS--------------------*/
+        $("#grilla-derechos").dataTable( {
+            "sPaginationType": "full_numbers",
+                "oLanguage"	: {
+                        "oPaginate" : { 
+                                "sFirst" : "Primero",
+                                "sNext" : "Siguiente",
+                                "sPrevious" : "Anterior",
+                                "sLast" : "Ultimo"
+                        },
+                        "sInfo" : "<br><b>_START_ a _END_ de _TOTAL_  registros</b>",
+                        "sLengthMenu": "Mostrar _MENU_  registros<br><br>",
+                        "sSearch": "Buscar: ",
+				
+                        "sProcessing": "Procesando Informaci&oacute;n...",
+                        "sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
+                        "sZeroRecords": "No se encontro registros",
+                        "sInfoEmpty": "No hay registros para mostrar"
+                },
+                "iDisplayLength": 20,
+                "aLengthMenu": [ 20, 50, 100 ],
+                        
+                "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
+                        $(nRow.getElementsByTagName('td')[0]).css("display","none");
+                },
+                       
+                "fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
+                        $(nHead.getElementsByTagName('th')[0]).css("display","none");
+                }
+        });
+        
+    });
+    </script>
+
+{% endblock%} 
+{%block panel1%}
+    <div style="width: 90%;margin: 20px auto;background: #ffffff;border:1px solid #000000;padding: 55px 55px 85px 55px;">
+        <table id="grilla-derechos" width="100%">
+            <thead>
+                <tr>
+                    <th width="0%">CODIGO</th>   
+                    <th width="20%">PERSONA</th>
+                    <th width="10%">TIPO DERECHO</th>
+                    <th width="10%">NIVEL DE PRODUCCIÓN</th>
+                    <th width="15%">RESOLUCIÓN</th>
+                    <th width="5%">FECHA EMISIÓN</th>
+                    <th width="5%">FECHA VIGENCIA</th>
+                    <th width="10%">DEPARTAMENTO</th>
+                </tr>
+            </thead>    
+            <tbody>
+                        {% for row in listado%}
+                    <tr>
+                        <td>{{row.codigo_sucursal}}</td>                        
+                        <td>{{row.persona}}</td>
+                        <td>{{row.descrip_tip_derecho}}</td>
+                        <td>{{row.desarrollo}}</td>
+                        <td>{{row.numero_resolucion}}</td>
+                        <td>{{row.fecha_emision}}</td>
+                        <td>{{row.fecha_vigencia}}</td>
+                        <td>{{row.DEPARTAMENTO}}</td>
+
+                    </tr>
+                        {% endfor %}
+                </tbody>        
+            </table>
+            <div style="margin-right: 1000px;">
+                <a class="button" href="javascript:;" onClick="" style="margin-top: 10px"><span class="icon icon70"></span><span class="label">Excel</span></a>
+            </div>
+
+        </div>
+{%endblock%}

@@ -1,0 +1,620 @@
+body{
+    background-color: #0099ff;
+    font-family: Arial;
+    font-size: 12px;
+}
+#main-content{
+    margin: 5px auto;
+    width: 969px;
+    height: 1283px;
+    position:relative;
+}
+.form-search{
+    position: absolute;
+    width: 250px;
+    
+    bottom: 150px;
+    left: 24px;
+    border:1px solid #666;
+    
+}
+.capa-inhabilitada{
+    display:none;
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 1300px;
+    background: #000000;
+    filter: alpha(opacity=50); /* internet explorer */
+    -khtml-opacity: 0.5;      /* khtml, version anterior de safari */
+    -moz-opacity: 0.5;       /* firefox, mozilla, netscape */
+    opacity: 0.5;           /* safari, chrome, opera */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; /*internet explorer 8 - gracias Andres */ 
+    z-index: 10;
+}
+
+.mantenimiento-conflicto{
+    display:none;
+    position:fixed;
+    height: 700px;
+    width: 600px;
+    top: 10%;
+    left: 33%;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    border:3px solid #000000;
+    z-index: 12;
+
+
+    background-image: -o-linear-gradient(top, #cccccc 7%, #ffffff 93%);
+    background-image: -moz-linear-gradient(top, #cccccc 7%, #ffffff 93%);
+    background-image: -webkit-gradient(linear, 0% 7%, 0% 93%, from(#cccccc), to(#ffffff));
+    background-image: -webkit-linear-gradient(top, #cccccc 7%, #ffffff 93%);
+
+
+}
+.mantenimiento-conflicto > .frm_close{
+    position: absolute;
+    top:10px;
+    right: 10px;
+    z-index: 4;
+}   
+
+.cancelar_detalle{
+    display:none;
+    position:absolute;
+    top:4px;
+    right: 4px;
+    cursor: pointer;
+}
+.nueva-observacion{
+    position:absolute;
+    top:4px;
+    right: 4px;
+    cursor: pointer;
+}
+
+.mantenimiento-conflicto > .frm-title{
+    border-radius: 5px 5px 0 0;
+    position:absolute;
+    top:0;
+    left:0;
+    width: 600px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    background: #333333;
+    color:#ffffff;
+}
+.msg_error{
+    font-style: italic;
+    font-size: 10px;
+    font-weight: bold;
+    color:#cc0000;
+}
+.frm_agrega_conflicto_div{
+    padding-left: 15%;
+}
+.frm_agregar_observaciones{
+    width: 540px;
+    border:1px solid #333333;
+    margin:80px auto;
+
+}
+.frm_agregar_observaciones > .title{
+    background: #333333;
+    color:#ffffff;
+    font-weight: bold;
+    padding: 5px;
+}
+.frm_agregar_observaciones label{
+    font-weight: bold;
+    color:#333333;
+}
+textarea{
+    width: 346px;
+    height: 90px;
+    border-color: #ffffff;
+}
+.observacion{
+    position: relative;
+    padding: 9px;
+    margin-top: 5px;
+    border: 1px solid #333333;
+    height: 125px;
+    border-radius: 5px;
+    background: #ffffff;
+    width: 355px;
+}
+
+
+#map-content{
+    position:relative;
+    width: 969px;
+    height: 1283px;
+    background: url(../img/peru.gif);
+}
+
+.Info-Section{
+    position:absolute;
+    top: -145px;
+    left: 95px;
+    border:2px solid #cccccc; 
+    background: #ffffff;
+    width: 400px;
+    min-height: 140px;
+    max-height: 260px;
+    overflow: hidden;
+    padding: 10px;
+    text-align: justify;
+    border-radius: 5px;
+    z-index: 3;
+    display:none;
+}
+.tooltip-title{
+    margin-left: 13px;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;  
+    text-decoration: underline;
+}
+
+.flecha_nube{
+    position:absolute;
+    top: -118px;
+    left: 1px;
+    background: url(../img/img-nube.png);
+    width: 97px;
+    height:140px;
+    z-index: 4;
+    display:none;
+}
+
+.alert-icon{
+    background: url(../img/red-dot.png) no-repeat;
+    height: 32px;
+    width: 32px;
+}
+
+
+.Amazonas-area{
+
+    width: 57px;
+    height: 200px;
+    position: absolute;
+    top: 254px;
+    left: 208px;
+    cursor: pointer;
+}
+
+.Amazonas-area > .Amazonas-alert{
+    position: absolute;
+    top: 124px;
+    left: 9px;
+
+}
+
+
+.Ancash-area{
+
+    width: 100px;
+    height: 118px;
+    position: absolute;
+    top: 595px;
+    left: 210px;
+    cursor: pointer;
+}
+
+.Ancash-area > .Ancash-alert{
+    position: absolute;
+    top: 73px;
+    left: 44px;
+
+}
+
+.Apurimac-area{
+
+    width: 100px;
+    height: 78px;
+    position: absolute;
+    top: 934px;
+    left: 541px;
+    cursor: pointer;
+}
+
+.Apurimac-area > .Apurimac-alert{
+    position: absolute;
+    top: 50px;
+    left: 36px;
+
+}
+
+.Arequipa-area{
+
+    width: 208px;
+    height: 122px;
+    position: absolute;
+    top: 1053px;
+    left: 490px;
+    cursor: pointer;
+}
+
+.Arequipa-area > .Arequipa-alert{
+    position: absolute;
+    top: 13px;
+    left: 122px;
+
+}
+
+.Ayacucho-area{
+
+    width: 80px;
+    height: 122px;
+    position: absolute;
+    top: 928px;
+    left: 458px;
+    cursor: pointer;
+}
+
+.Ayacucho-area > .Ayacucho-alert{
+    position: absolute;
+    top: 23px;
+    left: 30px;
+
+}
+
+.Cajamarca-area{
+
+    width: 57px;
+    height: 164px;
+    position: absolute;
+    top: 350px;
+    left: 149px;
+    cursor: pointer;
+}
+
+.Cajamarca-area > .Cajamarca-alert{
+    position: absolute;
+    top: 93px;
+    left: 26px;
+
+}
+
+
+.Cusco-area{
+
+    width: 143px;
+    height: 46px;
+    position: absolute;
+    top: 886px;
+    left: 564px;
+    cursor: pointer;
+}
+
+.Cusco-area > .Cusco-alert{
+    position: absolute;
+    top: 12px;
+    left: 31px;
+
+}
+
+.Huancavelica-area{
+
+    width: 100px;
+    height: 92px;
+    position: absolute;
+    top: 834px;
+    left: 395px;
+    cursor: pointer;
+}
+
+.Huancavelica-area > .Huancavelica-alert{
+    position: absolute;
+    top: 70px;
+    left: 34px;
+
+}
+
+.Huanuco-area{
+
+    width: 80px;
+    height: 116px;
+    position: absolute;
+    top: 598px;
+    left: 315px;
+    cursor: pointer;
+}
+
+.Huanuco-area > .Huanuco-alert{
+    position: absolute;
+    top: 80px;
+    left: 34px;
+
+}
+.ajax-loader{
+    background: url(../img/ajax-loader.gif) no-repeat;
+    width: 32px;
+    height: 32px;
+    margin:25% auto;
+}
+
+.data-tooltip ul{
+    margin: 9px;
+    padding: 5px;
+}
+.Ica-area{
+
+    width: 80px;
+    height: 116px;
+    position: absolute;
+    top: 936px;
+    left: 368px;
+    cursor: pointer;
+}
+
+.Ica-area > .Ica-alert{
+    position: absolute;
+    top: 19px;
+    left: 9px;
+
+}
+
+.Junin-area{
+
+    width: 174px;
+    height: 74px;
+    position: absolute;
+    top: 756px;
+    left: 368px;
+    cursor: pointer;
+}
+
+.Junin-area > .Junin-alert{
+    position: absolute;
+    top: 26px;
+    left: 27px;
+
+}
+
+.La_Libertad-area{
+
+    width: 128px;
+    height: 74px;
+    position: absolute;
+    top: 517px;
+    left: 146px;
+    cursor: pointer;
+}
+
+.La_Libertad-area > .La_Libertad-alert{
+    position: absolute;
+    top: 42px;
+    left: 55px;
+
+}
+
+.Lambayeque-area{
+
+    width: 71px;
+    height: 86px;
+    position: absolute;
+    top: 402px;
+    left: 74px;
+    cursor: pointer;
+}
+
+.Lambayeque-area > .Lambayeque-alert{
+    position: absolute;
+    top: 22px;
+    left: 42px;
+
+}
+
+
+.Lima-area{
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 803px;
+    left: 323px;
+    cursor: pointer;
+}
+
+.Lima-area > .Lima-alert{
+    position: absolute;
+    bottom: -7px;
+    left: -10px;
+}
+
+
+.Callao-area{
+    width: 91px;
+    height: 30px;
+    position: absolute;
+    top: 807px;
+    left: 229px;
+    cursor: pointer;
+}
+
+.Callao-area > .Callao-alert{
+    position: absolute;
+    top: -13px;
+    left: 67px;
+
+}
+
+
+.Madre_De_Dios-area{
+
+    width: 224px;
+    height: 122px;
+    position: absolute;
+    top: 761px;
+    left: 638px;
+    cursor: pointer;
+}
+
+.Madre_De_Dios-area > .Madre_De_Dios-alert{
+    position: absolute;
+    top: 45px;
+    left: 111px;
+
+}
+
+.Moquegua-area{
+
+    width: 77px;
+    height: 83px;
+    position: absolute;
+    top: 1106px;
+    left: 702px;
+    cursor: pointer;
+}
+
+.Moquegua-area > .Moquegua-alert{
+    position: absolute;
+    top: 55px;
+    left: 17px;
+
+}
+
+.Pasco-area{
+
+    width: 99px;
+    height: 83px;
+    position: absolute;
+    top: 668px;
+    left: 400px;
+    cursor: pointer;
+}
+
+.Pasco-area > .Pasco-alert{
+    position: absolute;
+    top: 34px;
+    left: 42px;
+
+}
+
+.Ucayali-area{
+
+    width: 203px;
+    height: 168px;
+    position: absolute;
+    top: 589px;
+    left: 504px;
+    cursor: pointer;
+}
+
+.Ucayali-area > .Ucayali-alert{
+    position: absolute;
+    top: 90px;
+    left: 11px;
+
+}
+
+.San_Martin-area{
+
+    width: 107px;
+    height: 191px;
+    position: absolute;
+    top: 400px;
+    left: 278px;
+    cursor: pointer;
+}
+
+.San_Martin-area > .San_Martin-alert{
+    position: absolute;
+    top: 102px;
+    left: 32px;
+
+}
+
+.Tumbes-area{
+
+    width: 64px;
+    height: 65px;
+    position: absolute;
+    top: 235px;
+    left: 36px;
+    cursor: pointer;
+}
+
+.Tumbes-area > .Tumbes-alert{
+    position: absolute;
+    top: 15px;
+    left: 13px;
+
+}
+
+
+.Piura-area{
+
+    width: 132px;
+    height: 97px;
+    position: absolute;
+    top: 302px;
+    left: 12px;
+    cursor: pointer;
+}
+
+.Piura-area > .Piura-alert{
+    position: absolute;
+    top: 58px;
+    left: 56px;
+
+}
+
+.Puno-area{
+
+    width: 132px;
+    height: 176px;
+    position: absolute;
+    top: 927px;
+    left: 723px;
+    cursor: pointer;
+}
+
+.Puno-area > .Puno-alert{
+    position: absolute;
+    top: 112px;
+    left: 43px;
+
+}
+
+.Tacna-area{
+
+    width: 93px;
+    height: 68px;
+    position: absolute;
+    top: 1193px;
+    left: 723px;
+    cursor: pointer;
+}
+
+.Tacna-area > .Tacna-alert{
+    position: absolute;
+    top: 39px;
+    left: 28px;
+
+}
+
+.Loreto-area{
+
+    width: 513px;
+    height: 352px;
+    position:absolute;
+    top: 45px;
+    right: 179px;
+    cursor: pointer;
+}
+
+.Loreto-area > .Loreto-alert{
+    position:absolute;
+    top:230px;
+    left:142px;
+
+}
+

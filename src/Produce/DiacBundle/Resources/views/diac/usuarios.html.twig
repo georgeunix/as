@@ -1,0 +1,166 @@
+{% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+{% block stylesheet%} 
+{{parent()}}
+<link rel="stylesheet" href="{{asset('plugins/menu/css/general.css')}}" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu-v.css')}}" />
+<link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+<style type="text/css">
+    .menu-content{
+        background: #004467;
+        position:relative;
+        height: 30px;
+    }
+    .titulo{
+        position:absolute;
+        top:5px;
+        right: 5px;
+        color:#ffffff;
+        font-weight: bold;
+    }
+</style>
+<link rel="stylesheet" href="{{asset('plugins/datatable/media/css/demo_table.css')}}">
+{% endblock%} 
+
+{% block javascript%} 
+{{parent()}}
+    <script type="text/javascript" src="{{asset('plugins/menu/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/menu/ddsmoothmenu.js')}}"></script>
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+            mainmenuid: "smoothmenu1", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            //customtheme: ["#1c5a80", "#18374a"],
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+        </script>
+
+
+        <!-- Para el Datatable -->
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
+        <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.dataTables.js')}}"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                /*--------------INSTANCIA DE PLUGINS--------------------*/
+                $("#grilla-usuarios").dataTable( {
+                    "sPaginationType": "full_numbers",
+			"oLanguage"	: {
+				"oPaginate" : { 
+					"sFirst" : "Primero",
+					"sNext" : "Siguiente",
+					"sPrevious" : "Anterior",
+					"sLast" : "Ultimo"
+				},
+				"sInfo" : "<br><b>_START_ a _END_ de _TOTAL_  registros</b>",
+				"sLengthMenu": "Mostrar _MENU_  registros<br><br>",
+				"sSearch": "Buscar: ",
+				
+				"sProcessing": "Procesando Informaci&oacute;n...",
+				"sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
+				"sZeroRecords": "No se encontro registros",
+				"sInfoEmpty": "No hay registros para mostrar"
+                        },
+			"iDisplayLength": 20,
+			"aLengthMenu": [ 20, 50, 100 ],
+                        "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
+				$(nRow.getElementsByTagName('td')[0]).css("display","none");
+			},
+			
+			"fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
+				$(nHead.getElementsByTagName('th')[0]).css("display","none");
+			}
+                });
+                
+                
+            });
+            
+            function guardar(id){
+                per = $("#cboPerfil"+id).val();
+                if (per==""){
+                    alert("Seleccione al menos un Perfil");
+                    $("#cboPerfil"+id).focus();
+                }else{
+                    $.ajax({
+			type: "POST",
+			url: "{{path('guardaperfilusuario')}}",
+			async: "true",
+			data: {	idgrupo: per, codtrab: id }
+			}).done(function(msg) {
+                            alert("El Perfil seleccionado ha sido asignado correctamente");
+                        });
+                }
+                
+            }
+            function cancelar(id){
+                per = $("#cboPerfil"+id).val();
+                if (per==""){
+                    alert("Seleccione al menos un Perfil");
+                    $("#cboPerfil"+id).focus();
+                }else{
+                    $.ajax({
+			type: "POST",
+			url: "{{path('deleteperfilusuario')}}",
+			async: "true",
+			data: {	idgrupo: per, codtrab: id }
+			}).done(function(msg) {
+                            $("#cboPerfil"+id).val("");                        
+                            alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");
+                    });                    
+                }
+            }
+            </script>
+
+{% endblock%} 
+
+{%block panel1%}
+            <div class="menu-content">
+        {{menutotal|raw('html')}}
+                    <div class="titulo">DIRECCIÓN DE ACUICULTURA (DIAC)</div>  
+                </div>
+                <div style="width: 80%;margin: 20px auto;background: #ffffff;border:1px solid #000000;padding: 35px;">
+                    <table id="grilla-usuarios" width="100%" >
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th width="20%">DIRECCION</th>
+                                <th width="20%">Apellidos</th>
+                                <th width="20%">Nombres</th>
+                                <th width="5%">DNI</th>
+                                <th width="5%">USUARIO</th>
+                                <th width="30%">PERFILES</th>
+                            </tr>
+                        </thead>    
+                        <tbody>
+                        {% for row in trabajadores%}
+                                <tr>
+                                    <td>{{row.codigo_trabajador}}</td>
+                                    <td>{% if row.tipo_trabajador == "A"%}
+                                            ACUICULTURA
+                                        {% else %}    
+                                            OFICINA DE TECNOLOGIA DE LA INFORMACION
+                                        {% endif %}        
+                                    </td>
+                                    <td>{{row.apellidos}}</td>
+                                    <td>{{row.nombres}}</td>
+                                    <td>{{row.dni}}</td>
+                                    <td>{{row.usuario_sistema}}</td>
+                                    <td class="center">
+                                        <div style="float: left;">
+                                            {{row.combo_perfil|raw('html')}}
+                                        </div>
+                                            <a href="javascript:;" onclick="guardar({{row.codigo_trabajador}})"><span class="btn"><i class="cus cus-disk"></i></span></a>
+                                            <a href="javascript:;" onclick="cancelar({{row.codigo_trabajador}})"><span class="btn"><i class="cus cus-cancel"></i></span></a>
+                                            <div style="clear:left;"></div>
+                                        </td>
+                                </tr>
+                        {% endfor %}
+                        </tbody>        
+                    </table>
+                        
+
+                </div>
+
+{%endblock%}

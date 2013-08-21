@@ -1,0 +1,116 @@
+{% block stylesheet%} 
+<style type="text/css">
+        #pnl_dicapi{ font-size: 12px;}
+        #pnl_dicapi table td{text-indent: 10px;padding: 5px 0px}
+        #pnl_dicapi table td select{width: 150px}
+    </style>
+
+{% endblock%} 
+{% block javascript%} 
+    <script type="text/javascript">
+
+        $(document).ready(function() {/*start jquery*/
+        
+               $.post('{{path('devolverDepartamentos')}}',{},function(datahtml){
+                     $("#cboDepartamentoDicapi").html(datahtml);
+               });
+               
+                $("#cboDepartamentoDicapi").change(function (){                  
+                     $.post('{{path('resolucionDicapi')}}',{cod_dep:$("#cboDepartamentoDicapi").val()},function(datahtml){
+                        $("#cboResolucionDicapi").html(datahtml);
+                     });
+                });
+                
+           
+            });/*end jquery*/
+            
+            function agregar_res_dicapi(){
+                
+                msg='';
+                if($("#cboDepartamentoDicapi").val()=='00'){
+                   msg+='- Seleccione Departamento \n'; 
+                    
+                }
+                if($("#cboResolucionDicapi").val()=='00'){
+                   msg+='- Seleccione Resolcuión \n'; 
+                    
+                }
+                if($("#cboZonaDicapi").val()=='00'){
+                   msg+='- Seleccione N° de Zona \n'; 
+                    
+                }
+                if(msg!=''){
+                    alert(msg);
+                    return false;
+                }
+                $("#txtrddicapi").val($("#cboDepartamentoDicapi option:selected").html() + ' | '+ $("#cboResolucionDicapi option:selected").html()+' | '+$("#cboZonaDicapi option:selected").html() );
+                $("#dialogDicapi").dialog("close");
+                
+            
+            }
+            function cancelar_res(){
+                $("#dialogDicapi").dialog("close");
+            }
+            
+        </script>
+{% endblock%} 
+{%block panel1%}  
+
+        <div style="width: 90%;height: 90%;margin: 5px auto;background: #ffffff;border:1px solid #000000;padding-top: 15px;">
+
+            <div id="pnl_dicapi" style="width: 95%; height: 150px; margin: 0 auto; border: 1px solid #004163;">
+                <table width="100%" height="100%" align="center" class="esp-td">
+                    <tr>
+                        <td colspan="4" style="background-color:#004163; height: 10px;">
+                            <p style="font-family:arial;color:#fff;font-size:13px;text-align:center;">
+                                <span class="titulo_perfil"><label id="lblTitulo">Seleccionar Resolución</label></span>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Región:</td><td><select name="cboDepartamentoDicapi" id="cboDepartamentoDicapi">
+                                <option value="00">--Seleccione--</option>
+                            </select></td>
+                            <td>Resolución:</td><td><select name="cboResolucionDicapi" id="cboResolucionDicapi" style="width: 220px">
+                                <option value="00">--Seleccione--</option>
+                                
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>N° Zonas: </td><td colspan="3"><select name="cboZonaDicapi" id="cboZonaDicapi">
+                                <option value="00">--Seleccione--</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                            </select></td>
+                    </tr>
+                    <tr><td colspan="4"></td></tr>
+                    <tr>
+                        <td colspan="4">
+                            <a class="button" href="javascript:;" onClick="agregar_res_dicapi();"><span class="icon icon67"></span><span class="label">Agregar</span></a>
+                            <a class="button" href="javascript:;" onClick="cancelar_res();"><span class="icon icon188"></span><span class="label">Cancelar</span></a>
+                        </td>
+                    </tr> 
+
+
+                </table>
+                <div>
+                </div>
+{%endblock%}

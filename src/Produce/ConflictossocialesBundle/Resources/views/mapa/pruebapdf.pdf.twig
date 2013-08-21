@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
+<pdf>
+    <dynamic-page>
+        <div id="layer-1" color="black" font-type="judson" font-size="16px">
+            <stylesheet>
+                <complex-attribute name="border" color="black" />
+                <complex-attribute name="background" color="white" />
+            </stylesheet>
+        </div>
+
+        <div extends="layer-1">
+            Layer 1
+            <table>
+                <tr>
+                    <td>region_id</td>
+                    <td>region_nombre</td>
+                    <td>region_variable</td>
+                </tr>
+                
+                
+        {% for row in regiones %}
+                <tr>
+                    <td>{{row.region_id}}</td>
+                    <td>{{row.region_nombre}}</td>
+                    <td>{{row.region_variable}}</td>
+                </tr>
+        {% endfor %}
+        {% for row in regiones %}
+                <tr>
+                    <td>{{row.region_id}}</td>
+                    <td>{{row.region_nombre}}</td>
+                    <td>{{row.region_variable}}</td>
+                </tr>
+        {% endfor %}
+        {% for row in regiones %}
+                <tr>
+                    <td>{{row.region_id}}</td>
+                    <td>{{row.region_nombre}}</td>
+                    <td>{{row.region_variable}}</td>
+                </tr>
+        {% endfor %}        
+            </table>
+
+            </div>
+
+
+        </dynamic-page>
+
+
+
+    </pdf>

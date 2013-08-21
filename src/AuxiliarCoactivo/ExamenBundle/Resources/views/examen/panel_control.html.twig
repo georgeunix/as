@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="{{asset('plugins/jquery/jquery-1.8.3.js')}}"></script>
+        <script>
+
+            </script>
+        </head>
+        <body>
+            <div class='titulo'>RESULTADOS DEL EXAMEN</div>
+            <div class="tabla">
+                <table border=2 width='100%'cellspacing='0'>
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Nombres y Apellidos</th>
+                            <th>Fecha</th>
+                            <th>Puntaje</th>
+                        </tr>
+
+                    </thead>
+                    <tbody class='tbody'>
+                        {{postulantes|raw('html')}}
+                        </tbody>
+
+                    </table>
+                </div>
+
+            </body>
+        </html>
+        <style>
+                .titulo{
+                text-align: center;
+                font-size: 30px;
+                }
+                .tabla{
+                    width: 500px;
+                    margin: 1px auto;
+                }
+                .tbody tr:nth-child(even) { background: #ddd }
+                .tbody tr:nth-child(odd) { background: #fff}
+
+            </style>

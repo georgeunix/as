@@ -1,0 +1,43 @@
+{% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+{% block stylesheet%} 
+{{parent()}}
+<link rel="stylesheet" href="{{asset('plugins/menu/css/general.css')}}" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu.css')}}" />
+<link rel="stylesheet" type="text/css" href="{{asset('plugins/menu/ddsmoothmenu-v.css')}}" />
+<style>
+    .menu-content{
+        background: #004467;
+        position:relative;
+        height: 30px;
+    }
+    .titulo{
+        position:absolute;
+        top:5px;
+        right: 5px;
+        color:#ffffff;
+        font-weight: bold;
+    }
+</style>
+{% endblock%} 
+
+{% block javascript%} 
+{{parent()}}
+    <script type="text/javascript" src="{{asset('plugins/menu/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/menu/ddsmoothmenu.js')}}"></script>
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+            mainmenuid: "smoothmenu1", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            //customtheme: ["#1c5a80", "#18374a"],
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+        </script>
+{% endblock%} 
+
+{%block panel1%}
+    <div class="menu-content">
+        {{menutotal|raw('html')}}
+        <div class="titulo">DIRECCIÓN DE ACUICULTURA (DIAC)</div>  
+    </div>
+{%endblock%}
