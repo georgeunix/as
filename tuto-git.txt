@@ -1,0 +1,75 @@
+//para crear repositorio
+git init
+
+
+//para remotear un repositorio existente ya creado con git init
+git remote add origin lsantos@172.16.210.200:/opt/framework
+
+
+//para clonar repositorio
+git clone lsantos@172.16.210.200:/opt/framework
+
+
+// alista el archivo para ser comiteado
+git add nombrearchivo.html
+
+
+// alistar todos los archivos para ser comiteados
+git add --all
+
+
+//Alista los archivos que van hacer subidos al repositorio central
+git commit -m "mensaje"
+
+
+//regresa al archivo no incluyendolo en el commit, ni en el de listos
+git reset HEAD nombrearchivo.html
+
+
+//regresa a todos los archivos no incluyendolo en el commit, ni en el de listos
+git reset HEAD
+
+
+//combina tus cambios con los q ya tiene el repositorio ne el servidor
+git pull 
+
+//o tambien para ser mas preciso
+git pull origin master
+
+//para subir mis cambios al servidor
+git push 
+
+git push origin master
+
+
+//para ver el historial de cambios
+git log
+
+//para ver el historial de cambios visualmente
+gitk
+
+
+RAMAS (BRANCHES)
+****************
+
+//VER TODAS LAS RAMAS
+git branch
+
+
+//CREAR UNA RAMA
+git branch nueva_rama
+
+
+//PASARME A OTRA RAMA EXISTENTE
+git checkout nueva_rama
+
+
+
+**********************************
+fuente:http://git-scm.com/book/es/
+
+
+
+
+
+
