@@ -1,10 +1,17 @@
 {% block stylesheet%}
-    <style type="text/css">
-            .esp-td{font-size: 12px }
-            .esp-td td{padding: 5px}
-            .esp-td select{ width: 120px}  
+<style type="text/css">
+        .esp-td{font-size: 12px }
+        .esp-td td{padding: 5px}
+        .esp-td select{ width: 120px}  
 
-            </style>
+        /*DataTables*/
+        .dataTables_length{margin-bottom: 25px;font-size: 12px;margin-top: 10px}
+        .dataTables_filter{margin-bottom: 18px;font-size: 12px;margin-top: -38px}
+        .paging_full_numbers{margin-top: -13px}
+        .dataTables_info{margin-top: 15px}
+        .btn{margin-left: 10px}
+
+    </style>
 {% endblock%} 
 {% block javascript%} 
     <!-- Para el Datatable -->
@@ -13,35 +20,45 @@
         $(document).ready(function() {
             /*--------------INSTANCIA DE PLUGINS--------------------*/
             $("#grilla-recursos").dataTable( {
-                "sPaginationType": "full_numbers",
-                    "oLanguage"	: {
-                            "oPaginate" : { 
-                                    "sFirst" : "Primero",
-                                    "sNext" : "Siguiente",
-                                    "sPrevious" : "Anterior",
-                                    "sLast" : "Ultimo"
-                            },
-                            "sInfo" : "<br><b>_START_ a _END_ de _TOTAL_  registros</b>",
-                            "sLengthMenu": "Mostrar _MENU_  registros<br><br>",
-                            "sSearch": "Buscar: ",
-				
-                            "sProcessing": "Procesando Informaci&oacute;n...",
-                            "sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
-                            "sZeroRecords": "No se encontro registros",
-                            "sInfoEmpty": "No hay registros para mostrar"
-                    },
-                    "iDisplayLength": 20,
-                    "aLengthMenu": [ 20, 50, 100 ],
-                        
-                        
-                       
-                    "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
-                            $(nRow.getElementsByTagName('td')[0]).css("display","none");
-                    },
-                       
-                    "fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
-                            $(nHead.getElementsByTagName('th')[0]).css("display","none");
-                    }
+               "aaSorting": [[4,'asc']],
+                                  "bProcessing": true,
+                                  "bServerSide": true,
+                                  "sPaginationType": "full_numbers",
+                                  "oLanguage"	: {
+                                          "oPaginate" : { 
+                                                  "sFirst" : "Primero",
+                                                  "sNext" : "Siguiente",
+                                                  "sPrevious" : "Anterior",
+                                                  "sLast" : "Ultimo"
+                                          },
+                                          "sInfo" : "_START_ a _END_ de _TOTAL_ registros",
+                                          "sLengthMenu": "Mostrar _MENU_ registros",
+                                          "sSearch": "Buscar: ",
+                                          "sProcessing": "Procesando Informaci&oacute;n...",
+                                          "sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
+                                          "sZeroRecords": "No se encontro registros",
+                                          "sInfoEmpty": "No hay registros para mostrar"
+
+                                  },
+
+                                  "iDisplayLength": 15,
+                                  "aLengthMenu": [ 15,20 ],
+                                  //"bJQueryUI" : true,
+                                  "sAjaxSource": "{{path('listadoRecursosh')}}",
+                                  /*
+                                  "fnServerParams": function ( aoData ) {
+                                             aoData.push( { "name": "codigo_sucursal", "value":} )
+                                  },
+                                  */
+                                  "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
+                                          //$(nRow.getElementsByTagName('td')[0]).attr("hidden","true");
+                                          $(nRow.getElementsByTagName('td')[0]).css("display","none");
+                                  },
+
+                                  "fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
+                                          //$(nHead.getElementsByTagName('th')[0]).attr("hidden","true");
+                                          $(nHead.getElementsByTagName('th')[0]).css("display","none");
+                                  }
             });
             /*start funciones con el sistema*/
             devolverDepartamentosrh();
@@ -109,8 +126,8 @@
                         async: "true",
                         data: {cod_recurso:cod_recurso},
                         success: function(result) {
-                            //if(result==1)alert('Recurso Eliminado');
-                            $("#"+cod_recurso).remove();
+                            $("#grilla-recursos").dataTable().fnDraw();
+                            
                         },
                         error: function(result) {
                            alert('Error eliminado recurso');
@@ -156,6 +173,7 @@
                 data: {cod_recurso:$("#cod_recurso").val(),recurso:$("#nom_recurso").val(),tiporecurso:$("#cboTipoRecurso").val(),departamento:$("#cboDepartamentorh").val(),provincia:$("#cboProvinciarh").val(),distrito:$("#cboDistritorh").val(),zona:$("#zona").val(),espejoagua:$("#espejo_agua").val(),profundidad:$("#profundidad").val()},
                 success: function(result) {
                     if(result==1)alert('Datos registrados satisfactoriamente');
+                    $("#grilla-recursos").dataTable().fnDraw();
                     
                 },
                 error: function(result) {
@@ -183,7 +201,7 @@
             {%block panel1%}        
         <div style="width: 90%;margin: 25px auto;background: #ffffff;border:1px solid #000000;padding: 35px;">
 
-            <div style="width: 40%; float: left;">
+            <div style="width: 50%; float: left;">
 
                 <table id="grilla-recursos" width="100%">
                     <thead>
@@ -196,83 +214,77 @@
                     </thead> 
 
                     <tbody>
-                        {% for row in recursos%}
-                            <tr id="{{row.CODIGO_RECURSO}}">
-                                <td>{{row.CODIGO_RECURSO}}</td>
-                                <td>{{row.NOMBRE_RECURSO}}</td>
-                                <td>{{row.DESCRIPCION_TIPO_RECURSO}}</td>
-                                <td class="center">
-                                    <div style="padding-left: 30%;">
-                                        <a href="javascript:;" onclick="editar_recurso({{row.CODIGO_RECURSO}})"><span class="btn"><i class="cus cus-page-white-edit"></i></span></a> 
-                                        <a href="javascript:;" onclick="eliminar_recurso({{row.CODIGO_RECURSO}})" style="margin-top: -50px"><span class="btn"><i class="cus cus-cancel"></i></span></a>
-                                    </div>
-                                </td> 
-                            </tr>
-                        {% endfor %}
-                        </tbody>           
-                    </table>
-                </div>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
 
-                <div id="pnl_perfil" style="width: 40%; height: 300px;float: left; margin-left: 3%; padding-left: 3px; border: 1px solid #004163;">
-
-                    <input type="hidden" id="cod_recurso">                   
-                    <table width="100%" align="center" class="esp-td" style="">
-                        <tr>
-                            <td colspan="2" style="background-color:#004163; height: 10px;">
-                                <p style="font-family:arial;color:#fff;font-size:13px;text-align:center;">
-                                    <span class="titulo_perfil"><label id="lblTitulo">Registrar Recurso Hídrico</label></span>
-                                </p>
-                            </td>
-                        </tr>                        
-                        <tr>
-                            <td>Nombre Recurso:</td>
-                            <td><input type="text" name="nom_recurso" id="nom_recurso" size="40" value=""/></td>
-                        </tr>
-                        <tr>
-                            <td>Tipo:</td>
-                            <td>{{tiposrecursos|raw('html')}}</td>
-                        </tr>
-                        <tr>
-                            <td>Departamento:</td>
-                            <td><select name="cboDepartamentorh" id="cboDepartamentorh">
-                                    <option value="00">--Seleccione--</option>
-
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td>Provincia:</td>
-                            <td><select name="cboProvinciarh" id="cboProvinciarh">
-                                    <option value="00">--Seleccione--</option>
-
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td>Distrito:</td>
-                            <td><select name="cboDistritorh" id="cboDistritorh">
-                                    <option value="00">--Seleccione--</option>
-
-                                </select></td>
-                        </tr>
-                        <tr>
-                            <td>Zona:</td>
-                            <td><input type="text" name="zona" id="zona" size="40"/></td>
-                        </tr>
-                        <tr>
-                            <td>Espejo de Agua:</td>
-                            <td><input type="text" name="espejo_agua" id="espejo_agua" size="15"/>&nbsp;
-                                Profundidad:&nbsp;&nbsp;&nbsp;<input type="text" name="profundidad" id="profundidad" size="15"/></td>
-
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>
-                                <a class="button" href="javascript:;" onClick="guardar_recurso();"><span class="icon icon67"></span><span class="label">Guardar</span></a>
-                                <a class="button" href="javascript:;" onClick="cancelar();"><span class="icon icon188"></span><span class="label">Cancelar</span></a>
-                            </td>
-                        </tr>                        
-                    </table>                    
-                </div>
-                <div style="clear:left;"></div>
+                    </tbody>           
+                </table>
             </div>
+
+            <div id="pnl_perfil" style="width: 40%; height: 400px;float: left; margin-left: 5%;margin-top: 10px; padding-left: 3px; border: 1px solid #004163;">
+
+                <input type="hidden" id="cod_recurso">                   
+                <table width="100%" align="center" class="esp-td" style="">
+                    <tr>
+                        <td colspan="2" style="background-color:#004163; height: 10px;">
+                            <p style="font-family:arial;color:#fff;font-size:13px;text-align:center;">
+                                <span class="titulo_perfil"><label id="lblTitulo">Registrar Recurso Hídrico</label></span>
+                            </p>
+                        </td>
+                    </tr>                        
+                    <tr>
+                        <td>Nombre Recurso:</td>
+                        <td><input type="text" name="nom_recurso" id="nom_recurso" size="40" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td>Tipo:</td>
+                        <td>{{tiposrecursos|raw('html')}}</td>
+                    </tr>
+                    <tr>
+                        <td>Departamento:</td>
+                        <td><select name="cboDepartamentorh" id="cboDepartamentorh">
+                                <option value="00">--Seleccione--</option>
+
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Provincia:</td>
+                        <td><select name="cboProvinciarh" id="cboProvinciarh">
+                                <option value="00">--Seleccione--</option>
+
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Distrito:</td>
+                        <td><select name="cboDistritorh" id="cboDistritorh">
+                                <option value="00">--Seleccione--</option>
+
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td>Zona:</td>
+                        <td><input type="text" name="zona" id="zona" size="40"/></td>
+                    </tr>
+                    <tr>
+                        <td>Espejo de Agua:</td>
+                        <td><input type="text" name="espejo_agua" id="espejo_agua" size="15"/>&nbsp;
+                            Profundidad:&nbsp;&nbsp;&nbsp;<input type="text" name="profundidad" id="profundidad" size="15"/></td>
+
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="button" href="javascript:;" onClick="guardar_recurso();"><span class="icon icon67"></span><span class="label">Guardar</span></a>
+                            <a class="button" href="javascript:;" onClick="cancelar();"><span class="icon icon188"></span><span class="label">Cancelar</span></a>
+                        </td>
+                    </tr>                        
+                </table>                    
+            </div>
+            <div style="clear:left;"></div>
+        </div>
 
 {%endblock%}
