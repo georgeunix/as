@@ -55,225 +55,9 @@
         <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
         <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.dataTables.js')}}"></script>
         <script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
-
-        <script type="text/javascript">
-        $(document).ready(function() {            
-            /*--------------INSTANCIA DE PLUGINS--------------------*/
-            $("#grilla-usuarios").dataTable( {
-                 "aaSorting": [[0,'asc']],
-                                  "bProcessing": true,
-                                  "bServerSide": true,
-                                  "sPaginationType": "full_numbers",
-                                  "oLanguage"	: {
-                                          "oPaginate" : { 
-                                                  "sFirst" : "Primero",
-                                                  "sNext" : "Siguiente",
-                                                  "sPrevious" : "Anterior",
-                                                  "sLast" : "Ultimo"
-                                          },
-                                          "sInfo" : "_START_ a _END_ de _TOTAL_ registros",
-                                          "sLengthMenu": "Mostrar _MENU_ registros",
-                                          "sSearch": "Buscar: ",
-                                          "sProcessing": "Procesando Informaci&oacute;n...",
-                                          "sInfoFiltered": "(Filtrado de un total de _MAX_ registros)",
-                                          "sZeroRecords": "No se encontro registros",
-                                          "sInfoEmpty": "No hay registros para mostrar"
-
-                                  },
-
-                                  "iDisplayLength": 5,
-                                  "aLengthMenu": [ 5,10 ],
-                                  //"bJQueryUI" : true,
-                                  "sAjaxSource": "{{path('listaractarep')}}",
-
-
-/* PASAR PARAMETROS PARA BUSQUEDA */
-/*
-                                  "fnServerParams": function ( aoData ) {
-                                             aoData.push( { "name": "codigo_sucursal", "value": {#{codsucursal}}#} )
-                                  },
-*/
-
-
-/* OCULTAR COLUMNA */
-
-                                  "fnCreatedRow" : function (nRow, aData, iDataIndex) { 
-                                          //$(nRow.getElementsByTagName('td')[0]).attr("hidden","true");
-                                          $(nRow.getElementsByTagName('td')[0]).css("display","none");
-                                  },
-
-                                  "fnHeaderCallback": function( nHead, aData, iStart, iEnd, aiDisplay ) {
-                                          //$(nHead.getElementsByTagName('th')[0]).attr("hidden","true");
-                                          $(nHead.getElementsByTagName('th')[0]).css("display","none");
-                                  }
-                                  
-                                  
-            });   
-            
-            
-            
-            
-            /* Habilitar div's de acuerdo al seleccionado */
-            $("#btnVerDatos").css("display","none");
-            $("#divDatos").css("display","");
-            $("#btnVerFormulario").css("display","");
-            $("#divForm1").css("display","none");	
-            $("#divForm2").css("display","none");	
-            $("#grilla-usuarios").dataTable().fnDraw();         
-            
-         });           
         
-        /* Ocultar div de acuerdo a la necesidad */
-        function verDatos(){		
-		$("#btnVerDatos").css("display","none");
-		$("#divDatos").css("display","");
-		$("#btnVerFormulario").css("display","");
-		$("#divForm1").css("display","none");				
-                $("#divForm2").css("display","none");				
-	}
-
-	function verFormulario(){
-		$("#btnVerDatos").css("display","");
-		$("#divDatos").css("display","none");
-		$("#btnVerFormulario").css("display","none");
-		$("#divForm1").css("display","");		
-                
-	}                 
-                 
-        function buscar(){
-            jAlert("Sapo eres....!!!!","abc");
-            
-        }
-
-        function crear(fk){
-            alert(fk);
-            $("#btnVerDatos").css("display","");
-            $("#divDatos").css("display","none");
-            $("#btnVerFormulario").css("display","none");
-            $("#divForm1").css("display","none");				
-            $("#divForm2").css("display","");
-        }
-                 
-         function guardar(){              
-            var url="";
-            accion = $("#hdnaccion").val();           
-            id = $("#hdncodigo").val();
-            num = $("#txtnumacta").val();                        
-            nom = $("#cboacuicultor").val();
-            resol = $("#txtnresol").val();
-            fec = $("#txtfecha").val();             
-            obs = $("#txtobser").val();
-            
-            // validar campos vacios 
-            if (id == ""){
-                alert ("Código esta vacio");                
-                $("#hdnaccion").focus();    
-                return false;
-            }else if (num == ""){
-                alert ("Número de Acta de Reproducción esta vacio");                
-                $("#txtnumacta").focus();                
-                $("#txtnumacta").css('background','#F2F5A9');
-                return false;
-            }else if (nom == "0"){
-                alert ("Acuicultor es nulo");
-                $("#cboacuicultor").focus();                
-                $("#cboacuicultor").css('background','#F2F5A9');
-                return false;
-            }else if (resol == ""){
-                alert ("Número de resolución es vacio");
-                $("#txtnresol").focus();
-                $("#txtnresol").css('background','#F2F5A9');
-                return false;
-            }else if (fec == ""){
-                alert ("Fecha es nulo");
-                $("#txtfecha").focus();
-                $("#txtfecha").css('background','#F2F5A9');
-                return false;           
-            }else{
-                $("#txtnumacta").css('background','#ffffff');                
-                $("#cboacuicultor").css('background','#ffffff');                
-                $("#txtnresol").css('background','#ffffff');                
-                $("#txtfecha").css('background','#ffffff');                
-                $("#txtobser").css('background','#ffffff');
-            }
-                
-            // acción           
-            if (accion=="N"){
-                accion="N";
-                url = "{{path('guardar')}}";
-            }else if(accion=="U"){
-                accion="U"; 
-                url = "{{path('actualizar')}}";                
-            }
-            
-            //alert ('Acción: ' + accion + '\n Código: ' + id + '\n Observación: '+ obs + '\n url:' + url);
-                               
-            $.ajax({
-                type: "POST",
-                url: url, 
-                async: "true",                    
-                data: {accion:accion, id:id, num:num, nom:nom, resol:resol, fec:fec, obs:obs}
-                }).done(function(msg) {
-                    //$("#cboPerfil"+id).val("");                        
-                    //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
-                    alert (msg);                    
-            });               
-            $("#grilla-usuarios").dataTable().fnDraw();         
-            cancelar();
-            verDatos();
-         }         
-         
-        function editar(id,num,nom,resol,fec,obs){
-            $("#pnl_actarep").show();
-            $("#hdncodigo").val(id);                          
-            $("#txtnumacta").val(num);             
-            $("#cboacuicultor").val(nom);
-            $("#txtnresol").val(resol);
-            $("#txtfecha").val(fec);             
-            $("#txtobser").val(obs);             
-            $(".titulo_perfil").html("Editar Acta de Inspección de Reproducción de Paiche");
-            $("#pnl_opciones").hide();
-            $("#hdnaccion").val("U"); 
-            verFormulario();
-        }
-         
-        function cancelar(){
-            $(".titulo_perfil").html("Crear Acta de Inspección de Reproducción de Paiche");
-            $("#hdncodigo").val("");             
-            $("#txtnumacta").val("");
-            $("#txtacuicultor").val("");
-            $("#cboacuicultor").val("SELECCIONAR");
-            $("#txtfecha").val("");
-            $("#txtnresol").val("");
-            $("#txtobser").val("");             
-            $("#pnl_opciones").hide();
-            $("#hdnaccion").val("N");
-            $("#hdncodigo").val("0");  
-            verDatos();             
-        }
-         
-        function eliminar(id){
-            var xcodigo = 0;
-            $("#pnl_actarep").show();
-            $("#hdncodigo").val(id);              
-            $("#pnl_opciones").hide();
-            $("#hdnaccion").val("E");
-            $.ajax({
-                   type: "POST",
-                   url: "{{path('eliminar')}}",
-                   async: "true",
-                   //data: {accion:accion, idgrupo: idgrupo, descri: descri }
-                   data: {id:id}
-                   }).done(function(msg) {                        
-                       alert (msg);                                       
-                       //$("#cboPerfil"+id).val("");                        
-                       //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
-               });  
-            $("#grilla-usuarios").dataTable().fnDraw();         
-            cancelar();
-        } 
-        </script>           
-        
+        {% include 'DiacBundle::js/js.html.twig' %}
+       
 {% endblock%} 
 
 {%block panel1%}
@@ -341,7 +125,7 @@
                 </tr>
                 <tr>
                     <td align="right">N° de Acta: </td>                
-                    <td><input type="text" name="txtnumacta" id="txtnumacta" size="5"/></td>                                            
+                    <td><input type="text" name="txtnumacta" id="txtnumacta" size="10"/></td>                                            
                 </tr>
                 <tr>                    
                     <td align="right">Acuicultor: </td>
@@ -378,7 +162,8 @@
                     <td>&nbsp;</td>
                 </tr>
             </table>                    
-        </div>    
+        </div>   
+        
         <div id="divForm2" style="width: 50%; float: left; margin-left: 3%; padding-left: 3px; border: 1px solid #004163;">
             <input type="hidden" name="hdnaccion" id="hdnaccion" value="N" size="4"/>    
             <input type="hidden" name="hdncodigo" id="hdncodigo" value="0" size="4"/>
@@ -390,12 +175,16 @@
                 </tr>
                 <tr>
                     <td align="right">N° de Acta de Inspección y Levante: </td>                
-                    <td><input type="text" name="txtnumacta" id="txtnumacta" size="40"/></td>                                            
+                    <td><input type="text" name="txtnumacta" id="txtnumacta" size="10"/></td>                                            
                 </tr>
                 <tr>
                     <td align="right">N° de Acta de Inspección de Reproducción: </td>                
-                    <td><input type="text" name="txtnumacta0" id="txtnumacta0" size="40"/></td>                                            
+                    <td><input type="text" name="txtnumacta0" id="txtnumacta0" size="10"/></td>                                            
                 </tr>
+                <tr>
+                    <td align="right">Acui: </td>                
+                    <td><input type="text" name="txtAcui" id="txtAcui" size="10"/></td>                                            
+                </tr>                
                 <tr>                                        
                     <td align="right">N° de Alevinos: </td>
                     <td><input type="text" name="txtcantidad" id="txtcantidad" size="10"/></td>
@@ -407,14 +196,102 @@
                 <tr>                    
                     <td align="right">Destino: </td>
                     <td>
-                        <select id="cboacuicultor" name="cboacuicultor">                                    
+                        <select id="cbodestino" name="cbodestino" onchange="activartxt();">                                    
                             <option value="0" selected>SELECCIONAR</option>
                             <option value="1">ESTANQUE</option>
-                            <option value="2">ACUARIO</option>
-                            <option value="3">EXPORTACION</option>                            
+                            <option value="2">ACUARIO</option>                            
                         </select>
+                        <input type="text" name="txtdestino" id="txtdestino" size="30"/>
+                    </td>
+                </tr>                
+                <tr>                                        
+                    <td align="right">Fecha: </td>
+                    <td><input type="text" name="txtfecha" id="txtfecha" size="8"/></td>                                            
+                </tr>
+                <tr>                                        
+                    <td align="right">Observaciones: </td>
+                    <td><input type="text" name="txtobser" id="txtobser" size="60"/></td>                            
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <a class="button" href="javascript:;" onClick="guardar();"><span class="icon icon67"></span><span class="label">Guardar</span></a>
+                        <a class="button" href="javascript:;" onClick="cancelar();"><span class="icon icon188"></span><span class="label">Cancelar</span></a>
+                    </td>
+                </tr>                        
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>                    
+        </div>
+        
+        <div id="divForm3" style="width: 50%; float: left; margin-left: 3%; padding-left: 3px; border: 1px solid #004163;">
+            <input type="hidden" name="hdnaccion" id="hdnaccion" value="N" size="4"/>    
+            <input type="hidden" name="hdncodigo" id="hdncodigo" value="0" size="4"/>
+            <table width="100%" align="center">
+                <tr>
+                    <td colspan="2" style="background-color:#004163; height: 30px;">
+                        <p style="font-family:arial;color:#fff;font-size:13px;text-align:center;"><span class="titulo_perfil">Crear Certificado de Procedencia</span></p>
                     </td>
                 </tr>
+                <tr>
+                    <td align="right">N° de Certificado: </td>                
+                    <td><input type="text" name="txtcertificado" id="txtcertificado" size="5"/></td>                                            
+                </tr>
+                <tr>
+                    <td align="right">N° de Acta de Inspección: </td>                
+                    <td><input type="text" name="txtidf1" id="txtidf1" size="5"/></td>                                            
+                </tr>
+                <tr>
+                    <td align="right">N° de Acta de Verificación: </td>                
+                    <td><input type="text" name="txtidf2" id="txtidf2" size="5"/></td>                                            
+                </tr>
+                <tr>
+                    <td align="right">Nombre del Fundo: </td>                
+                    <td><input type="text" name="txtfundo" id="txtfundo" size="5"/></td>                                            
+                </tr>                
+                <tr>                                        
+                    <td align="right">N° de Peces: </td>
+                    <td><input type="text" name="txtnumpeces" id="txtnumpeces" size="10"/></td>
+                </tr>
+                <tr>                                        
+                    <td align="right">Talla promedio (cm): </td>
+                    <td><input type="text" name="txttalla" id="txttalla" size="10"/></td>
+                </tr>
+                <tr>                                        
+                    <td align="right">Kilos : </td>
+                    <td><input type="text" name="txtkilos" id="txtkilos" size="10"/></td>
+                </tr>
+                <tr>                                        
+                    <td align="right">Precio ( moneda ???): </td>
+                    <td><input type="text" name="txtprecio" id="txtprecio" size="10"/></td>
+                </tr>
+                <tr>                    
+                    <td align="right">Destino: </td>
+                    <td>
+                        <select id="cbodestino" name="cbodestino" onchange="activartxt();">                                    
+                            <option value="0" selected>SELECCIONAR</option>
+                            <option value="1">ESTANQUE</option>
+                            <option value="2">ACUARIO</option>                            
+                        </select>
+                        <input type="text" name="txtdestino" id="txtdestino" size="30"/>
+                    </td>
+                </tr>                
+                <tr>                    
+                    <td align="right">Estadio: </td>
+                    <td>
+                        <select id="cboestadio" name="cboestadio" onchange="activartxt();">                                    
+                            <option value="0" selected>SELECCIONAR</option>
+                            <option value="1">ALVINOS</option>
+                            <option value="2">JUVENILES</option>                            
+                            <option value="3">ADULTOS</option>                            
+                        </select>
+                        <input type="text" name="txtdestino" id="txtdestino" size="30"/>
+                    </td>
+                </tr>
+                
+                
                 <tr>                                        
                     <td align="right">Fecha: </td>
                     <td><input type="text" name="txtfecha" id="txtfecha" size="8"/></td>                                            
