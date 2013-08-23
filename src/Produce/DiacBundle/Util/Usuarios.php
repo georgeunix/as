@@ -26,7 +26,7 @@ class Usuarios {
     public function listaPerfiles($cn,$codTrabajador) {
         $sql = "select a.id_grupo, a.ID_DEPENDENCIA, a.descripcion, isnull(b.codigo_trabajador,0) as codigo
                 FROM DB_GENERAL.dbo.grupo a
-                Left join trabajador_grupo b on b.id_grupo = a.id_grupo and b.codigo_trabajador = ".$codTrabajador." 
+                Left join grupo_trabajador b on b.id_grupo = a.id_grupo and b.codigo_trabajador = ".$codTrabajador." 
                 where ID_DEPENDENCIA=22 and ID_APLICACION=1
                 ORDER BY a.descripcion";
         
@@ -47,7 +47,7 @@ class Usuarios {
     }
     
     public function ValidaCodGrupo($cn,$codTrabajador){
-        $sql = "select count(*) as hay from trabajador_grupo where codigo_trabajador=".$codTrabajador."";
+        $sql = "select count(*) as hay from grupo_trabajador where codigo_trabajador=".$codTrabajador."";
         $query = $cn->prepare($sql);
         $query->execute();
         $result_query = $query->fetchAll();
@@ -56,17 +56,17 @@ class Usuarios {
 
     public function GuardarPerfilUsuario($cn,$idgrupo,$codTrabajador,$accion) {
         if ($accion == "I"){
-            $sql = "insert into trabajador_grupo (id_grupo,codigo_trabajador,estado_trabajador_grupo)
+            $sql = "insert into grupo_trabajador (id_grupo,codigo_trabajador,estado_trabajador_grupo)
              values('".$idgrupo."',".$codTrabajador.",'1')";
         }elseif ($accion == "U"){
-            $sql = "update trabajador_grupo set id_grupo='".$idgrupo."' where codigo_trabajador=".$codTrabajador."";
+            $sql = "update grupo_trabajador set id_grupo='".$idgrupo."' where codigo_trabajador=".$codTrabajador."";
         } 
         $query = $cn->prepare($sql);
         $query->execute();
     }    
     
     public function EliminarPerfilUsuario($cn,$idgrupo,$codTrabajador) {
-        $sql = "delete from trabajador_grupo where id_grupo='".$idgrupo."' and codigo_trabajador=".$codTrabajador."";
+        $sql = "delete from grupo_trabajador where id_grupo='".$idgrupo."' and codigo_trabajador=".$codTrabajador."";
         $query = $cn->prepare($sql);
         $query->execute();
     }    

@@ -6,7 +6,7 @@ class consultas {
 
    function CodGrupo($cn,$codUsuario) {
         $sql = "select tg.id_grupo from db_general.jcardenas.h_trabajador h
-                inner join trabajador_grupo tg on tg.codigo_trabajador=h.CODIGO_TRABAJADOR
+                inner join grupo_trabajador tg on tg.codigo_trabajador=h.CODIGO_TRABAJADOR
                 where h.EMAIL='".$codUsuario."' ";
         $query = $cn->prepare($sql);//preparo consulta
         $query->execute();//ejecuto la consulta
@@ -16,8 +16,8 @@ class consultas {
 
     public function MenuNivel_1($cn,$codGrupo) {
         $sql = "SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
-	FROM main_menu nm
-	inner join grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+	FROM grupo_main_menu nm
+	inner join grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
 	WHERE nm.parent=0 and nm.nivel_menu=1 and nm.estado_menu=1 
 	and gm.id_grupo = '".$codGrupo."' ORDER BY nm.orden ASC";
         $query = $cn->prepare($sql);
@@ -29,8 +29,8 @@ class consultas {
     
     public function MenuNivel_2($cn,$codGrupo,$id_main_menu) {
         $sql = "SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
-          FROM main_menu nm
-          INNER JOIN grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
           WHERE nm.parent=".$id_main_menu." and nm.nivel_menu=2 and nm.estado_menu=1
 		and gm.id_grupo = '".$codGrupo."' ORDER BY nm.orden ASC";
         $query = $cn->prepare($sql);
@@ -42,8 +42,8 @@ class consultas {
     
     public function MenuNivel_3($cn,$codGrupo,$id_main_menu) {
         $sql = "SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
-                FROM main_menu nm
-                INNER JOIN grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
                 WHERE nm.parent=".$id_main_menu." and nm.nivel_menu=3 and nm.estado_menu=1
                 and gm.id_grupo = '".$codGrupo."' ORDER BY nm.orden ASC";
         $query = $cn->prepare($sql);
@@ -113,8 +113,7 @@ class consultas {
 
         Return $html_menu;
     }
-
-        
+    
     /*
     public static function listaCicloProyecto($cn,$usuario) {
         $sql = " select DAT.ID_DOCUMENTO_PROY AS CODIGO,CLA.DESCRIPCION AS TIPO_DE_DOCUMENTO,DAT.AUDITMOD as FECHA_CREACION,";
