@@ -225,7 +225,8 @@
                    //data: {accion:accion, idgrupo: idgrupo, descri: descri }
                    data: {id:id}
                    }).done(function(msg) {                        
-                       alert (msg);                                       
+                       //alert (msg);                                       
+                       jAlert("El documento N° "+id+" a sido eliminado","Eliminación de Documento");
                        //$("#cboPerfil"+id).val("");                        
                        //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
                });  
