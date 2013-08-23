@@ -42,7 +42,7 @@ class Perfiles {
    
    public function EliminarOpciones($cn,$idgrupo) {
         try{
-            $sql = "delete from grupo_main_menu where id_grupo = '".$idgrupo."'";
+            $sql = "delete from grupo_grupo_main_menu where id_grupo = '".$idgrupo."'";
             $query = $cn->prepare($sql);
             $query->execute();
             return $idgrupo;
@@ -54,7 +54,7 @@ class Perfiles {
    
    public function GuardarOpciones($cn,$idgrupo,$idmenu) {
         try{
-            $sql="INSERT INTO grupo_main_menu(id_main_menu,id_grupo,estado_grupo_main_menu) VALUES (".$idmenu.",'".$idgrupo."',1)";
+            $sql="INSERT INTO grupo_grupo_main_menu(id_main_menu,id_grupo,estado_grupo_main_menu) VALUES (".$idmenu.",'".$idgrupo."',1)";
             $query = $cn->prepare($sql);
             $query->execute();
             return $idgrupo;
@@ -120,7 +120,7 @@ class Perfiles {
 
         foreach ($menuNivel_1 as $value) {
                         
-            $qry_grupo1= "select * from grupo_main_menu where id_grupo = '".$codGrupo."'";
+            $qry_grupo1= "select * from grupo_grupo_main_menu where id_grupo = '".$codGrupo."'";
             $query = $cn->prepare($qry_grupo1);
             $query->execute();
             $rsgrup1 = $query->fetchAll();
@@ -148,7 +148,7 @@ class Perfiles {
                  
                 foreach ($menuNivel_2 as $value_2) { 
 
-                    $qry_grupo2= "select * from grupo_main_menu where id_grupo = '".$codGrupo."'";
+                    $qry_grupo2= "select * from grupo_grupo_main_menu where id_grupo = '".$codGrupo."'";
                     $query = $cn->prepare($qry_grupo2);
                     $query->execute();
                     $rsgrup2 = $query->fetchAll();
@@ -186,7 +186,7 @@ class Perfiles {
                                     $clase="NivelH367";
                             }
                         
-                            $qry_grupo3= "select * from grupo_main_menu where id_grupo = '".$codGrupo."'";
+                            $qry_grupo3= "select * from grupo_grupo_main_menu where id_grupo = '".$codGrupo."'";
                             $query = $cn->prepare($qry_grupo3);
                             $query->execute();
                             $rsgrup3 = $query->fetchAll();

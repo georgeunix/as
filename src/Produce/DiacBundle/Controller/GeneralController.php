@@ -25,7 +25,7 @@ class GeneralController extends Controller {
             $Provincias = $_provincias->devolverDepartamentos($DNA);
 
             $contenido = '';
-            $contenido.= '<option value="00">--Seleccione--</option>';
+            $contenido.= '<option value="0">--Seleccione--</option>';
             foreach ($Provincias as $value) {
                 $contenido.= '<option value="' . $value["CODIGO_DEPARTAMENTO"] . '">' . $value["DEPARTAMENTO"] . '</option>';
             }
@@ -51,7 +51,7 @@ class GeneralController extends Controller {
             $Provincias = $_provincias->devolverProvincias($DNA, $dep);
 
             $contenido = '';
-            $contenido.= '<option value="00">--Seleccione--</option>';
+            $contenido.= '<option value="0">--Seleccione--</option>';
             foreach ($Provincias as $value) {
                 $select = ($value["CODIGO_PROVINCIA"] == $prov) ? 'selected' : '';
                 $contenido.= '<option value="' . $value["CODIGO_PROVINCIA"] . '" ' . $select . '>' . $value["PROVINCIA"] . '</option>';
@@ -80,7 +80,7 @@ class GeneralController extends Controller {
             $Distritos = $_distritos->devolverDistritos($DNA, $dep, $prov);
 
             $contenido = '';
-            $contenido.= '<option value="00">--Seleccione--</option>';
+            $contenido.= '<option value="0">--Seleccione--</option>';
             foreach ($Distritos as $value) {
                 $select = ($value["CODIGO_DISTRITO"] == $dis) ? 'selected' : '';
                 $contenido.= '<option value="' . $value["CODIGO_DISTRITO"] . '" ' . $select . '>' . $value["DISTRITO"] . '</option>';

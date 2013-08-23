@@ -45,8 +45,18 @@ class MantenimientoController extends Controller {
             }
             $contenido.= '</select>';
             /* End Generated */
+            /* Generando el Combo de Grupo-Especie */
+            $_grupoespecie = $_especies->listGrupoEspecie($DNA);
 
-            $respuesta = array_merge($obj_session, array("menutotal" => $menutotal, 'especies' => $Especies, 'familia' => $contenido));
+            $grupoespecie = '<select name="cbogrupoespecie" id="cbogrupoespecie">';
+            $grupoespecie.= '<option value="">--Seleccione--</option>';
+            foreach ($_grupoespecie as $value) {
+                $grupoespecie.= '<option value="'. $value["ID"].'">' . $value["GRUPO"] . '</option>';
+            }
+            $grupoespecie.= '</select>';
+            /* End Generated */
+
+            $respuesta = array_merge($obj_session, array("menutotal" => $menutotal, 'especies' => $Especies, 'familia' => $contenido,'grupoespecie'=>$grupoespecie));
 
             return $this->render("DiacBundle:Mantenimiento:especies.html.twig", $respuesta);
         } else {
@@ -65,8 +75,8 @@ class MantenimientoController extends Controller {
                 $SSS = new ServerSide();
                 $SSS->setTable('vista_especies_familia');
                 $SSS->setIndexColumn('id');
-                $SSS->setColumns(array('id','especie','nombre_cientifico','familia',"'<a href='+CHAR(34)+'javascript:;'+CHAR(34)+' onclick='+CHAR(34)+'editar_especie('+CAST(id AS VARCHAR(50))+')'+CHAR(34)+'><span class='+CHAR(34)+'btn'+CHAR(34)+'><i class='+CHAR(34)+'cus cus-page-white-edit'+CHAR(34)+'></i></span></a><a href='+CHAR(34)+'javascript:;'+CHAR(34)+' onclick='+CHAR(34)+'eliminar_especie('+CAST(id AS VARCHAR(50))+')'+CHAR(34)+'><span class='+CHAR(34)+'btn'+CHAR(34)+'><i class='+CHAR(34)+'cus cus-cancel'+CHAR(34)+'></i></span></a>' AS PA"));                
-                $SSS->setColumnsName(array('id','especie','nombre_cientifico','familia',"PA"));
+                $SSS->setColumns(array('id','especie','nombre_cientifico','familia','nom_grupo_especie',"'<a href='+CHAR(34)+'javascript:;'+CHAR(34)+' onclick='+CHAR(34)+'editar_especie('+CAST(id AS VARCHAR(50))+')'+CHAR(34)+'><span class='+CHAR(34)+'btn'+CHAR(34)+'><i class='+CHAR(34)+'cus cus-page-white-edit'+CHAR(34)+'></i></span></a><a href='+CHAR(34)+'javascript:;'+CHAR(34)+' onclick='+CHAR(34)+'eliminar_especie('+CAST(id AS VARCHAR(50))+')'+CHAR(34)+'><span class='+CHAR(34)+'btn'+CHAR(34)+'><i class='+CHAR(34)+'cus cus-cancel'+CHAR(34)+'></i></span></a>' AS PA"));                
+                $SSS->setColumnsName(array('id','especie','nombre_cientifico','familia','nom_grupo_especie',"PA"));
                 $SSS->setColumnsSearch(array('especie'));
 
                 $data = $SSS->data($get, $DNA);
@@ -90,6 +100,7 @@ class MantenimientoController extends Controller {
             return new Response(json_encode($especie[0]));
         }
     }
+
     /**
      * @Route("/devolverEspeciexfamilia", name="devolverEspeciexfamilia")
      */
@@ -127,8 +138,9 @@ class MantenimientoController extends Controller {
             $cient = $request->request->get("cientifico");
             $fam = $request->request->get("familia");
             $user = $request->request->get("usuario");
-
-            $result = $_Especie->guardarEspecie($DNA, $esp, $cient, $fam, $user);
+            $grupoespecie = $request->request->get("grupoespecie");
+            
+            $result = $_Especie->guardarEspecie($DNA, $esp, $cient, $fam, $user,$grupoespecie);
 
             return new Response($result);
         }
@@ -149,8 +161,9 @@ class MantenimientoController extends Controller {
             $cient = $request->request->get("cientifico");
             $fam = $request->request->get("familia");
             $user = $request->request->get("usuario");
+            $grupoespecie = $request->request->get("grupoespecie");
 
-            $result = $_Especie->actualizarEspecie($DNA, $id, $esp, $cient, $fam, $user);
+            $result = $_Especie->actualizarEspecie($DNA, $id, $esp, $cient, $fam, $user,$grupoespecie);
 
             return new Response($result);
         }

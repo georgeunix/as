@@ -33,7 +33,7 @@ class Autorizacion {
     }
 
     public function buscarempresa($cn, $like) {
-        $sql = "select top 10 * from vw_listado_persona_diac where persona like'%$like%'";
+        $sql = "select  * from vw_listado_persona_diac where persona like'%$like%'";
         $query = $cn->prepare($sql);
         $query->execute();
         $result_query = $query->fetchAll();
