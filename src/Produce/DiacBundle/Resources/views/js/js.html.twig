@@ -180,19 +180,26 @@
                     //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
                     //alert (msg); 
                     
+                    
+                    
+                    
+                    
                     if (msg == 0){
                         if ( valor == 1 ){
-                            jAlert("El documento " + num + " ha sido registrado","ACTA DE INSPECCIÓN DE REPRODUCCIÓN DE PAICHE");
+                            jAlert("El documento " + num + " ha sido registrado","ACTA DE REPRODUCCIÓN");
                         }else if ( valor == 2 ){
-                            jAlert("El documento " + num + " ha sido modificado","ACTA DE INSPECCIÓN");
-                        }
+                            jAlert("El documento " + num + " ha sido modificado","ACTA DE REPRODUCCIÓN");
+                        }                    
                     }else if (msg == 1){
                         if ( valor == 1 ){
-                            jAlert("Error al registrar el documento " + num,"ACTA DE INSPECCIÓN DE REPRODUCCIÓN DE PAICHE");
+                            jAlert("Error al registrar el documento " + num,"ACTA DE REPRODUCCIÓN");
                         }else if ( valor == 2 ){
-                            jAlert("Error al actualizar el documento " + num,"ACTA DE INSPECCIÓN DE REPRODUCCIÓN DE PAICHE");
+                            jAlert("Error al actualizar el documento " + num,"ACTA DE REPRODUCCIÓN");
                         }                        
+                    }else {
+                        jAlert("El documento ya existe " + num,"ACTA DE REPRODUCCIÓN");                                              
                     }
+                    
             });               
             $("#grilla-usuarios").dataTable().fnDraw();         
             cancelar();

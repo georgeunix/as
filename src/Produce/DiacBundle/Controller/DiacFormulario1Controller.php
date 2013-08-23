@@ -130,8 +130,9 @@ class DiacFormulario1Controller extends Controller{
                 $nFecha = $request->request->get("fec");
                 $nObs = $request->request->get("obs");
                                 
-                $cites->ActaRep_Guardar($DNA,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);                    
-                return new Response("Registro grabado correctamente"); 
+                $x = $cites->ActaRep_Guardar($DNA,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);                    
+                //return new Response("Registro grabado correctamente"); 
+                return new Response ($x);
                 
             } else {
                 return new Response("");
@@ -162,9 +163,10 @@ class DiacFormulario1Controller extends Controller{
                 $nFecha = $request->request->get("fec");
                 $nObs = $request->request->get("obs");
                 
-                $cites->ActaRep_Actualizar($DNA,$nID,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);                    
+                $x = $cites->ActaRep_Actualizar($DNA,$nID,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);
+                return new Response($x);     
+                //return new Response("Registro actualizado correctamente");     
                 
-                return new Response("Registro actualizado correctamente");                                
             } else {
                 return new Response("");
             }
