@@ -33,6 +33,8 @@ class cites{
         $sql = "exec p_ACTAREPRODUCCION_DELETE '".$nID."'";        
         $query = $cn->prepare($sql);
         $query->execute();
+        $result = $query->fetchColumn();
+        return $result;        
     } 
     
     

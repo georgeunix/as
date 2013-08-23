@@ -188,9 +188,10 @@ class DiacFormulario1Controller extends Controller{
                                 
                 $nID = $request->request->get("id");
                 
-                $cites->ActaRep_Eliminar($DNA,$nID);                    
+                $x = $cites->ActaRep_Eliminar($DNA,$nID);                    
                 
-                return new Response($nID);
+                //return new Response($nID);
+                return new Response($x);
                 //return new Response("Registro eliminado correctamente");
                                 
             } else {
