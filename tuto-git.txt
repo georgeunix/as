@@ -67,7 +67,7 @@ git checkout nueva_rama
 
 **********************************
 fuente:http://git-scm.com/book/es/
-
+--
 
 
 
