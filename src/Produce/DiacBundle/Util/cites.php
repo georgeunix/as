@@ -8,7 +8,7 @@ class cites{
     /***************************************************************************/
     public function ActaRep_Listar($cn){        
         $sql = "SELECT 
-                    A.ID_ACTA_INS_REPRO, A.ID_ACUICULTOR, (SELECT B.NOM_ACUICULTOR FROM ACUICULTOR AS B WHERE B.ID_ACUICULTOR = A.ID_ACUICULTOR) AS NOM_ACUICULTOR, A.NUM_ACTA, CONVERT(VARCHAR(10),A.FECHA,111) AS FECHA, CONVERT(VARCHAR(10),A.HORA,108) AS HORA, A.ID_RESOLUCION, A.OBSERVACIONES 
+                    A.ID_ACTA_INS_REPRO, A.ID_ACUICULTOR, (SELECT B.NOM_ACUICULTOR FROM ACUICULTOR AS B WHERE B.ID_ACUICULTOR = A.ID_ACUICULTOR) AS NOM_ACUICULTOR, A.NUM_ACTA, CONVERT(VARCHAR(10),A.FECHA,111) AS FECHA, CONVERT(VARCHAR(10),A.HORA,108) AS HORA, A.NUM_RESOLUCION, A.OBSERVACIONES 
                 FROM 
                     acta_inspeccion_reproduccion as A";         
         $query = $cn->prepare($sql);
@@ -19,20 +19,26 @@ class cites{
     
     public function ActaRep_Guardar($cn,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs){                                    
         $sql = "exec p_ACTAREPRODUCCION_ADD '".$nActaRep."','".$Acuicultor."','".$nResol."','".$nFecha."','".$nObs."'";           
-        $query = $cn->prepare($sql);        
+        $query = $cn->prepare($sql);            
         $query->execute();
+        $result = $query->fetchColumn();
+        return $result;
     }    
     
     public function ActaRep_Actualizar($cn,$nID,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs){                                    
         $sql = "exec p_ACTAREPRODUCCION_UPDATE '".$nID."','".$nActaRep."','".$Acuicultor."','".$nResol."','".$nFecha."','".$nObs."'";           
         $query = $cn->prepare($sql);
         $query->execute();
+        $result = $query->fetchColumn();
+        return $result;
     }    
     
     public function ActaRep_Eliminar($cn,$nID){                          
         $sql = "exec p_ACTAREPRODUCCION_DELETE '".$nID."'";        
         $query = $cn->prepare($sql);
         $query->execute();
+        $result = $query->fetchColumn();
+        return $result;        
     } 
     
     

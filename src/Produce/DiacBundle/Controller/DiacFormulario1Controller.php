@@ -11,7 +11,7 @@ use Produce\DiacBundle\Util\Perfiles;
 use Produce\DiacBundle\Util\consultas;
 
 use Produce\DiacBundle\Util\cites;
-use Produce\DiacBundle\Util\Acuicultor;
+use Produce\DiacBundle\Util\tablascites;
 use Produce\DiacBundle\Util\ServerSide;
 
 
@@ -29,8 +29,8 @@ class DiacFormulario1Controller extends Controller{
                 $SSS = new ServerSide();
                 $SSS->setTable('vw_listado_actarep');
                 $SSS->setIndexColumn('ID_ACTA_INS_REPRO');
-                $SSS->setColumns(array('ID_ACTA_INS_REPRO','EDITAR','ELIMINAR','NUM_ACTA','NOM_ACUICULTOR','ID_RESOLUCION','FECHA','HORA','OBSERVACIONES','CREAR'));                
-                $SSS->setColumnsName(array('ID_ACTA_INS_REPRO','EDITAR','ELIMINAR','NUM_ACTA','NOM_ACUICULTOR','ID_RESOLUCION','FECHA','HORA','OBSERVACIONES','CREAR'));                
+                $SSS->setColumns(array('ID_ACTA_INS_REPRO','EDITAR','ELIMINAR','NUM_ACTA','NOM_ACUICULTOR','NUM_RESOLUCION','FECHA','HORA','OBSERVACIONES','CREAR'));                
+                $SSS->setColumnsName(array('ID_ACTA_INS_REPRO','EDITAR','ELIMINAR','NUM_ACTA','NOM_ACUICULTOR','NUM_RESOLUCION','FECHA','HORA','OBSERVACIONES','CREAR'));                
                 $SSS->setColumnsSearch(array('NOM_ACUICULTOR'));
                 $data = $SSS->data($get, $DNA);                
                 return new Response(json_encode($data));
@@ -55,8 +55,8 @@ class DiacFormulario1Controller extends Controller{
 
             $rsactarep = new cites();
             $xactarep = $rsactarep->ActaRep_Listar($DNA);
-
-            $rsacuicultor = new Acuicultor();
+                      
+            $rsacuicultor = new tablascites();
             $xacuicultor = $rsacuicultor->Acuicultor_Listar($DNA);
             
             $response = array(
@@ -66,8 +66,7 @@ class DiacFormulario1Controller extends Controller{
             );
             $respuesta = array_merge($obj_session, $response);
 
-            return $this->render("DiacBundle:diac:formulario1.html.twig", $respuesta);
-            //return $this->render("DiacBundle:diac:detalleform1.html.twig", $respuesta);
+            return $this->render("DiacBundle:diac:formulario1.html.twig", $respuesta);            
         } else {
             return $this->redirect($obj_session["redirect_page"]);
         }
@@ -76,6 +75,7 @@ class DiacFormulario1Controller extends Controller{
     /**
     * @Route("/actarep1", name="actarep1")
     */
+    /*
     public function ActaRep1DiacAction() {
         $session=new SessionManager();
         
@@ -91,8 +91,8 @@ class DiacFormulario1Controller extends Controller{
 
             $rsactarep = new cites();
             $xactarep = $rsactarep->ActaRep_Listar($DNA);
-
-            $rsacuicultor = new Acuicultor();
+            
+            $rsacuicultor = new tablascites();
             $xacuicultor = $rsacuicultor->Acuicultor_Listar($DNA);
             
             $response = array(
@@ -107,6 +107,7 @@ class DiacFormulario1Controller extends Controller{
             return $this->redirect($obj_session["redirect_page"]);
         }
     }
+    */
         
     /**
     * @Route("/guardar", name="guardar")
@@ -129,8 +130,9 @@ class DiacFormulario1Controller extends Controller{
                 $nFecha = $request->request->get("fec");
                 $nObs = $request->request->get("obs");
                                 
-                $cites->ActaRep_Guardar($DNA,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);                    
-                return new Response("Registro grabado correctamente"); 
+                $x = $cites->ActaRep_Guardar($DNA,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);                    
+                //return new Response("Registro grabado correctamente"); 
+                return new Response ($x);
                 
             } else {
                 return new Response("");
@@ -161,9 +163,10 @@ class DiacFormulario1Controller extends Controller{
                 $nFecha = $request->request->get("fec");
                 $nObs = $request->request->get("obs");
                 
-                $cites->ActaRep_Actualizar($DNA,$nID,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);                    
+                $x = $cites->ActaRep_Actualizar($DNA,$nID,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs);
+                return new Response($x);     
+                //return new Response("Registro actualizado correctamente");     
                 
-                return new Response("Registro actualizado correctamente");                                
             } else {
                 return new Response("");
             }
@@ -187,9 +190,10 @@ class DiacFormulario1Controller extends Controller{
                                 
                 $nID = $request->request->get("id");
                 
-                $cites->ActaRep_Eliminar($DNA,$nID);                    
+                $x = $cites->ActaRep_Eliminar($DNA,$nID);                    
                 
-                return new Response($nID);
+                //return new Response($nID);
+                return new Response($x);
                 //return new Response("Registro eliminado correctamente");
                                 
             } else {

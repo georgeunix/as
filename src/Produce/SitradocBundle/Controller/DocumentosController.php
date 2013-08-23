@@ -220,9 +220,9 @@ class DocumentosController extends Controller {
 
                 foreach ($listaParaFirmar as $value) {
 
-                    $path_open_doc 
-                            = $this->get('router')->generate('_abrirArchivo',array("codigo"=>$value["CODIGO"]));
-                    
+                    $path_open_doc
+                            = $this->get('router')->generate('_abrirArchivo', array("codigo" => $value["CODIGO"]));
+
                     $botones = "";
                     $botones .= "<span class='btn return-doc-proye' title='Retornar a estado en Proyecto' rel='" . $value["CODIGO"] . "' type='button' ><i class='cus cus-arrow-rotate-clockwise'></i></span>";
                     $botones .= "<a target='_blank' href='" . $path_open_doc . "'><span class='btn mostrarPDF' title='ver documento' rel='" . $value["CODIGO"] . "' type='button' ><i class='cus cus-page-white-acrobat'></i></span></a>";
@@ -359,8 +359,8 @@ class DocumentosController extends Controller {
                 $id_docu = $request->request->get("id_docu");
 
 //                $destino = 'c:/prueba';
-                $destino="/var/www/intranet/sharepointdocsproyecto";
-                
+                $destino = "/var/www/intranet/sharepointdocsproyecto";
+
                 $uploadedFile->move($destino, "$id_docu." . $uploadedFile->guessExtension());
 
                 $consulta = new consultas();
@@ -385,8 +385,8 @@ class DocumentosController extends Controller {
         $session = new SessionManager();
         $obj_session = $session->valida_session($this);
         $response = $obj_session["response"];
-      //  $destino = 'c:\prueba';
-        $destino="/var/www/intranet/sharepointdocsproyecto";
+        //  $destino = 'c:\prueba';
+        $destino = "/var/www/intranet/sharepointdocsproyecto";
 
         if ($response == true) {
             return new Response(readfile($destino . '/' . $codigo . '.pdf'), 200, array('Content-Type' => 'application/pdf'));
@@ -394,6 +394,159 @@ class DocumentosController extends Controller {
 
             return new Response("vuelva a iniciar sesion.");
         }
+    }
+
+    /**
+     * @Route("/prueba_grilla", name="_prueba")
+     */
+    public function pruebagridAction(Request $request) {
+
+
+        $page = $request->request->get("page");  // Almacena el numero de pagina actual
+        $limit = $request->request->get("rows"); // Almacena el numero de filas que se van a mostrar por pagina
+        $sidx = $request->request->get("sidx");  // Almacena el indice por el cual se hará la ordenación de los datos
+        $sord = $request->request->get("sord");  // Almacena el modo de ordenación
+
+
+        if (!$sidx)
+            $sidx = 1;
+
+
+
+        $DB_TRAMITE_DOCUMENTARIO = $this->getDoctrine()->getConnection("DB_TRAMITE_DOCUMENTARIO");
+
+        $sql_count = "select count(DAT.ID_DOCUMENTO_PROY) as cantidad";
+        $sql_count .= " from DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
+        $sql_count .=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO where CIC.ID_CICLOFIRMA=1";
+        $sql_count .=" AND   USUARIO=  'lsantos'";
+
+        $qCount = $DB_TRAMITE_DOCUMENTARIO->prepare($sql_count);
+        $qCount->execute();
+
+        // Se obtiene el resultado de la consulta
+        $count = trim($qCount->fetchColumn());
+
+        //En base al numero de registros se obtiene el numero de paginas
+        if ($count > 0) {
+            $total_pages = ceil($count / $limit);
+        } else {
+            $total_pages = 0;
+        }
+        if ($page > $total_pages)
+            $page = $total_pages;
+
+        //Almacena numero de registro donde se va a empezar a recuperar los registros para la pagina
+        $start = $limit * $page - $limit;
+
+
+        $sql = "DAT.ID_DOCUMENTO_PROY AS CODIGO,CLA.DESCRIPCION AS TIPO_DE_DOCUMENTO,convert(char(10), DAT.AUDITMOD, 103) as FECHA_CREACION,";
+        $sql.=" CIC.DESCRIPCION AS CICLO,DAT.INDICATIVO_OFICIO AS INDICATIVO_DEL_DOCUMENTO, DAT.ASUNTO AS ASUNTO, DAT.USUARIO AS USUARIO";
+        $sql.=" from DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
+        $sql.=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO where CIC.ID_CICLOFIRMA=1";
+        $sql.=" AND   USUARIO=  'lsantos'";
+
+        $order_by = " order by convert(DATETIME, DAT.AUDITMOD, 103) $sord";
+
+        $sql_no_incluye = " SELECT TOP $start DAT.ID_DOCUMENTO_PROY ";
+        $sql_no_incluye.=" FROM DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
+        $sql_no_incluye.=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO where CIC.ID_CICLOFIRMA=1";
+        $sql_no_incluye.=" AND   USUARIO=  'lsantos' order by convert(DATETIME, DAT.AUDITMOD, 103) $sord";
+
+        $new_sql = "SELECT TOP $limit $sql AND DAT.ID_DOCUMENTO_PROY NOT IN ($sql_no_incluye) $order_by";
+
+
+        $query = $DB_TRAMITE_DOCUMENTARIO->prepare($new_sql);
+        $query->execute();
+
+//        Consulta que devuelve los registros de una sola pagina    
+        $result = $query->fetchAll();
+
+
+// Se agregan los datos de la respuesta del servidor
+        $respuesta = (object) '';
+
+        $respuesta->page = $page;
+        $respuesta->total = $total_pages;
+        $respuesta->records = $count;
+        $i = 0;
+
+        foreach ($result as $fila) {
+            $respuesta->rows[$i]['id'] = $fila["CODIGO"];
+            $celdas = array($fila["CODIGO"], $fila["TIPO_DE_DOCUMENTO"], $fila["FECHA_CREACION"], $fila["CICLO"], $fila["INDICATIVO_DEL_DOCUMENTO"], $fila["ASUNTO"], $fila["USUARIO"]);
+            $respuesta->rows[$i]['cell'] = $celdas;
+            $i++;
+        }
+
+        $rs = new Response();
+        $rs->setContent(json_encode($respuesta));
+//        $rs->setContent($new_sql);
+
+
+        return $rs;
+    }
+
+    /**
+     * @Route("/prob", name="_prob")
+     */
+    public function probAction() {
+        return $this->render("SitradocBundle::prueba.html.twig");
+    }
+
+    /**
+     * @Route("/me", name="_me")
+     */
+    public function meAction() {
+
+        $num_rows = 30;
+        $page = "";  // Almacena el numero de pagina actual
+        $limit = 10; // Almacena el numero de filas que se van a mostrar por pagina
+        $sidx = "convert(DATETIME, DAT.AUDITMOD, 103)";  // Almacena el indice por el cual se hará la ordenación de los datos
+        $sord = "desc";  // Almacena el modo de ordenación
+
+
+
+
+
+        $sql_select = "select DAT.ID_DOCUMENTO_PROY,CLA.DESCRIPCION,convert(char(10), DAT.AUDITMOD, 103),";
+        $sql_select.=" CIC.DESCRIPCION,DAT.INDICATIVO_OFICIO, DAT.ASUNTO, DAT.USUARIO";
+        $sql_select.=" FROM DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
+        $sql_select.=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO";
+
+        $sql_where = "CIC.ID_CICLOFIRMA=1 AND   USUARIO=  'lsantos'";
+//        $sql_where = "";
+
+        $sql_where = trim($sql_where) == "" ? "" : "where $sql_where";
+
+        $order_by = trim($sidx) == "" ? "" : "order by $sidx $sord";
+//        $order_by = "";
+
+
+        $sql_select = trim($sql_select);
+
+        $sql_no_select = substr(trim($sql_select), 6, strlen($sql_select));
+
+        $sql_colums = "SELECT TOP $limit $sql_no_select";
+
+        $sql_not_in = "";
+
+        if ($sql_where != "") {
+
+            //ULTIMO "FROM" DE LA CONSULTA
+            $array_from_cad = explode("FROM", $sql_no_select);
+            $from_cade = $array_from_cad[count($array_from_cad) - 1];
+
+            //1er DATO A MOSTRAR DE LA CONSULTA
+            $array_prim_dato = explode(",", $sql_no_select);
+            $prim_dato = $array_prim_dato[0];
+
+
+            $sql_not_in = "AND $prim_dato NOT IN (SELECT TOP 0 $prim_dato FROM $from_cade $sql_where $order_by)";
+        }
+
+        $sql_result = "$sql_colums $sql_where $sql_not_in $order_by";
+
+
+        return new Response($sql_result);
     }
 
 }
