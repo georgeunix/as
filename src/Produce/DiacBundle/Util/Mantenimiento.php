@@ -12,6 +12,14 @@ class Mantenimiento {
 
         return $result_query;
     }
+     public function listGrupoEspecie($cn) {
+        $sql = "select COD_GRUPO_ESPECIE as ID, NOM_GRUPO_ESPECIE AS GRUPO from dbo.GRUPO_ESPECIE";
+        $query = $cn->prepare($sql);
+        $query->execute();
+        $result_query = $query->fetchAll();
+
+        return $result_query;
+    }
     public function listEspecies($cn) {
         $sql = "select * from vista_especies_familia";
         $query = $cn->prepare($sql);
@@ -37,8 +45,8 @@ class Mantenimiento {
         return $result_query;
     }
 
-    public function guardarEspecie($cn, $nom, $cient, $fam, $user) {
-        $sql = "exec sp_ingresar_especie $fam,'$nom','$cient','$user'";
+    public function guardarEspecie($cn, $nom, $cient, $fam, $user,$grupoespecie) {
+        $sql = "exec sp_ingresar_especie $fam,'$nom','$cient','$user',$grupoespecie";
         $query = $cn->prepare($sql);
         if ($query->execute()) {
             return 1;
@@ -47,8 +55,8 @@ class Mantenimiento {
         }
     }
 
-    public function actualizarEspecie($cn, $id, $nom, $cient, $fam, $user) {
-        $sql = "exec sp_actualizar_especie $fam,'$nom','$cient','$user',$id";
+    public function actualizarEspecie($cn, $id, $nom, $cient, $fam, $user,$grupoespecie) {
+        $sql = "exec sp_actualizar_especie $fam,'$nom','$cient','$user',$id,$grupoespecie";
         $query = $cn->prepare($sql);
         if ($query->execute()) {
             return 1;
