@@ -3,7 +3,7 @@ git init
 
 
 //para remotear un repositorio existente ya creado con git init
-git remote add origin lsantos@172.16.210.200:/opt/framework
+git remote add origin nombre_de_usuario@172.16.210.200:/opt/framework
 
 
 //para clonar repositorio
@@ -67,7 +67,7 @@ git checkout nueva_rama
 
 **********************************
 fuente:http://git-scm.com/book/es/
-
+-xxxxxx-
 
 
 

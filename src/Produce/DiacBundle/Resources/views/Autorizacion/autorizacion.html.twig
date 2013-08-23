@@ -19,28 +19,43 @@
             font-weight: bold;
         }
         #tabs{height: 650px;font-size: 12px}
+        
         #tabs-table-1{ width: 90%;border: 0px solid;border-spacing: 2px }
         #tabs-table-1 input{ height: 20px}
         #tabs-table-1 td{ border: 1px solid #ffffff;padding: 5px}
         #tabs-table-1 select{ width: 150px;height: 25px}
+        
         #tabs-table-3{width: 400px}
+        #tabs-table-3 select{ width: 150px;height: 25px}
+        
+        /*scrollbar*/
+        #especies-list{}
+        #especies-list tbody{overflow:auto;}         
+        #especies-list tbody td{width: 100px;}                 
        
         /*css table tabs especies*/
-        label{ display:block; }
+        
         input.text { margin-bottom:12px; width:95%; padding: .4em; }
         fieldset { padding:0; border:0; margin-top:25px; }
         h1 { font-size: 1.2em; margin: .6em 0; }
+        
         div#especies-contain { width: 350px; margin: 20px 0; }
         div#especies-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
         div#especies-contain table td, div#especies-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
         .ui-dialog .ui-state-error { padding: .3em; }
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
         /*end css table tabs especies*/
-        /*scrollbar*/
-        #content{margin:0px 0 0px 0px; width:350px; height:200px; padding:10px 5px; overflow:auto;}
-        #content img{max-width:100%; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; box-sizing:border-box; padding:4px; border:solid 1px #666;}
-        .content_3{height:220px; border:1px dashed #26beff; padding:0 10px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px;}
-        .content_3 p:nth-child(3n+0){color:#26beff;}
+        
+        /*start tabs-4*/
+        #table-add-resdicapi{}
+        #table-add-resdicapi input{text-transform: uppercase;height: 20px}
+        #resolucion-dicapi-list tbody td{width: 100px;text-transform: uppercase;}
+        
+        /*end tabs-4*/
+        
+        
+        
+
         /**/
 
     </style>
@@ -118,11 +133,11 @@
                       $("#dialogEmpresa").html(msg);
                 });    
             }
-            function verDialogAnexo(){                      
+            function verDialogAnexo(codsucursal){                   
                 $.ajax({
                   url:"{{path('anexoDialog')}}",
                   type:"post",
-                  data:{}
+                  data:{codsucursal:codsucursal}
                 }).done(function(msg){                          
                       $("#dialogAnexo").dialog("open");
                       $("#dialogAnexo").html(msg);
@@ -138,15 +153,41 @@
                       $("#dialogMapaAcuicola").html(msg);
                 });    
             }
-            function quitar_especie(id_remove){
+            var myspecies = new Array();
+            var myspeciesgrupo = new Array();
+            var key=0;
+            
+            function quitar_especie(id_remove,id_grupo){                                                                   
 
                 $("#"+id_remove+"").remove();
                 myspecies.splice(id_remove);
+                
+                if(myspeciesgrupo[id_grupo]==1){
+                    myspeciesgrupo[id_grupo]=0;
+                     $("#grupo_"+id_grupo+"").remove();
+                     //myspeciesgrupo.splice(id_grupo,1);
+                }
+                else{
+                   myspeciesgrupo[id_grupo]=myspeciesgrupo[id_grupo]-1; 
+                }
+                if($('input[name="itemsEspecies[]"]').length>1){
+                    
+                    
+                    $("#radpolicultivo").attr('checked', true); 
+                    
+                 }else if($('input[name="itemsEspecies[]"]').length==1){
+                    
+                    $("#radmonocultivo").attr('checked', true); 
+                    
+                 }else{
+                     $("#radpolicultivo").attr('checked', false);
+                     $("#radmonocultivo").attr('checked', false); 
+                 }
+                
             }
             
-            var myspecies = new Array();
-            var key=0;
-            function agregar_especie(){                   
+            function agregar_especie(){  
+                
                 for (i=0;i<myspecies.length;i++){
                      if(myspecies[i]==$("#cboespecie").val()){
                          alert('Ya ingreso la especie selccionada');
@@ -164,15 +205,113 @@
                       alert(msg);
                       return false;
                   }
+                 key_grupo=$("#txtgrupoespecieid").val(); 
+                 
                  html='<tr id='+key+'>'+
                          '<td>'+$("#cboespecie option[value='"+$("#cboespecie").val()+"']").text()+'</td>'+
                          '<td>'+$("#cbofamilia option[value='"+$("#cbofamilia").val()+"']").text()+'</td>'+
-                         '<td style="margin-left:auto;margin-right:auto"><a href="javascript:;" onclick="quitar_especie('+key+')"><input type="button" class="icono cus-cross-gray"></a>'+
-                       '</tr>'+
-                       '<input type="text" name="itemsEspecies[]" id="indice_'+$("#cboespecie").val()+'"  value="'+$("#cboespecie").val()+'">';
-                 $("#especies_list tbody").append(html);
+                         '<td style=""><a href="javascript:;" onclick="quitar_especie('+key+','+key_grupo+')"><span class="btn"><i class="cus cus-delete"></i></span></a>'+
+                         '<input type="hidden" name="itemsEspecies[]" id="indice_'+$("#cboespecie").val()+'"  value="'+$("#cboespecie").val()+'"></td>'+     
+                       '</tr>';
+                 $("#especies-list tbody").append(html);
+                 
                  myspecies[key]=$("#cboespecie").val();
                  key=key+1;
+                 
+                 /*Grupo Familia*/
+                
+                 if($("#txtgrupoespecieid").val()!=''){
+                    if(!myspeciesgrupo[$("#txtgrupoespecieid").val()] || myspeciesgrupo[$("#txtgrupoespecieid").val()]==0){
+                        myspeciesgrupo[$("#txtgrupoespecieid").val()]=1;  
+
+                        htmlgrupo='<tr id=grupo_'+$("#txtgrupoespecieid").val()+'><td colspan="2">'+$("#txtgrupoespecie").val()+'</td></tr>';                   
+                        $("#especies-grupo").append(htmlgrupo);
+                    }else{
+                        myspeciesgrupo[$("#txtgrupoespecieid").val()]=myspeciesgrupo[$("#txtgrupoespecieid").val()]+1;
+                    } 
+                       
+                  }   
+                 if($('input[name="itemsEspecies[]"]').length>1){
+                    
+                    
+                    $("#radpolicultivo").attr('checked', true); 
+                    
+                 }else if($('input[name="itemsEspecies[]"]').length==1){
+                    
+                    $("#radmonocultivo").attr('checked', true); 
+                    
+                 }else{
+                     $("#radpolicultivo").attr('checked', false);
+                     $("#radmonocultivo").attr('checked', false); 
+                 }
+             }
+             
+             function agregar_resolucion_dicapi(){
+                
+                msg="";
+                fechavigencia=$("#txtfecvigenciaresdicapi").val();
+                if($("#txtresoluciondicapi").val()==''){                    
+                  msg+="- Ingrese Número de Resolución\n";  
+                }
+                if($("#txtfecemisionresdicapi").val()==''){                    
+                  msg+="- Ingrese Fecha de Emisión\n";  
+                }
+                if(!$('#chksinvigenciadicapi').is(':checked') ){
+                   if($("#txtfecvigenciaresdicapi").val()==''){                    
+                        msg+="- Ingrese Fecha de Vigencia \n";  
+                   } 
+                }else{fechavigencia='';}
+
+                if(msg!=''){
+                    alert(msg);
+                    return false;
+                }
+
+                html_res_dicapi='<tr>'+
+                                '<td style="width: 400px;">'+$("#txtresoluciondicapi").val()+'<input type="hidden" name="res_dicapi[]" value="'+$("#txtresoluciondicapi").val()+'"></td>'+
+                                '<td style="width: 100px;">'+$("#txtfecemisionresdicapi").val()+'</td>'+
+                                '<td style="width: 100px;">'+fechavigencia+'</td>'+
+                                '</tr>';
+                $("#resolucion-dicapi-list tbody").append(html_res_dicapi);
+                    
+             }
+             
+             function agregar_pth_sanitario(){
+                
+                msg="";
+                fechavigencia=$("#txtfecvigenciapth").val();
+                
+                if($("#txtpthsanitario").val()==''){                    
+                  msg+="- Ingrese Número PTH Sanitario\n";  
+                }
+                if($("#txtfecemisionpth").val()==''){                    
+                  msg+="- Ingrese Fecha de Emisión\n";  
+                }
+                if(!$('#raddigesa').is(':checked')){
+                    if(!$('#chkvigenciapth').is(':checked') ){
+                       if($("#txtfecvigenciapth").val()==''){                    
+                            msg+="- Ingrese Fecha de Vigencia \n";  
+                       } 
+                    }else{fechavigencia='';}
+                }else{fechavigencia='';}
+                if($("#txtareaobservacionpth").val()==''){                    
+                  msg+="- Ingrese Observación\n";  
+                }
+                
+                if(msg!=''){
+                    alert(msg);
+                    return false;
+                }
+                
+                html_pth_sanitario='<tr>'+
+                                '<td style="width: 50px;">'+1+'</td>'+
+                                '<td style="width: 150px;">'+$("#txtpthsanitario").val()+'</td>'+
+                                '<td style="width: 100px;">'+$("#txtfecemisionpth").val()+'</td>'+
+                                '<td style="width: 100px;">'+fechavigencia+'</td>'+
+                                '<td style="width: 200px;">'+$("#txtareaobservacionpth").val()+'</td>'+
+                                '</tr>';
+                $("#pth-sanitario-list tbody").append(html_pth_sanitario);
+                
              }
 
             </script>
@@ -186,12 +325,29 @@
                     /*-- start tabs*/
                         $( "#tabs" ).tabs();
                     /*end tabs*/
+                    /*start scroll bar*/
+                    
+                    /* end scroll*/
                 
                     /*start datepicker*/
                         $( "#txtfecemisiontab1" ).datepicker();
                         $( "#txtfecemisiontab1" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
                         $( "#txtfvigenciatab1" ).datepicker();
                         $( "#txtfvigenciatab1" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        /*tabs-4*/
+                        $( "#txtfecemisionresdicapi" ).datepicker();
+                        $( "#txtfecemisionresdicapi" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        $( "#txtfecvigenciaresdicapi" ).datepicker();
+                        $( "#txtfecvigenciaresdicapi" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        /*end tabs-4*/
+                        /*tabs-5*/
+                        $( "#txtfecemisionpth" ).datepicker();
+                        $( "#txtfecemisionpth" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        $( "#txtfecvigenciapth" ).datepicker();
+                        $( "#txtfecvigenciapth" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        /*end tabs-4*/
+                        
+                        
                     /*end datpicker*/
                     
                     /*start eventos auto*/
@@ -231,16 +387,14 @@
                              $.post('{{path('devolverRecursosxTipo')}}',{cod_tipo_recurso:$("#sltiporecurso").val()},function(datahtml){
                                 $("#slrecursosxtipo").html(datahtml);
                              });
-                        });
-                        
-                        
+                        });                          
                     
                     /*end ubigeo*/
                     /*start dialog*/                        
                             $("#dialogRecursoh").dialog({/*Dialog Anexo*/
                                 autoOpen:false,
-                                width:"80%",
-                                height:"800",
+                                width:"70%",
+                                height:"650",
                                 modal:true,
                                 resizable: false,
                                 show: {
@@ -253,7 +407,7 @@
                                 },
                                 close:function(){$(this).html("");},
                                 buttons:{
-                                        Aceptar:function(){$(this).dialog("close")}
+                                       // Aceptar:function(){$(this).dialog("close")}
                                 }
                             });
                              $("#dialogDicapi").dialog({/*Dialog Dicapi*/
@@ -316,7 +470,7 @@
                              $("#dialogAnexo").dialog({/*Dialog Anexo*/
                                 autoOpen:false,
                                 width:"60%",
-                                height:"450",
+                                height:"550",
                                 modal:true,
                                 resizable: false,
                                 show: {
@@ -339,19 +493,22 @@
                         /*Listado de especies por familia*/
                         $("#cbofamilia").change(function (){                  
                              $.post('{{path('devolverEspeciexfamilia')}}',{id:$("#cbofamilia").val()},function(datahtml){
-                             $("#cboespecie").html(datahtml);     
+                             $("#cboespecie").html(datahtml);
+                             
+                                $("#txtnomcientifico").val('');
+                                $("#txtgrupoespecie").val('');
+                                $("#txtgrupoespecieid").val('');
                           });          
                         });
                         
-                        $("#chkvigencia").click(function (){  
-                              if($('#chkvigencia').is(':checked') ){
-                                   $("#lblfecvigencia").hide();
-                                   $("#txtfecvigencia").hide();
-                              }else{
-                                  $("#lblfecvigencia").show();
-                                  $("#txtfecvigencia").show();
-                              }
-                         });
+                        $("#cboespecie").change(function (){                  
+                             $.post('{{path('devolverEspecie')}}',{id:$("#cboespecie").val()},function(data){
+                                     $("#txtnomcientifico").val(data.nombre_cientifico);
+                                     $("#txtgrupoespecie").val(data.nom_grupo_especie);
+                                     $("#txtgrupoespecieid").val(data.cod_grupo_especie);
+                             },'json');          
+                        });
+                                                
                         $("#raddigesa,#raditp").click(function (){
                             if($('input[name=raddigitp]:checked').val()=='digesa'){
                                 $("#lblfecvigenciatab5").hide();
@@ -361,6 +518,50 @@
                                 $("#txtfecvigenciatab5").show();
                             }
                         });
+                        
+                        /*start tabs-4*/
+                            
+                            $("#chksinvigenciadicapi").click(function (){  
+                                if($('#chksinvigenciadicapi').is(':checked') ){
+                                     $("#lblfecvigencia").hide();
+                                     $("#txtfecvigenciaresdicapi").hide();
+                                }else{
+                                    $("#lblfecvigencia").show();
+                                    $("#txtfecvigenciaresdicapi").show();
+                                }
+                            });
+                            
+                        /*end tabs-4*/
+                        
+                        /*start tabs-5*/
+                        $( "input" ).on( "click", function() {
+                            
+                             if($( "input:checked" ).val()=='digesa'){
+                                 $("#lblfecvigenciapth").hide();
+                                 $("#txtfecvigenciapth").hide();
+                                 $("#comtenedor-check-fech-vigencia").hide();
+                                 $("#chkvigenciapth").attr('checked', false);
+                                 
+                             }
+                             if($( "input:checked" ).val()=='itp' || $( "input:checked" ).val()=='sanipes' ){
+                                 $("#lblfecvigenciapth").show();
+                                 $("#txtfecvigenciapth").show();
+                                 $("#comtenedor-check-fech-vigencia").show();
+                             }
+                        });
+                        $("#chkvigenciapth").click(function (){  
+                                if($('#chkvigenciapth').is(':checked') ){
+                                     $("#lblfecvigenciapth").hide();
+                                     $("#txtfecvigenciapth").hide();
+                                }else{
+                                    $("#lblfecvigenciapth").show();
+                                    $("#txtfecvigenciapth").show();
+                                }
+                         });
+                            
+                        /*end tabs-5*/
+                        
+                        
                     /*end eventos jquery tabs-3*/
                   
                 });
@@ -381,9 +582,9 @@
                                 <li><a href="#tabs-1">Datos de Autorización/Concesión</a></li>
                                 <li><a href="#tabs-2">Coordenadas</a></li>
                                 <li><a href="#tabs-3">Especies</a></li>
-                                <li><a href="#tabs-4">Resolución Dicapi</a></li>
-                                <li><a href="#tabs-5">Resolución Digesa/ITP</a></li>
-                                <li><a href="#tabs-6">DIA/EIA</a></li>
+                                <li><a href="#tabs-4">Derecho de Uso  de DICAPI</a></li>
+                                <li><a href="#tabs-5">Certificación Sanitaria</a></li>
+                                <li><a href="#tabs-6">Certificación Ambiental</a></li>
                             </ul>
                             <div id="tabs-1">
 
@@ -463,7 +664,7 @@
                                         <td colspan="2"></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4"><a class="button" href="javascript:;" onClick="verDialogAnexo()"><span class="icon icon68"></span><span class="label">Modificatorias</span></a>
+                                        <td colspan="4"><a class="button" href="javascript:;" onClick="verDialogAnexo(419)"><span class="icon icon68"></span><span class="label">Modificatorias</span></a>
                                             <a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Ver RD</span></a>
                                             <a class="button" href="javascript:;" onClick=""><span class="icon icon92"></span><span class="label">Anexar RD</span></a></td>
                                         <td colspan="2"></td>
@@ -474,33 +675,46 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </div>
+                            </div><!--End tabs-1-->
 
                             <div id="tabs-2">
 
-                            </div>
+                            </div><!--End tabs-2-->
 
                             <div id="tabs-3">
 
                                 <div style="width: 85%;"> 
                                     <div id="especies-contain" class="ui-widget" style="float: left">                                   
-                                        <div class="content_3" id="content"><!--The Scrollbar-->
-                                            <table id="especies_list" class="ui-widget ui-widget-content">
-                                                <thead>
-                                                    <tr class="ui-widget-header ">
-                                                        <th>Especie</th>
-                                                        <th>Familia</th>
-                                                        <th>Acción</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
+                                        <div style="border: 1px solid #000; width: 400px">
+                                                <table class="ui-widget ui-widget-content" style="width: 400px;" cellpadding="0" cellspacing="0">
+                                                    <thead>
+                                                        <tr class="ui-widget-header ">
+                                                            <th style="width: 100px">Especie</th>
+                                                            <th style="width: 100px">Familia</th>
+                                                            <th style="width: 100px">Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <div style="overflow: auto;height: 200px; width: 400px;">
+                                                    <table id="especies-list" class="ui-widget ui-widget-content" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div> 
+                                             </div>
+                                            <table  style="width:400px ">
+                                                <tr>
+                                                    <td><input type="radio" name="radcultivo" id="radmonocultivo"> MONOCULTIVO</td>
+                                                    <td><input type="radio" name="radcultivo" id="radpolicultivo"> POLICULTIVO</td>
+                                                </tr>
+                                                <tr><td colspan="2" style="text-align: center"> AGRUPACIÓN DE ESPECIES</td></tr>
+                                                <tbody id="especies-grupo">
+                                                </tbody> 
                                             </table>
-                                        </div><!--End Scrollbar-->
+    
                                     </div>                                
-                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px;margin-top: 30px">   
-                                        <table id="tabs-table-3" class="ui-widget ui-widget-content">
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px;margin-top: 20px">   
+                                        <table id="tabs-table-3" class="ui-widget ">
                                             <thead>
                                                 <tr class="ui-widget-header ">
                                                     <th style="text-align: center" colspan="3">Seleccionar Especie</th>
@@ -516,8 +730,17 @@
                                                     <td><select name="cboespecie" id="cboespecie"><option value="0">--Seleccione--</option></select></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><a class="button" href="javascript:;" onClick="agregar_especie()"><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
-                                                    <td><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                    <td>Nombre Cientifico:</td>
+                                                    <td><input type="text" id="txtnomcientifico" size="25" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Grupo de Especie:</td>
+                                                    <td><input type="text" id="txtgrupoespecie" size="25" readonly>
+                                                        <input type="hidden" id="txtgrupoespecieid" readonly></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2"><a class="button" href="javascript:;" onClick="agregar_especie()"><span class="icon icon67"></span><span class="label">Agregar</span></a>
+                                                    <a class="button" href="javascript:;" onClick=""><span class="icon icon68"></span><span class="label">Nuevo</span></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -529,23 +752,26 @@
 
                                 <div style="width: 85%;"> 
                                     <div id="especies-contain" class="ui-widget" style="float: left">                                   
-                                        <div class="content_3" id="content"><!--The Scrollbar-->
-                                            <table id="resdicapi_list" class="ui-widget ui-widget-content">
-                                                <thead>
-                                                    <tr class="ui-widget-header ">
-                                                        <th>RESOLUCIÓN</th>
-                                                        <th>FECHA EMISIÓN</th>
-                                                        <th>FECHA VIGENCIA</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div><!--End Scrollbar-->
+                                        <div style="border: 1px solid #000; width: 600px"><!--Border Scrol Bar-->
+                                                <table class="ui-widget ui-widget-content" style="width: 600px;" cellpadding="0" cellspacing="0">
+                                                    <thead>
+                                                        <tr class="ui-widget-header ">
+                                                            <th style="width: 400px">RESOLUCIÓN</th>
+                                                            <th style="width: 100px">F.EMISIÓN</th>
+                                                            <th style="width: 100px">F.VIGENCIA</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <div style="overflow: auto;height: 200px; width: 600px;">
+                                                    <table id="resolucion-dicapi-list" class="ui-widget ui-widget-content" style="width: 600px;" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div> 
+                                             </div><!-- End Border Scrol Bar-->
                                     </div>                                
-                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px;margin-top: 30px">   
-                                        <table id="tabs-table-3" class="ui-widget ui-widget-content" style="width: 400px">
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 300px;margin-top: 23px">   
+                                        <table id="table-add-resdicapi" class="ui-widget ui-widget-content" style="width: 500px">
                                             <thead>
                                                 <tr class="ui-widget-header ">
                                                     <th style="text-align: center" colspan="4">Seleccionar Resolución</th>
@@ -553,22 +779,24 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Resolución:</td>
-                                                    <td colspan="3"><input type="text" name="txtresolucion" id="txtresolucion" size="30"></td>
+                                                    <td>N° R.D. DICAPI:</td>
+                                                    <td colspan="3"><input type="text" name="txtresoluciondicapi" id="txtresoluciondicapi" size="50"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Fecha&nbsp;Emisión:</td>
-                                                    <td><input type="text" name="txtfecemision" id="txtfecemision" size="10"></td>
-                                                    <td><label id="lblfecvigencia">Fecha&nbsp;Vigencia:</label></td>
-                                                    <td><input type="text" name="txtfecvigencia" id="txtfecvigencia" size="10"></td>
+                                                    <td style="width: 100px">Fecha&nbsp;Emisión:</td>
+                                                    <td style="width: 100px"><input type="text" name="txtfecemisionresdicapi" id="txtfecemisionresdicapi" size="10"></td>
+                                                    <td style="width: 100px"><label id="lblfecvigencia">Fecha&nbsp;Vigencia:</label></td>
+                                                    <td style="width: 100px"><input type="text" name="txtfecvigenciaresdicapi" id="txtfecvigenciaresdicapi" size="10"></td>
                                                 </tr>
                                                 <tr>                                                    
-                                                    <td colspan="2">Sin Fecha Vigencia</td>
-                                                    <td colspan="2"><input type="checkbox" name="chkvigencia" id="chkvigencia"></td>                                                    
+                                                    <td colspan="4">
+                                                        <input type="checkbox" name="chksinvigenciadicapi" id="chksinvigenciadicapi">
+                                                        <div style="vertical-align: middle; margin-top: -18px;margin-left: 20px">Sin Fecha Vigencia</div></td>
+                                                                                                       
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
-                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                    <td colspan="4"><a class="button" href="javascript:;" onClick="agregar_resolucion_dicapi()"><span class="icon icon67"></span><span class="label">Agregar</span></a>
+                                                                    <a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -581,61 +809,70 @@
                             <div id="tabs-5"><!--tabs-5-->
 
                                 <div style="width: 85%;"> 
-                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 650px">                                   
-                                        <div class="content_3" id="content" style="width: 600px"><!--The Scrollbar-->
-                                            <table id="digesaitp_list" class="ui-widget ui-widget-content" >
-                                                <thead>
-                                                    <tr class="ui-widget-header ">
-                                                        <th>TIPO</th>
-                                                        <th>DESCRIPCIÓN</th>
-                                                        <th>FECHA EMISIÓN</th>
-                                                        <th>FECHA VIGENCIA</th>
-                                                        <th>OBSERVACIONES</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div><!--End Scrollbar-->
+                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 700px">                                   
+                                         <div style="border: 1px solid #000; width: 700px"><!--Border Scrol Bar-->
+                                                <table class="ui-widget ui-widget-content" style="width: 700px;" cellpadding="0" cellspacing="0">
+                                                    <thead>
+                                                        <tr class="ui-widget-header ">
+                                                            <th style="width: 50px">TIPO</th>
+                                                            <th style="width: 150px">DESCRIPCIÓN</th>
+                                                            <th style="width: 100px">FECHA EMISIÓN</th>
+                                                            <th style="width: 100px">FECHA VIGENCIA</th>
+                                                            <th style="width: 200px">OBSERVACIONES</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <div style="overflow: auto;height: 200px; width: 700px;">
+                                                    <table id="pth-sanitario-list" class="ui-widget ui-widget-content" style="width: 700px;" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div> 
+                                             </div><!-- End Border Scrol Bar-->
                                     </div>                                
-                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px ;margin-top: 30px">   
-                                        <table id="tabs-table-3" class="ui-widget ui-widget-content" style="width: 400px">
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px ;margin-top: 20px">   
+                                        <table id="add-table-cert-sani" class="ui-widget ui-widget-content" style="width: 500px">
                                             <thead>
                                                 <tr class="ui-widget-header ">
-                                                    <th style="text-align: center" colspan="4">Seleccionar Resolución</th>
+                                                    <th style="text-align: center" colspan="4">Ingresar Datos</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Digesa</td>
-                                                    <td><input type="radio" name="raddigitp" id="raddigesa" value="digesa"></td>
-                                                    <td>ITP</td>
-                                                    <td><input type="radio" name="raddigitp" id="raditp" value="itp"></td>
+                                                    <td><input type="radio" name="rad_digitp" id="raddigesa" value="digesa">
+                                                        <div style="vertical-align: middle; margin-top: -16px;margin-left: 20px">Digesa</div></td>
+                                                    <td><input type="radio" name="rad_digitp" id="raditp" value="itp">
+                                                        <div style="vertical-align: middle; margin-top: -16px;margin-left: 20px">ITP</div></td>
+                                                    <td colspan="2"><input type="radio" name="rad_digitp" id="radsanipes" value="sanipes" checked>
+                                                        <div style="vertical-align: middle; margin-top: -16px;margin-left: 20px">SANIPES</div></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Descripción:</td>
-                                                    <td colspan="3"><input type="text" name="txtdescripcion" id="txtdescripcion" size="30"></td>
+                                                    <td>N° PTH Sanitario:</td>
+                                                    <td colspan="3"><input type="text" name="txtpthsanitario" id="txtpthsanitario" size="30"></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Fecha&nbsp;Emisión:</td>
-                                                    <td><input type="text" name="txtfecemision" id="txtfecemision" size="10"></td>
-                                                    <td><label id="lblfecvigenciatab5">Fecha&nbsp;Vigencia:</label></td>
-                                                    <td><input type="text" name="txtfecvigencia" id="txtfecvigenciatab5" size="10"></td>
+                                                    <td style="width: 100px">Fecha&nbsp;Emisión:</td>
+                                                    <td style="width: 100px"><input type="text" name="txtfecemisionpth" id="txtfecemisionpth" size="10"></td>
+                                                    <td style="width: 100px"><label id="lblfecvigenciapth">Fecha&nbsp;Vigencia:</label></td>
+                                                    <td style="width: 100px"><input type="text" name="txtfecvigenciapth" id="txtfecvigenciapth" size="10"></td>
                                                 </tr>
                                                 <tr>                                                    
-                                                    <td colspan="2">Sin Fecha</td>
-                                                    <td colspan="2"><input type="checkbox" name="chkvigencia" id="chkvigencia"></td>                                                    
+                                                    
+                                                    <td colspan="4" style="height: 20px">
+                                                        <div id="comtenedor-check-fech-vigencia">
+                                                            <input type="checkbox" name="chkvigenciapth" id="chkvigenciapth">
+                                                            <div style="vertical-align: middle; margin-top: -16px;margin-left: 20px">Sin Fecha Vigencia</div>
+                                                        </div></td>
                                                 </tr>
                                                 <tr>                                                    
                                                     <td colspan="4">Observaciones:<br><br>
-                                                        <textarea name="txtareaobservacion" id="txtareaobservacion" rows="5" cols="50"></textarea>
+                                                        <textarea name="txtareaobservacionpth" id="txtareaobservacionpth" rows="5" cols="50"></textarea>
                                                     </td>
 
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
-                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                    <td colspan="4"><a class="button" href="javascript:;" onClick="agregar_pth_sanitario()"><span class="icon icon67"></span><span class="label">Agregar</span></a>
+                                                                    <a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>

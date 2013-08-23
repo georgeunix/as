@@ -108,6 +108,7 @@
                        $("#lblTitulo").text('Actualizar Especie');
                        
                        $("#cod_especie").val(data.id);
+                       $("#cbogrupoespecie").val(data.cod_grupo_especie);
                        
                        $("#des_especie").focus();
                        
@@ -117,14 +118,18 @@
             function guardar_especie(){
                 
                 msg='';
+               
+                if(!$("#cbofamilia").val()){
+                    msg+='Seleccione Familia \n';
+                }
+                if(!$("#cbogrupoespecie").val()){
+                    msg+='Seleccione Grupo de Especie \n';
+                }
                 if(!$("#des_especie").val()){
                     msg+='Ingrese Nombre de Especie \n';
                 }
                 if(!$("#nom_cientifico").val()){
                     msg+='Ingrese Nombre Cientifico de Especie \n';
-                }
-                if(!$("#cbofamilia").val()){
-                    msg+='Seleccione Familia \n';
                 }
                 if(msg!=''){
                     alert(msg);
@@ -135,14 +140,14 @@
                             type: "POST",
                             url: "{{path('guardarEspecieNueva')}}",
                             async: "true",
-                            data: { especie: $("#des_especie").val(),cientifico:$("#nom_cientifico").val(),familia:$("#cbofamilia").val(),usuario:$("#user_intranet").val()}
+                            data: { especie: $("#des_especie").val(),cientifico:$("#nom_cientifico").val(),familia:$("#cbofamilia").val(),usuario:$("#user_intranet").val(),grupoespecie: $("#cbogrupoespecie").val()}
                             }).done(function(msg) {
                                 if(msg==1){
                                     alert('Datos Guardados Correctamente');
                                     $("#grilla-especies").dataTable().fnDraw();
-                                    location.reload();
+                                    
                                 }else if(msg==0){
-                                    alert('Fallor en el registro!');
+                                    alert('Fallo en el registro!');
                                 }
 
                             });
@@ -151,14 +156,14 @@
                             type: "POST",
                             url: "{{path('actualizarEspecie')}}",
                             async: "true",
-                            data: {cod_especie: $("#cod_especie").val(), especie: $("#des_especie").val(),cientifico:$("#nom_cientifico").val(),familia:$("#cbofamilia").val(),usuario:$("#user_intranet").val()}
+                            data: {cod_especie: $("#cod_especie").val(), especie: $("#des_especie").val(),cientifico:$("#nom_cientifico").val(),familia:$("#cbofamilia").val(),usuario:$("#user_intranet").val(),grupoespecie: $("#cbogrupoespecie").val()}
                             }).done(function(msg) {
                                 if(msg==1){
                                     alert('Datos Actualizados Correctamente');
                                     $("#grilla-especies").dataTable().fnDraw();
-                                    location.reload();
+                                    
                                 }else if(msg==0){
-                                    alert('Fallor la Actualización!');
+                                    alert('Fallo la Actualización!');
                                 }
 
                             });
@@ -169,11 +174,16 @@
            function cancelar(){
                 if($("#des_especie").val() || $("#nom_cientifico").val() || $("#cbofamilia").val()){
                     if (confirm('¿Desea Cancelar Registro?')){
+                        /*
                         $("#des_especie").val('');
                         $("#nom_cientifico").val('');
                         $("#cbofamilia").val('');
                         $("#cod_especie").val('');
                         $("#lblTitulo").text('Registrar Especie')
+                        */
+                        $("#pnl_perfil :input").each(function(){
+                            $(this).val('');
+                        })
                     }			
 		}
             }
@@ -186,7 +196,7 @@
                             data: {cod_especie:id}
                             }).done(function(msg) {
                             if(msg==1){
-                                    $("#grilla-especies").dataTable().fnDraw();
+                                 $("#grilla-especies").dataTable().fnDraw();
                             }
                      });
                  }
@@ -209,14 +219,16 @@
                         <thead>
                             <tr>
                                 <th width="0%">ID</th>
-                                <th width="30%">ESPECIE</th>
-                                <th width="30%" align="center">NOMBRE CIENTÍFICO</th>
-                                <th width="30%" align="center">FAMILIA</th>
+                                <th width="20%">ESPECIE</th>
+                                <th width="25%" align="center">NOMBRE CIENTÍFICO</th>
+                                <th width="20%" align="center">FAMILIA</th>
+                                <th width="20%" align="center">GRUPO DE ESPECIE</th>
                                 <th width="10%" align="center">ACCION</th>
                             </tr>
                         </thead> 
                         <tbody>                           
                             <tr>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -237,16 +249,20 @@
                             </td>
                         </tr>                        
                         <tr>
-                            <td>Especie:</td>
+                            <td>Clasificación de Especie:</td>
+                            <td>{{familia|raw('html')}}</td>
+                        </tr>
+                        <tr>
+                            <td>Grupo de Especie:</td>
+                            <td>{{grupoespecie|raw('html')}}</td>
+                        </tr>                        
+                        <tr>
+                            <td>Nombre Común:</td>
                             <td><input type="text" name="des_especie" id="des_especie" size="40" value=""/></td>
                         </tr>
                         <tr>
                             <td>Nombre Cientifico:</td>
                             <td><input type="text" name="nom_cientifico" id="nom_cientifico" size="40"/></td>
-                        </tr>
-                        <tr>
-                            <td>Familia:</td>
-                            <td>{{familia|raw('html')}}</td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
