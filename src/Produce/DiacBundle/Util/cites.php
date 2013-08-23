@@ -19,13 +19,15 @@ class cites{
     
     public function ActaRep_Guardar($cn,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs){                                    
         $sql = "exec p_ACTAREPRODUCCION_ADD '".$nActaRep."','".$Acuicultor."','".$nResol."','".$nFecha."','".$nObs."'";           
-        $query = $cn->prepare($sql);        
+        $query = $cn->prepare($sql);    
+        $result = $query->fetchColumn();
         $query->execute();
     }    
     
     public function ActaRep_Actualizar($cn,$nID,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs){                                    
         $sql = "exec p_ACTAREPRODUCCION_UPDATE '".$nID."','".$nActaRep."','".$Acuicultor."','".$nResol."','".$nFecha."','".$nObs."'";           
         $query = $cn->prepare($sql);
+        $result = $query->fetchColumn();
         $query->execute();
     }    
     

@@ -16,7 +16,7 @@
 [2013-08-23 14:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
 [2013-08-23 14:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
 [2013-08-23 14:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
-[2013-08-23 14:48:09] doctrine.DEBUG: exec p_ACTAREPRODUCCION_UPDATE '7','6789','1','67890','2013/08/23','xxxxxxxxxxxxx' [] []
+[2013-08-23 14:48:09] doctrine.DEBUG: exec p_ACTAREPRODUCCION_UPDATE '7','6789','1','67890','2013/08/23','xxxxxxxxxxxxx' [] []oiesitroweiuriewuriew
 [2013-08-23 14:48:09] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
 [2013-08-23 14:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
 [2013-08-23 14:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
@@ -7881,3 +7881,724 @@ SQLSTATE[42000]: [Microsoft][SQL Server Native Client 10.0][SQL Server]Error con
 [2013-08-23 15:31:44] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
 [2013-08-23 15:31:44] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
 [2013-08-23 15:31:44] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:06] request.INFO: Matched route "actarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ActaRepDiacAction", "_route": "actarep") [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: select tg.id_grupo from db_general.jcardenas.h_trabajador h
+                inner join grupo_trabajador tg on tg.codigo_trabajador=h.CODIGO_TRABAJADOR
+                where h.EMAIL='jvasquezu'  [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+	FROM grupo_main_menu nm
+	inner join grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+	WHERE nm.parent=0 and nm.nivel_menu=1 and nm.estado_menu=1 
+	and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=42 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=43 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=44 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=46 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=47 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=48 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=49 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=50 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=51 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=52 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=53 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=54 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=56 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=57 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=58 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=59 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=60 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=61 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=62 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=63 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=65 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=67 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=74 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=78 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=79 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT 
+                    A.ID_ACTA_INS_REPRO, A.ID_ACUICULTOR, (SELECT B.NOM_ACUICULTOR FROM ACUICULTOR AS B WHERE B.ID_ACUICULTOR = A.ID_ACUICULTOR) AS NOM_ACUICULTOR, A.NUM_ACTA, CONVERT(VARCHAR(10),A.FECHA,111) AS FECHA, CONVERT(VARCHAR(10),A.HORA,108) AS HORA, A.NUM_RESOLUCION, A.OBSERVACIONES 
+                FROM 
+                    acta_inspeccion_reproduccion as A [] []
+[2013-08-23 15:48:06] doctrine.DEBUG: SELECT ID_ACUICULTOR, NOM_ACUICULTOR FROM ACUICULTOR [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:06] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:07] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:07] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:07] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] request.INFO: Matched route "listaractarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ListarActaRepAction", "_route": "listaractarep") [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:09] doctrine.DEBUG: SELECT TOP 5 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                    FROM vw_listado_actarep
+                      WHERE  ID_ACTA_INS_REPRO NOT IN
+                    (
+                            SELECT ID_ACTA_INS_REPRO FROM
+                            (
+                                    SELECT TOP 0 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                                    FROM vw_listado_actarep
+                                    
+                                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc
+
+                            )
+                            as [virtTable]
+                    )
+                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] request.INFO: Matched route "_wdt" (parameters: "_controller": "web_profiler.controller.profiler:toolbarAction", "token": "2d4b9a0f72a4cd1651e6d8ee30c22d42c5edf6ef", "_route": "_wdt") [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:09] doctrine.DEBUG: SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:09] doctrine.DEBUG:  SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] request.INFO: Matched route "listaractarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ListarActaRepAction", "_route": "listaractarep") [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:09] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:09] doctrine.DEBUG: SELECT TOP 5 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                    FROM vw_listado_actarep
+                      WHERE  ID_ACTA_INS_REPRO NOT IN
+                    (
+                            SELECT ID_ACTA_INS_REPRO FROM
+                            (
+                                    SELECT TOP 0 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                                    FROM vw_listado_actarep
+                                    
+                                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc
+
+                            )
+                            as [virtTable]
+                    )
+                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc [] []
+[2013-08-23 15:48:10] doctrine.DEBUG: SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:10] doctrine.DEBUG:  SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:10] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:21] request.INFO: Matched route "actarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ActaRepDiacAction", "_route": "actarep") [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:21] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:21] doctrine.DEBUG: select tg.id_grupo from db_general.jcardenas.h_trabajador h
+                inner join grupo_trabajador tg on tg.codigo_trabajador=h.CODIGO_TRABAJADOR
+                where h.EMAIL='jvasquezu'  [] []
+[2013-08-23 15:48:21] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+	FROM grupo_main_menu nm
+	inner join grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+	WHERE nm.parent=0 and nm.nivel_menu=1 and nm.estado_menu=1 
+	and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:22] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=42 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:22] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=43 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:22] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=44 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:23] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=46 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:23] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=47 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:23] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=48 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:23] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=49 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:24] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=50 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:24] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=51 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:24] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=52 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:24] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=53 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:25] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=54 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:25] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=56 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:25] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=57 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:26] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=58 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:26] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=59 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:26] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=60 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=61 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=62 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=63 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=65 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=67 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+          FROM grupo_main_menu nm
+          INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+          WHERE nm.parent=74 and nm.nivel_menu=2 and nm.estado_menu=1
+		and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=78 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT nm.id_main_menu,nm.descripcion,nm.estado_menu,nm.archivo,nm.orden,nm.parent,nm.nivel_menu
+                FROM grupo_main_menu nm
+                INNER JOIN grupo_grupo_main_menu gm on gm.id_main_menu = nm.id_main_menu 
+                WHERE nm.parent=79 and nm.nivel_menu=3 and nm.estado_menu=1
+                and gm.id_grupo = '001' ORDER BY nm.orden ASC [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT 
+                    A.ID_ACTA_INS_REPRO, A.ID_ACUICULTOR, (SELECT B.NOM_ACUICULTOR FROM ACUICULTOR AS B WHERE B.ID_ACUICULTOR = A.ID_ACUICULTOR) AS NOM_ACUICULTOR, A.NUM_ACTA, CONVERT(VARCHAR(10),A.FECHA,111) AS FECHA, CONVERT(VARCHAR(10),A.HORA,108) AS HORA, A.NUM_RESOLUCION, A.OBSERVACIONES 
+                FROM 
+                    acta_inspeccion_reproduccion as A [] []
+[2013-08-23 15:48:27] doctrine.DEBUG: SELECT ID_ACUICULTOR, NOM_ACUICULTOR FROM ACUICULTOR [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:27] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:29] request.INFO: Matched route "_wdt" (parameters: "_controller": "web_profiler.controller.profiler:toolbarAction", "token": "fdfeb732346f6b85e18cd833a55f0373ee96bae2", "_route": "_wdt") [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:29] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:30] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:31] request.INFO: Matched route "listaractarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ListarActaRepAction", "_route": "listaractarep") [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:31] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:31] doctrine.DEBUG: SELECT TOP 5 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                    FROM vw_listado_actarep
+                      WHERE  ID_ACTA_INS_REPRO NOT IN
+                    (
+                            SELECT ID_ACTA_INS_REPRO FROM
+                            (
+                                    SELECT TOP 0 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                                    FROM vw_listado_actarep
+                                    
+                                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc
+
+                            )
+                            as [virtTable]
+                    )
+                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc [] []
+[2013-08-23 15:48:32] doctrine.DEBUG: SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:32] doctrine.DEBUG:  SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:32] request.INFO: Matched route "listaractarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ListarActaRepAction", "_route": "listaractarep") [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:32] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:32] doctrine.DEBUG: SELECT TOP 5 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                    FROM vw_listado_actarep
+                      WHERE  ID_ACTA_INS_REPRO NOT IN
+                    (
+                            SELECT ID_ACTA_INS_REPRO FROM
+                            (
+                                    SELECT TOP 0 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                                    FROM vw_listado_actarep
+                                    
+                                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc
+
+                            )
+                            as [virtTable]
+                    )
+                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc [] []
+[2013-08-23 15:48:33] doctrine.DEBUG: SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:33] doctrine.DEBUG:  SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:33] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:56] request.INFO: Matched route "guardar" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::GuardarActaRepDiacAction", "_route": "guardar") [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:56] doctrine.DEBUG: exec p_ACTAREPRODUCCION_ADD 'sahjdsa','1','sdfaf','2013-08-23','' [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:56] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:48:57] request.INFO: Matched route "listaractarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ListarActaRepAction", "_route": "listaractarep") [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:48:57] doctrine.DEBUG: SELECT TOP 5 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                    FROM vw_listado_actarep
+                      WHERE  ID_ACTA_INS_REPRO NOT IN
+                    (
+                            SELECT ID_ACTA_INS_REPRO FROM
+                            (
+                                    SELECT TOP 0 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                                    FROM vw_listado_actarep
+                                    
+                                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc
+
+                            )
+                            as [virtTable]
+                    )
+                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc [] []
+[2013-08-23 15:48:57] doctrine.DEBUG: SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:57] doctrine.DEBUG:  SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:48:57] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\FrameworkBundle\EventListener\SessionListener::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\FragmentListener::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\RouterListener::onKernelRequest". [] []
+[2013-08-23 15:49:00] request.INFO: Matched route "listaractarep" (parameters: "_controller": "Produce\DiacBundle\Controller\DiacFormulario1Controller::ListarActaRepAction", "_route": "listaractarep") [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\Security\Http\Firewall::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Bundle\AsseticBundle\EventListener\RequestListener::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelRequest". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.request" to listener "Symfony\Component\HttpKernel\EventListener\DeprecationLoggerListener::injectLogger". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.controller" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelController". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Bundle\FrameworkBundle\DataCollector\RouterDataCollector::onKernelController". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\ParamConverterListener::onKernelController". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.controller" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\TemplateListener::onKernelController". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.controller" to listener "Acme\DemoBundle\EventListener\ControllerListener::onKernelController". [] []
+[2013-08-23 15:49:00] event.DEBUG: Notified event "kernel.controller" to listener "Symfony\Component\HttpKernel\DataCollector\RequestDataCollector::onKernelController". [] []
+[2013-08-23 15:49:00] doctrine.DEBUG: SELECT TOP 5 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                    FROM vw_listado_actarep
+                      WHERE  ID_ACTA_INS_REPRO NOT IN
+                    (
+                            SELECT ID_ACTA_INS_REPRO FROM
+                            (
+                                    SELECT TOP 5 ID_ACTA_INS_REPRO,EDITAR,ELIMINAR,NUM_ACTA,NOM_ACUICULTOR,NUM_RESOLUCION,FECHA,HORA,OBSERVACIONES,CREAR
+                                    FROM vw_listado_actarep
+                                    
+                                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc
+
+                            )
+                            as [virtTable]
+                    )
+                    ORDER BY  ID_ACTA_INS_REPRO
+                                            asc [] []
+[2013-08-23 15:49:00] doctrine.DEBUG: SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:49:01] doctrine.DEBUG:  SELECT count(*) as TOTAL FROM vw_listado_actarep  [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Ps\PdfBundle\EventListener\PdfListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\FirePHPHandler::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bridge\Monolog\Handler\ChromePhpHandler::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Sensio\Bundle\FrameworkExtraBundle\EventListener\CacheListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\LocaleListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\Fragment\FragmentHandler::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\Security\Http\RememberMe\ResponseListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\ProfilerListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Bundle\WebProfilerBundle\EventListener\WebDebugToolbarListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.response" to listener "Symfony\Component\HttpKernel\EventListener\StreamedResponseListener::onKernelResponse". [] []
+[2013-08-23 15:49:01] event.DEBUG: Notified event "kernel.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onKernelTerminate". [] []
