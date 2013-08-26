@@ -56,13 +56,21 @@ div {
 
 }
 .listt:hover { border: solid 1px yellow; }
-
+ 
 #form-1{
+    
+    background: -moz-linear-gradient(center top , white 19%, skyblue 99%) repeat scroll 0 0 #004467;
+    border: 2px solid black;
+    border-radius: 23px 23px 23px 23px;
+    color: black;
     display: none;
-    height: 110px;margin-top: 0;float:left;width:100%;color:black;border: 0px solid #004467;border-radius: 0px 0px 8px 8px;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='silver', gradientType='0'); 
-    background: -moz-linear-gradient(center top , white 7%, silver 77%) repeat scroll 0 0 #004467;
-    background-image: -webkit-linear-gradient(top, white 7%, silver 93%);
+    float: left;
+    height: 115px;
+    margin-top: 5px;
+    width: 100%;
+    display: none;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='skyblue', gradientType='0'); 
+    background-image: -webkit-linear-gradient(top, white 19%, skyblue 99%);
 
 }* html #form-1 { display:inline;}
 
@@ -80,9 +88,21 @@ table {
     font-size: 12px;
     text-align: center;
 }
-#aportantes{display:none;border-radius:8px 8px 8px 8px;}
-#apo-cabezera{background:#ABCDEF;border-radius:8px 8px 0 0;}
-#rece-cabezera{background:skyblue; border-radius:8px 8px 0 0;}
+#aportantes{display:none;border-radius:8px 8px 8px 8px;margin-top: 20px;}
+#apo-cabezera{
+    border-radius: 70px 70px 0 0;
+    font-size: 25px;
+    text-align: center;
+    background:#ABCDEF;
+    
+}
+#rece-cabezera{
+    border-radius: 70px 70px 0 0;
+    color: #044E72;
+    font-size: 25px;
+    text-align: center;
+    background:skyblue;
+}
 #receptores{display:none;border-radius:8px 8px 8px 8px;}
 
 #deco_1{
@@ -126,8 +146,10 @@ table {
         display: none;
 }
 
-                        
-                        
+.tite{
+   margin: 15px;
+}                        
+li:hover { background-color: skyblue; }                  
  
 /*             
   #calcular{
