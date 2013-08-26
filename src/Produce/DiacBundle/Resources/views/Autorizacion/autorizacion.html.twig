@@ -53,6 +53,45 @@
         
         /*end tabs-4*/
         
+        /*start ITP DIGESA*/
+            
+            #pth-sanitario-list{text-transform: uppercase}
+        /**/
+        /*start css res dia eia*/
+        
+         #dia-eia-resolucion-list{text-transform: uppercase}
+        
+        /**/
+        /*coordenadas*/
+            #table-coordenadas-geograficas{}            
+            #table-coordenadas-geograficas input{width: 35px}
+            
+            #table-add-coordenadas{}
+            #table-add-coordenadas input{ height: 20px}
+        /*end coordenadas*/
+        
+         /* sstar style upload file*/
+        
+        .fileUploadSucursal {
+            position: relative;
+            overflow: visible;
+            margin: 0px;
+        }
+        .fileUploadSucursal input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            /*z-index: 1;*/
+            width: 120px
+        }
+        /* end style upload*/
+        
         
         
 
@@ -208,9 +247,9 @@
                  key_grupo=$("#txtgrupoespecieid").val(); 
                  
                  html='<tr id='+key+'>'+
-                         '<td>'+$("#cboespecie option[value='"+$("#cboespecie").val()+"']").text()+'</td>'+
-                         '<td>'+$("#cbofamilia option[value='"+$("#cbofamilia").val()+"']").text()+'</td>'+
-                         '<td style=""><a href="javascript:;" onclick="quitar_especie('+key+','+key_grupo+')"><span class="btn"><i class="cus cus-delete"></i></span></a>'+
+                         '<td style="width: 100px">'+$("#cboespecie option[value='"+$("#cboespecie").val()+"']").text()+'</td>'+
+                         '<td style="width: 100px">'+$("#cbofamilia option[value='"+$("#cbofamilia").val()+"']").text()+'</td>'+
+                         '<td style="width: 100px"><a href="javascript:;" onclick="quitar_especie('+key+','+key_grupo+')"><span class="btn"><i class="cus cus-delete"></i></span></a>'+
                          '<input type="hidden" name="itemsEspecies[]" id="indice_'+$("#cboespecie").val()+'"  value="'+$("#cboespecie").val()+'"></td>'+     
                        '</tr>';
                  $("#especies-list tbody").append(html);
@@ -246,7 +285,10 @@
                  }
              }
              
+             var cont_dicapi=0;
              function agregar_resolucion_dicapi(){
+                
+                cont_dicapi++;
                 
                 msg="";
                 fechavigencia=$("#txtfecvigenciaresdicapi").val();
@@ -267,16 +309,32 @@
                     return false;
                 }
 
-                html_res_dicapi='<tr>'+
-                                '<td style="width: 400px;">'+$("#txtresoluciondicapi").val()+'<input type="hidden" name="res_dicapi[]" value="'+$("#txtresoluciondicapi").val()+'"></td>'+
+                html_res_dicapi='<tr id="res_dicapi_'+cont_dicapi+'">'+
+                                '<td style="width: 200px;">'+$("#txtresoluciondicapi").val()+'<input type="hidden" name="res_dicapi[]" value="'+$("#txtresoluciondicapi").val()+'"></td>'+
                                 '<td style="width: 100px;">'+$("#txtfecemisionresdicapi").val()+'</td>'+
                                 '<td style="width: 100px;">'+fechavigencia+'</td>'+
+                                '<td style="width: 100px;"><input type="checkbox" value="res_dicapi_'+cont_dicapi+'" class="cls_res_dicapi"></td>'+
                                 '</tr>';
                 $("#resolucion-dicapi-list tbody").append(html_res_dicapi);
                     
              }
+             function eliminar_resolucion_dicapi(){
              
+                $(".cls_res_dicapi").each(function(){ 
+
+                    if($(this).is(':checked') ){
+                        
+                       $("#"+$(this).val()).remove();
+                    }			
+                });
+  
+             }
+             
+             
+             var cont_pth=0;
              function agregar_pth_sanitario(){
+                
+                cont_pth++;
                 
                 msg="";
                 fechavigencia=$("#txtfecvigenciapth").val();
@@ -294,25 +352,243 @@
                        } 
                     }else{fechavigencia='';}
                 }else{fechavigencia='';}
+                /*
                 if($("#txtareaobservacionpth").val()==''){                    
                   msg+="- Ingrese Observación\n";  
                 }
-                
+                */
                 if(msg!=''){
                     alert(msg);
                     return false;
                 }
                 
-                html_pth_sanitario='<tr>'+
-                                '<td style="width: 50px;">'+1+'</td>'+
+                html_pth_sanitario='<tr id="pth_sanitario_'+cont_pth+'">'+
+                                '<td style="width: 50px;">'+$('input[name=rad_digitp]:checked').val()+'</td>'+
                                 '<td style="width: 150px;">'+$("#txtpthsanitario").val()+'</td>'+
                                 '<td style="width: 100px;">'+$("#txtfecemisionpth").val()+'</td>'+
                                 '<td style="width: 100px;">'+fechavigencia+'</td>'+
                                 '<td style="width: 200px;">'+$("#txtareaobservacionpth").val()+'</td>'+
+                                '<td style="width: 50px;"><input type="checkbox" value="pth_sanitario_'+cont_pth+'" class="cls_pth_sanitario"></td>'+
                                 '</tr>';
                 $("#pth-sanitario-list tbody").append(html_pth_sanitario);
                 
              }
+             function eliminar_pth_sanitario(){
+             
+                $(".cls_pth_sanitario").each(function(){ 
+
+                    if($(this).is(':checked') ){
+                        
+                       $("#"+$(this).val()).remove();
+                    }			
+                });
+  
+             }
+             
+             var cont=0;
+             function agregar_resolucion_dia_eia(){
+                 
+                cont++;
+                
+                msg="";
+                fechaemision=$("#txtfecemisiondiaeia").val();
+                
+                if($("#txtresoluciondiaeia").val()==''){                    
+                  msg+="- Ingrese N° R.D. que aprueba Día/EIA \n";  
+                }
+                if(!$('#chkemisiondiaeia').is(':checked') ){
+                   if($("#txtfecemisiondiaeia").val()==''){                    
+                        msg+="- Ingrese Fecha de Emisión \n";  
+                   } 
+                }else{fechaemision='';}
+                /*    
+                if($("#txtareaobservaciondiaeia").val()==''){                    
+                  msg+="- Ingrese Observación\n";  
+                }
+                */
+                if(msg!=''){
+                    alert(msg);
+                    return false;
+                }
+                
+                html_dia_eia='<tr id="dia_eia_'+cont+'">'+
+                                '<td style="width: 100px;">'+$('input[name=rad_diaeia]:checked').val()+'</td>'+
+                                '<td style="width: 200px;">'+$("#txtresoluciondiaeia").val()+'</td>'+
+                                '<td style="width: 100px;">'+fechaemision+'</td>'+
+                                '<td style="width: 100px;">'+$("#txtareaobservaciondiaeia").val()+'</td>'+
+                                '<td style="width: 100px;"><input type="checkbox" value="dia_eia_'+cont+'" class="cls_dia_eia"></td>'+
+                             '</tr>';
+                $("#dia-eia-resolucion-list tbody").append(html_dia_eia);
+                
+             }
+             function eliminar_resolucion_dia_eia(){
+             
+                $(".cls_dia_eia").each(function(){ 
+
+                    if($(this).is(':checked') ){
+                        
+                       $("#"+$(this).val()).remove();
+                    }			
+                });
+  
+             }
+             
+             var cont_coordenada=0;
+             function agregar_coordenadas(){
+                
+                cont_coordenada++;
+                
+                msg="";
+                
+                if($("#txtpuntocoordenada").val()==''){                    
+                  msg+="- Ingrese Punto\n";  
+                }
+                if($("#txtlatgrad").val()==''){                    
+                  msg+="- Ingrese Grado de Latitud\n";  
+                }
+                if($("#txtlatmin").val()==''){                    
+                  msg+="- Ingrese Minutos de Latitud\n";  
+                }
+                if($("#txtlatseg").val()==''){                    
+                  msg+="- Ingrese Segundos de Latitud\n";  
+                }
+                if($("#txtlongrad").val()==''){                    
+                  msg+="- Ingrese Grado de Longitud\n";  
+                }
+                if($("#txtlonmin").val()==''){                    
+                  msg+="- Ingrese Minutos de Longitud\n";  
+                }
+                if($("#txtlonseg").val()==''){                    
+                  msg+="- Ingrese Segundos de Longitud\n";  
+                }
+                if($("#txtutmnorte").val()==''){                    
+                  msg+="- Ingrese UTM Norte\n";  
+                }
+                if($("#txtutmeste").val()==''){                    
+                  msg+="- Ingrese UTM Este\n";  
+                }
+                if(msg!=''){
+                    alert(msg);
+                    return false;
+                }
+                
+                Latitud=$("#txtlatgrad").val()+' '+$("#txtlatmin").val()+' '+$("#txtlatseg").val()+' ';
+                Longitud=$("#txtlongrad").val()+' '+$("#txtlonmin").val()+' '+$("#txtlonseg").val()+' ';
+                
+                 html_coordenada='<tr id="coordenada_'+cont_coordenada+'">'+
+                                '<td style="width: 75px;">'+$("#txtpuntocoordenada").val()+'</td>'+
+                                '<td style="width: 75px;">'+$("#cbozonacoordenada").val()+'</td>'+
+                                '<td style="width: 75px;">'+Latitud+'</td>'+
+                                '<td style="width: 75px;">'+Longitud+'</td>'+
+                                '<td style="width: 75px;">'+$("#txtutmnorte").val()+'</td>'+
+                                '<td style="width: 75px;">'+$("#txtutmeste").val()+'</td>'+
+                                '<td style="width: 75px;">'+Latitud+'</td>'+
+                                '<td style="width: 75px;">'+Longitud+'</td>'+
+                                '<td style="width: 75px;">'+$("#txtareacoordenada").val()+'</td>'+
+                                '<td style="width: 75px;"><input type="checkbox" value="coordenada_'+cont_coordenada+'" class="cls_coordenada"></td>'+
+                             '</tr>';
+                $("#coordenadas-list tbody").append(html_coordenada);
+                
+                
+            }
+            function eliminar_coordenada(){
+             
+                $(".cls_coordenada").each(function(){ 
+
+                    if($(this).is(':checked') ){                        
+                       $("#"+$(this).val()).remove();
+                    }			
+                });
+  
+             }
+             function validar_upload_file_sucursal(){
+                   
+                    var archivos = document.getElementById("archivosucursal");
+                    var archivo = archivos.files; 
+                    var data = new FormData();
+                    
+                    for(i=0; i<archivo.length; i++){
+                        data.append('archivo'+i,archivo[i]);
+                    }
+                    //data.append('nombre',15); 
+                    
+                    $.ajax({
+                        url:'{{path('validarUploadFile')}}', 
+                        type:'POST', 
+                        contentType:false, 
+                        data:data, 
+                        processData:false, 
+                        cache:false,
+                        
+                        success: function(msg) {
+                            if(msg==2){
+                               alert('Formato No Válido, Permitidos .PDF');
+                               $("#archivoSucursal").val('');
+                           }else if(msg==3){
+                               alert('Tamaño Maximo Permitido 2MB');
+                               $("#archivoSucursal").val('');
+                           }else{
+                               $("#namearchivosucursal").val(msg);
+                           }
+                            
+                        },
+                        error: function(msg) {
+                           alert('Error en archivo');
+                        }
+                        
+                    });
+                }
+             
+             function guardar_sucursal(){
+                
+                /*Validando tabs SUCURSAL*/                
+                msg='';
+                if($("#txtempresa").val()==''){
+                    msg+="- Ingrese Empresa\n";                    
+                }
+                if($("#sltipoderecho").val()=='0'){
+                    msg+="- Seleccione Tipo Derecho\n";                    
+                }
+                if($("#sltiporesolucion").val()=='0'){
+                    msg+="- Seleccione Tipo Resolución\n";                    
+                }
+                if($("#slnivelproduccion").val()=='0'){
+                    msg+="- Seleccione Nivel de Producción\n";                    
+                }                
+                if($("#slestado").val()=='0'){
+                    msg+="- Seleccione Estado\n";                    
+                }
+                if($("#txtresolucionsucursal").val()==''){
+                    msg+="- Ingrese Nro. Resolución\n";                    
+                }
+                if($("#cboDepartamento").val()=='0'){
+                    msg+="- Seleccione Departamento\n";                    
+                }
+                if($("#cboProvincia").val()=='0'){
+                    msg+="- Seleccione Provincia\n";                    
+                }
+                if($("#cboDistrito").val()=='0'){
+                    msg+="- Seleccione Distrito\n";                    
+                }
+                if($("#txtmapaacuicola").val()==''){
+                    msg+="- Ingrese Mapa Acuicola\n";                    
+                }
+                if($("#txtfecemisionsucursal").val()==''){
+                    msg+="- Ingrese Fecha de Emisión\n";                    
+                }                
+                if($("#txtfvigenciasucursal").val()==''){
+                    msg+="- Ingrese Fecha de Vigencia\n";                    
+                }                  
+                
+                if(msg!=''){
+                    alert(msg);
+                }
+                
+                
+                
+                
+             }
+            
 
             </script>
             <!-- end js funciones -->  
@@ -325,11 +601,18 @@
                     /*-- start tabs*/
                         $( "#tabs" ).tabs();
                     /*end tabs*/
-                    /*start scroll bar*/
-                    
-                    /* end scroll*/
+                    /*start file*/
+                    $("#fileUploadModSucursal").hide();
+                    /* end file*/
                 
                     /*start datepicker*/
+                    
+                        /*autorizacion/concesion*/
+                        $( "#txtfecemisionsucursal" ).datepicker();
+                        $( "#txtfecemisionsucursal" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        $( "#txtfvigenciasucursal" ).datepicker();
+                        $( "#txtfvigenciasucursal" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        
                         $( "#txtfecemisiontab1" ).datepicker();
                         $( "#txtfecemisiontab1" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
                         $( "#txtfvigenciatab1" ).datepicker();
@@ -346,6 +629,10 @@
                         $( "#txtfecvigenciapth" ).datepicker();
                         $( "#txtfecvigenciapth" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
                         /*end tabs-4*/
+                        /*DIA-EIA*/                            
+                        $( "#txtfecemisiondiaeia" ).datepicker();
+                        $( "#txtfecemisiondiaeia" ).datepicker('option', {dateFormat: 'dd/mm/yy'});
+                        /*end dia/eia*/
                         
                         
                     /*end datpicker*/
@@ -504,8 +791,8 @@
                         $("#cboespecie").change(function (){                  
                              $.post('{{path('devolverEspecie')}}',{id:$("#cboespecie").val()},function(data){
                                      $("#txtnomcientifico").val(data.nombre_cientifico);
-                                     $("#txtgrupoespecie").val(data.nom_grupo_especie);
-                                     $("#txtgrupoespecieid").val(data.cod_grupo_especie);
+                                     $("#txtgrupoespecie").val(data.NOM_GRUPO_ESPECIE);
+                                     $("#txtgrupoespecieid").val(data.COD_GRUPO_ESPECIE);
                              },'json');          
                         });
                                                 
@@ -519,7 +806,7 @@
                             }
                         });
                         
-                        /*start tabs-4*/
+                        /*start tabs 4*/
                             
                             $("#chksinvigenciadicapi").click(function (){  
                                 if($('#chksinvigenciadicapi').is(':checked') ){
@@ -533,7 +820,7 @@
                             
                         /*end tabs-4*/
                         
-                        /*start tabs-5*/
+                        /*start ITP DIGESA SANIPES*/
                         $( "input" ).on( "click", function() {
                             
                              if($( "input:checked" ).val()=='digesa'){
@@ -544,9 +831,11 @@
                                  
                              }
                              if($( "input:checked" ).val()=='itp' || $( "input:checked" ).val()=='sanipes' ){
-                                 $("#lblfecvigenciapth").show();
-                                 $("#txtfecvigenciapth").show();
-                                 $("#comtenedor-check-fech-vigencia").show();
+                                 if(!$('#chkvigenciapth').is(':checked') ){
+                                        $("#lblfecvigenciapth").show();
+                                        $("#txtfecvigenciapth").show();
+                                        $("#comtenedor-check-fech-vigencia").show(); 
+                                  }
                              }
                         });
                         $("#chkvigenciapth").click(function (){  
@@ -560,6 +849,11 @@
                          });
                             
                         /*end tabs-5*/
+                        
+                        /*resolucion dia/eia*/
+                            
+                            
+                        /**/
                         
                         
                     /*end eventos jquery tabs-3*/
@@ -575,7 +869,7 @@
                         <div class="titulo">DIRECCIÓN DE ACUICULTURA (DIAC)</div>  
                     </div>
 
-                    <div style="width: 85%;margin: 15px auto;background: #ffffff;border:1px solid #000000;padding: 25px;">
+                    <div style="width: 85%;margin: 15px auto;background: #ffffff;border:1px solid #000000;padding: 25px 25px 50px;">
 
                         <div id="tabs">
                             <ul>
@@ -618,6 +912,9 @@
 
                                 <table id="tabs-table-1" style="width: 70%">
                                     <tr>
+                                         <td width="10%">N° Resolución:</td>                            
+                                        <td><input type="text" name="txtresolucionsucursal" id="txtresolucionsucursal" size="35" style="float:left;margin-right: 15px;margin-top: 5px">
+                                            
                                         <td width="20%">N° RD de Habilitación - Dicapi</td>                            
                                         <td><input type="text" name="txtrddicapi" id="txtrddicapi" size="35" style="float:left;margin-right: 15px;margin-top: 5px" readonly>
                                             <a class="button" href="javascript:;" onClick="verDialogDicapi()" style="margin-top: 0px"><span class="icon icon198"></span><span class="label">Buscar</span></a></td>
@@ -628,11 +925,11 @@
                                         <td>Departamento: </td>
                                         <td>{{departamento|raw('html')}}</td>
                                         <td>Provincia: </td><td><select name="cboProvincia" id="cboProvincia">
-                                                <option value="">--Seleccione--</option>
+                                                <option value="0">--Seleccione--</option>
                                             </select></td>
                                         <td>Distrito: </td>
                                         <td><select name="cboDistrito" id="cboDistrito">
-                                                <option value="">--Seleccione--</option>
+                                                <option value="0">--Seleccione--</option>
                                             </select></td>
                                         <td><input type="radio" name="radconmar" id="radcontinental"></td>
                                         <td>Continental</td>
@@ -642,8 +939,8 @@
                                 </table>
                                 <table id="tabs-table-1" style="width:70%">
                                     <tr>
-                                        <td>Zona: </td><td><input type="text" name="txtzona" id="txtzona" size="30"></td>
-                                        <td>Mapa Acuicola: </td><td><input type="text" name="txtmapaacuicola" id="txtmapaacuicola" size="50" style="float:left;margin-right: 15px;margin-top: 5px" readonly>
+                                        <td>Zona: </td><td><input type="text" name="txtzona" id="txtzona" size="20"></td>
+                                        <td>Mapa Acuicola: </td><td><input type="text" name="txtmapaacuicola" id="txtmapaacuicola" size="40" style="float:left;margin-right: 15px;margin-top: 5px" readonly>
                                                                     <a class="button" href="javascript:;" onClick="verDialogMapaAcuicola()" style="margin-top: 0px"><span class="icon icon198"></span><span class="label">Buscar</span></a></td>                                        
                                     </tr>
                                     <tr>
@@ -659,14 +956,25 @@
                                         <td width="20%">Nombre Recurso Hidríco</td><td  width="20%"><select name="slrecursosxtipo" id="slrecursosxtipo"><option value="0">--Seleccione--</option></select></td>
                                     </tr>
                                     <tr>
-                                        <td>Fecha Emisión:</td><td><input type="text" name="txtfecemisiontab1" id="txtfecemisiontab1" size="10"></td>
-                                        <td >Fecha Vigencia:</td><td><input type="text" name="txtfvigenciatab1" id="txtfvigenciatab1" size="10"></td>
+                                        <td>Fecha Emisión:</td><td><input type="text" name="txtfecemisionsucursal" id="txtfecemisionsucursal" size="10"></td>
+                                        <td >Fecha Vigencia:</td><td><input type="text" name="txtfvigenciasucursal" id="txtfvigenciasucursal" size="10"></td>
                                         <td colspan="2"></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="4"><a class="button" href="javascript:;" onClick="verDialogAnexo(419)"><span class="icon icon68"></span><span class="label">Modificatorias</span></a>
-                                            <a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Ver RD</span></a>
-                                            <a class="button" href="javascript:;" onClick=""><span class="icon icon92"></span><span class="label">Anexar RD</span></a></td>
+                                        <td colspan="5">
+                                            <a class="button" href="javascript:;" onClick="verDialogAnexo(419)"><span class="icon icon68"></span><span class="label">Modificatorias</span></a>
+                                             <div id="fileUploadNueSucursal">
+                                                 <div class="fileUploadSucursal" style="width: 30%">
+                                                     <a class="button" href="javascript:;" onClick="agregar_res_anexo();"><span class="icon icon189"></span><span class="label">Anexar RD</span></a>
+                                                     <input id="archivosucursal" type="file" name="archivosucursal[]" multiple="multiple" onchange="validar_upload_file_sucursal();" style="margin-top: 7px;height: 28px;"/>
+                                                 </div>
+                                                 <input type="text" id="namearchivosucursal" size="25" style="margin-top: 6px;height: 25px" readonly>
+                                             </div>
+                                             <div id="fileUploadModSucursal">
+                                                 <a class="button" href="javascript:;" onClick="downloadFile();"><span class="icon icon87"></span><span class="label">Ver RD</span></a>
+                                                 <a href="javascript:;" onclick="editar_path()"><span class="btn" style="margin-left: 0px;margin-top: 8px"><i class="cus cus-arrow-refresh"></i></span></a>                                
+                                             </div>
+                                        </td>
                                         <td colspan="2"></td>
                                     </tr>
                                     <tr>
@@ -678,6 +986,99 @@
                             </div><!--End tabs-1-->
 
                             <div id="tabs-2">
+
+                                <div style="width: 85%;"> 
+                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 850px;" >                                   
+                                        <div style="border: 1px solid #000; width: 850px"><!--Border Scrol Bar-->
+                                                <table class="ui-widget ui-widget-content" style="width: 850px;" cellpadding="0" cellspacing="0">
+                                                    <thead>
+                                                        <tr class="ui-widget-header"><th colspan="10" style="text-align: center"> COORDENADAS</th></tr>
+                                                        <tr class="ui-widget-header ">
+                                                            <th style="width: 75px">PUNTO</th>
+                                                            <th style="width: 75px">ZONA</th>
+                                                            <th style="width: 75px">LATITUD</th>
+                                                            <th style="width: 75px">LONGITUD</th>
+                                                            <th style="width: 75px">UTM NORTE</th>
+                                                            <th style="width: 75px">UTM ESTE</th>
+                                                            <th style="width: 75px">LAT</th>
+                                                            <th style="width: 75px">LON</th>
+                                                            <th style="width: 75px">AREA</th>
+                                                            <th style="width: 75px">ACCIÓN</th>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                                <div style="overflow: auto;height: 400px; width: 850px;">
+                                                    <table id="coordenadas-list" class="ui-widget ui-widget-content" style="width: 850px;" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div> 
+                                             </div><!-- End Border Scrol Bar-->
+                                    </div>                                
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 50px;margin-top: 22px">   
+                                        <table id="table-add-coordenadas" class="ui-widget ui-widget-content" style="width: 400px">
+                                            <thead>
+                                                <tr class="ui-widget-header ">
+                                                    <th style="text-align: center" colspan="4">Ingresar Datos Coordenada</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td style="width: 20px">Punto:</td><td style="width: 20px"><input type="text" size="5" name="txtpuntocoordenada" id="txtpuntocoordenada"></td>
+                                                    <td style="width: 20px">Zona:</td><td><select name="cbozonacoordenada" id="cbozonacoordenada">
+                                                                      <option value="1">Zona 1</option>
+                                                                      <option value="2">Zona 2</option>
+                                                                      <option value="3">Zona 3</option>
+                                                                      <option value="4">Zona 4</option>
+                                                                      <option value="5">Zona 5</option>
+                                                                      </select></td>
+                                                </tr>
+                                                 <tr>
+                                                     <td colspan="4">Coordenadas Geograficas:<br>
+                                                         <table id="table-coordenadas-geograficas" style="width: 200px">
+                                                            <tr>
+                                                               <td>Latitud:</td>
+                                                               <td><input type="text" name="txtlatgrad" id="txtlatgrad"><div style="font-size: 20px;margin-top: -20px;margin-left: 40px">°</div></td>
+                                                               <td><input type="text" size="5" name="txtlatmin" id="txtlatmin" ><div style="font-size: 20px;margin-top: -20px;margin-left: 40px">'</div></td>
+                                                               <td><input type="text" size="5" name="txtlatseg" id="txtlatseg"><div style="font-size: 20px;margin-top: -20px;margin-left: 40px">"</div></td>
+                                                            </tr>
+                                                            <tr>
+                                                               <td>Longitud:</td>
+                                                               <td><input type="text" size="5" name="txtlongrad" id="txtlongrad"><div style="font-size: 20px;margin-top: -20px;margin-left: 40px">°</div></td>
+                                                               <td><input type="text" size="5" name="txtlonmin" id="txtlonmin"><div style="font-size: 20px;margin-top: -20px;margin-left: 40px">'</div></td>
+                                                               <td><input type="text" size="5" name="txtlonseg" id="txtlonseg"><div style="font-size: 20px;margin-top: -20px;margin-left: 40px">"</div></td>
+                                                            </tr>
+                                                        </table>   
+                                                      </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td colspan="4">Coordenadas UTM:<br>
+                                                         <table>
+                                                             <tr><td>Norte:</td><td><input type="text" size="30" name="txtutmnorte" id="txtutmnorte"></td></tr>
+                                                             <tr><td>Este:</td><td><input type="text" size="30" name="txtutmeste" id="txtutmeste"></td></tr>
+                                                             <tr><td>Datum:</td><td><select name="cbodatum" id="cbodatum">
+                                                                                        <option value="PSAD56">PSAD 56</option>
+                                                                                        <option value="WGS84">WGS84</option>
+                                                                                    </select></td></tr>
+                                                         
+                                                         </table>                                                                                                                                                               
+                                                     </td>  
+                                                 </tr>
+                                                 <tr>
+                                                     <td colspan="4">Área (HA):<br>
+                                                         <table>
+                                                             <tr><td><input type="text" size="30" name="txtareacoordenada" id="txtareacoordenada"></td></tr>                                                             
+                                                         </table>                                                                                                                                                               
+                                                     </td>  
+                                                 </tr>
+                                                 <tr>
+                                                    <td colspan="4"><a class="button" href="javascript:;" onClick="agregar_coordenadas()"><span class="icon icon67"></span><span class="label">Agregar</span></a>
+                                                    <a class="button" href="javascript:;" onClick="eliminar_coordenada()"><span class="icon icon186"></span><span class="label">Eliminar</span></a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div style="clear:left;"></div>                                
+                                </div>   
 
                             </div><!--End tabs-2-->
 
@@ -751,14 +1152,15 @@
                             <div id="tabs-4">
 
                                 <div style="width: 85%;"> 
-                                    <div id="especies-contain" class="ui-widget" style="float: left">                                   
+                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 600px;" >                                   
                                         <div style="border: 1px solid #000; width: 600px"><!--Border Scrol Bar-->
                                                 <table class="ui-widget ui-widget-content" style="width: 600px;" cellpadding="0" cellspacing="0">
                                                     <thead>
                                                         <tr class="ui-widget-header ">
-                                                            <th style="width: 400px">RESOLUCIÓN</th>
+                                                            <th style="width: 200px">RESOLUCIÓN</th>
                                                             <th style="width: 100px">F.EMISIÓN</th>
                                                             <th style="width: 100px">F.VIGENCIA</th>
+                                                            <th style="width: 100px">ACCIÓN</th>
                                                         </tr>
                                                     </thead>
                                                 </table>
@@ -770,7 +1172,7 @@
                                                 </div> 
                                              </div><!-- End Border Scrol Bar-->
                                     </div>                                
-                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 300px;margin-top: 23px">   
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 50px;margin-top: 22px">   
                                         <table id="table-add-resdicapi" class="ui-widget ui-widget-content" style="width: 500px">
                                             <thead>
                                                 <tr class="ui-widget-header ">
@@ -796,22 +1198,20 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="4"><a class="button" href="javascript:;" onClick="agregar_resolucion_dicapi()"><span class="icon icon67"></span><span class="label">Agregar</span></a>
-                                                                    <a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                                    <a class="button" href="javascript:;" onClick="eliminar_resolucion_dicapi()"><span class="icon icon186"></span><span class="label">Eliminar</span></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div style="clear:left;"></div>                                
                                 </div>   
-
-
                             </div>
                             <div id="tabs-5"><!--tabs-5-->
 
                                 <div style="width: 85%;"> 
-                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 700px">                                   
-                                         <div style="border: 1px solid #000; width: 700px"><!--Border Scrol Bar-->
-                                                <table class="ui-widget ui-widget-content" style="width: 700px;" cellpadding="0" cellspacing="0">
+                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 800px">                                   
+                                         <div style="border: 1px solid #000; width: 800px"><!--Border Scrol Bar-->
+                                                <table class="ui-widget ui-widget-content" style="width: 800px;" cellpadding="0" cellspacing="0">
                                                     <thead>
                                                         <tr class="ui-widget-header ">
                                                             <th style="width: 50px">TIPO</th>
@@ -819,18 +1219,19 @@
                                                             <th style="width: 100px">FECHA EMISIÓN</th>
                                                             <th style="width: 100px">FECHA VIGENCIA</th>
                                                             <th style="width: 200px">OBSERVACIONES</th>
+                                                            <th style="width: 50px">ACCIÓN</th>
                                                         </tr>
                                                     </thead>
                                                 </table>
-                                                <div style="overflow: auto;height: 200px; width: 700px;">
-                                                    <table id="pth-sanitario-list" class="ui-widget ui-widget-content" style="width: 700px;" cellpadding="0" cellspacing="0">
+                                                <div style="overflow: auto;height: 200px; width: 800px;">
+                                                    <table id="pth-sanitario-list" class="ui-widget ui-widget-content" style="width: 800px;" cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                         </tbody>
                                                     </table>
                                                 </div> 
                                              </div><!-- End Border Scrol Bar-->
                                     </div>                                
-                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px ;margin-top: 20px">   
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 50px ;margin-top: 22px">   
                                         <table id="add-table-cert-sani" class="ui-widget ui-widget-content" style="width: 500px">
                                             <thead>
                                                 <tr class="ui-widget-header ">
@@ -857,7 +1258,6 @@
                                                     <td style="width: 100px"><input type="text" name="txtfecvigenciapth" id="txtfecvigenciapth" size="10"></td>
                                                 </tr>
                                                 <tr>                                                    
-                                                    
                                                     <td colspan="4" style="height: 20px">
                                                         <div id="comtenedor-check-fech-vigencia">
                                                             <input type="checkbox" name="chkvigenciapth" id="chkvigenciapth">
@@ -872,7 +1272,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td colspan="4"><a class="button" href="javascript:;" onClick="agregar_pth_sanitario()"><span class="icon icon67"></span><span class="label">Agregar</span></a>
-                                                                    <a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                                    <a class="button" href="javascript:;" onClick="eliminar_pth_sanitario()"><span class="icon icon186"></span><span class="label">Eliminar</span></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -880,58 +1280,71 @@
                                     <div style="clear:left;"></div>                                
                                 </div>   
                             </div><!--End tabs-5-->
+                            
                             <div id="tabs-6"><!--tabs-6-->
 
                                 <div style="width: 85%;"> 
-                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 650px">                                   
-                                        <div class="content_3" id="content" style="width: 600px"><!--The Scrollbar-->
-                                            <table id="dia_list" class="ui-widget ui-widget-content" >
-                                                <thead>
-                                                    <tr class="ui-widget-header ">
-                                                        <th>NUMERO DE DIA/EIA</th>
-                                                        <th>FECHA EMISIÓN</th>
-                                                        <th>OBSERVACIONES</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-
-                                                </tbody>
-                                            </table>
-                                        </div><!--End Scrollbar-->
+                                    <div id="especies-contain" class="ui-widget" style="float: left;width: 700px">                                 
+                                         <div style="border: 1px solid #000; width: 700px"><!--Border Scrol Bar-->
+                                                <table class="ui-widget ui-widget-content" style="width: 700px;" cellpadding="0" cellspacing="0">
+                                                    <thead>
+                                                      
+                                                        <tr class="ui-widget-header ">
+                                                            <th style="width: 100px">TIPO</th>
+                                                            <th style="width: 200px">NUMERO DE DIA/EIA</th>
+                                                            <th style="width: 100px">FECHA EMISIÓN</th>
+                                                            <th style="width: 100px">OBSERVACIONES</th>
+                                                            <th style="width: 100px">ACCIÓN</th>
+                                                        </tr>
+                                                       
+                                                    </thead>
+                                                </table>
+                                                <div style="overflow: auto;height: 280px; width: 700px;">
+                                                    <table id="dia-eia-resolucion-list" class="ui-widget ui-widget-content" style="width: 700px;" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div> 
+                                             </div><!-- End Border Scrol Bar-->
                                     </div>                                
-                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 100px ;margin-top: 30px">   
-                                        <table id="tabs-table-3" class="ui-widget ui-widget-content" style="width: 400px">
+                                    <div id="especies-contain" class="ui-widget" style="float: left;padding-left: 50px ;margin-top: 22px">   
+                                        <table id="add-tablle-dia-eia" class="ui-widget ui-widget-content" style="width: 500px">
                                             <thead>
                                                 <tr class="ui-widget-header ">
-                                                    <th style="text-align: center" colspan="4">Seleccionar Resolución</th>
+                                                    <th style="text-align: center" colspan="4">Ingresar Resolución</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>                                                
+                                            <tbody> 
                                                 <tr>
-                                                    <td>Número de Día/EIA:</td>
-                                                    <td colspan="3"><input type="text" name="txtdescripcion" id="txtdescripcion" size="30"></td>
+                                                    <td><input type="radio" name="rad_diaeia" id="raddia" value="dia" checked>
+                                                        <div style="vertical-align: middle; margin-top: -16px;margin-left: 20px">DIA</div></td>
+                                                    <td><input type="radio" name="rad_diaeia" id="radeia" value="eia">
+                                                        <div style="vertical-align: middle; margin-top: -16px;margin-left: 20px">EIA</div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>N° R.D. que aprueba Día/EIA:</td>
+                                                    <td colspan="3"><input type="text" name="txtresoluciondiaeia" id="txtresoluciondiaeia" size="30"></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Fecha&nbsp;Emisión:</td>
-                                                    <td><input type="text" name="txtfecemisiontab6" id="txtfecemisiontab6" size="10"></td>
-                                                    <!--
-                                                    <td><label id="lblfecvigenciatab5">Fecha&nbsp;Vigencia:</label></td>
-                                                    <td><input type="text" name="txtfecvigencia" id="txtfecvigenciatab5" size="10"></td>
-                                                    -->
+                                                    <td><input type="text" name="txtfecemisiondiaeia" id="txtfecemisiondiaeia" size="10"></td>
                                                 </tr>
                                                 <tr>                                                    
-                                                    <td colspan="2">Sin Fecha</td>
-                                                    <td colspan="2"><input type="checkbox" name="chkvigenciatab6" id="chkvigenciatab6"></td>                                                    
+                                                    <td colspan="4" style="height: 20px">
+                                                        <div id="comtenedor-check-fech-vigencia">
+                                                            <input type="checkbox" name="chkemisiondiaeia" id="chkemisiondiaeia">
+                                                            <div style="vertical-align: middle; margin-top: -16px;margin-left: 20px">Sin Fecha Vigencia</div>
+                                                        </div></td>                                                    
                                                 </tr>
                                                 <tr>                                                    
                                                     <td colspan="4">Observaciones:<br><br>
-                                                        <textarea name="txtareaobservaciontab6" id="txtareaobservaciontab6" rows="5" cols="50"></textarea>
+                                                        <textarea name="txtareaobservaciondiaeia" id="txtareaobservaciondiaeia" rows="5" cols="50"></textarea>
                                                     </td>
 
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon67"></span><span class="label">Agregar</span></a></td>
-                                                    <td colspan="2"><a class="button" href="javascript:;" onClick=""><span class="icon icon188"></span><span class="label">Cancelar</span></a></td>
+                                                    <td colspan="4"><a class="button" href="javascript:;" onClick="agregar_resolucion_dia_eia()"><span class="icon icon67"></span><span class="label">Agregar</span></a>
+                                                                    <a class="button" href="javascript:;" onClick="eliminar_resolucion_dia_eia()"><span class="icon icon186"></span><span class="label">Eliminar</span></a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -941,7 +1354,9 @@
 
 
                             </div><!--End tabs-6-->
-                        </div>
+                        </div>                        
+                        <a class="button" href="javascript:;" onClick="guardar_sucursal()"><span class="icon icon67"></span><span class="label">Guardar</span></a>
+                        <a class="button" href="javascript:;" onClick="salir_sucursal()"><span class="icon icon151"></span><span class="label">Salir</span></a>
                     </div>
                     <div id="dialogRecursoh"></div>
                     <div id="dialogDicapi"></div>
