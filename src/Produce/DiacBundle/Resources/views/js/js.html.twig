@@ -100,15 +100,12 @@
         }
         
         function activartxt(){            
-            if ( $("#cbodestino").val() == 0 ){                
-                $("#txtdestino").css("display","none");
-                jAlert("Caja activada","Alerta");
-            }else if ( $("#cbodestino").val() == 1 ){                
-                $("#txtdestino").css("display","");
-                jAlert("ESTANQUE","Alerta");            
-            }else if ( $("#cbodestino").val() == 2 ){                
-                $("#txtdestino").css("display","");
-                jAlert("ACUARIO","Alerta");
+            if ( $("#cbodestino2").val() == 0 ){                
+                $("#txtdestino2").css("display","none");                
+            }else if ( $("#cbodestino2").val() == 1 ){                
+                $("#txtdestino2").css("display","");                
+            }else if ( $("#cbodestino2").val() == 2 ){                
+                $("#txtdestino2").css("display","");                
             }
         }
         
@@ -241,11 +238,9 @@
                 alert("La fecha es invalida");
                 $("#txtfecha2").focus();
                 return false;
-            }else{
-                jAlert("CORRECTO","MENSAJE");
             }
             
-             // acción           
+            // acción           
             if (accion2 == "N"){
                 accion2 = "N";
                 url2 = "{{path('guardar2')}}";
@@ -256,14 +251,15 @@
                 valor2 = 2;
             }
             //grabar datos con ajax
-            alert ('Acción: ' + accion2 + '\n FK: ' + id2 + '\n Documento: ' + num2 + '\n Cantidad: '+ cant2 + '\n u:' + long2+ '\n u:' + iddest+ '\n u:' + dest2+ '\n u:' + fec2+ '\n u:' + obs2+ '\n u:' + url2);            
+            //alert ('Acción: ' + accion2 + '\n Llave Foranea: ' + id2 + '\n Documento: ' + num2 + '\n Cantidad: '+ cant2 + '\n Longitud:' + long2+ '\n Destino:' + iddest+ '\n Nombre Destino:' + dest2+ '\n Fecha:' + fec2+ '\n Obs:' + obs2+ '\n Ruta:' + url2);            
+            alert ('\n Llave Foranea: ' + id2 + '\n Documento: '+ num2 + '\n Cantidad: '+ cant2 + '\n Longitud:' + long2 + '\n Fecha:' + fec2 + '\n Obs:' + obs2);            
             
             $.ajax({
                 type: "POST",
                 url: url2, 
-                async: "true",                    
-                //data: {accion:accion, id:id, num:num, nom:nom, resol:resol, fec:fec, obs:obs}
-                data: {accion2:accion2, id2:id2, num2:num2, cant2:cant2, long2:long2, iddest:iddest, dest2:dest2, fec2:fec2, obs2:obs2}
+                async: "true",                                    
+                //data: {accion2:accion2, id2:id2, num2:num2, cant2:cant2, long2:long2, iddest:iddest, dest2:dest2, fec2:fec2, obs2:obs2}
+                data: {accion2:accion2, id2:id2, num2:num2, cant2:cant2, long2:long2, fec2:fec2, obs2:obs2}
                 }).done(function(msg) {
                     //$("#cboPerfil"+id).val("");                        
                     //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
@@ -285,11 +281,9 @@
                     }
                     
             });
-            
-            
-            
-            
-            
+            $("#grilla-usuarios").dataTable().fnDraw();         
+            cancelar2();
+            verDatos();              
          }
          
          
@@ -306,7 +300,21 @@
             $("#hdnaccion").val("U"); 
             verFormulario();
         }
-         
+        
+        function editar2(id,num,nom,resol,fec,obs){        
+            $("#pnl_actarep").show();
+            $("#hdncodigo").val(id);                          
+            $("#txtnumacta").val(num);             
+            $("#cboacuicultor").val(nom);
+            $("#txtnresol").val(resol);
+            $("#txtfecha").val(fec);             
+            $("#txtobser").val(obs);             
+            $(".titulo_perfil").html("Editar Acta de Inspección de Reproducción de Paiche");
+            $("#pnl_opciones").hide();
+            $("#hdnaccion").val("U"); 
+            verFormulario();
+        }
+       
         function cancelar(){
             $(".titulo_perfil").html("Crear Acta de Inspección de Reproducción de Paiche");
             $("#hdncodigo").val("");             
@@ -321,7 +329,26 @@
             $("#hdncodigo").val("0");  
             verDatos();             
         }
-         
+        
+        function cancelar2(){
+            $(".titulo_perfil").html("Crear Acta de Inspección de Reproducción de Paiche");
+            $("#hdncodigo").val("");             
+            $("#txtnumacta2").val("");
+            $("#txtnumacta1").val("");
+            $("#txtcantidad").val("");
+            $("#txtlongitud").val("");
+            $("#cbodestino2").val("");
+            $("#txtdestino2").val(""); 
+
+            $("#txtfecha2").val(""); 
+            $("#txtobser2").val(""); 
+            
+            $("#pnl_opciones").hide();
+            $("#hdnaccion").val("N");
+            $("#hdncodigo").val("0");  
+            verDatos();             
+        } 
+        
         function eliminar(id){
             var xcodigo = 0;
             $("#pnl_actarep").show();
@@ -329,20 +356,37 @@
             $("#pnl_opciones").hide();
             $("#hdnaccion").val("E");
             $.ajax({
-                   type: "POST",
-                   url: "{{path('eliminar')}}",
-                   async: "true",
-                   //data: {accion:accion, idgrupo: idgrupo, descri: descri }
-                   data: {id:id}
-                   }).done(function(msg) {                        
-                       //alert (msg);     
-                       if ( msg == 0 ){
-                           jAlert("El Acta de Inspección de Reproducción elegido a sido eliminado","Eliminación de Documento");
-                        }
-                       //$("#cboPerfil"+id).val("");                        
-                       //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
-               });  
+                type: "POST",
+                url: "{{path('eliminar')}}",
+                async: "true",                
+                data: {id:id}
+                }).done(function(msg) {                                               
+                    if ( msg == 0 ){
+                        jAlert("El Acta de Inspección de Reproducción elegido a sido eliminado","Eliminación de Documento");
+                    }                       
+            });  
             $("#grilla-usuarios").dataTable().fnDraw();         
             cancelar();
         } 
+        
+        function verdoc(num) {
+            $( "#verdocumento" ).dialog({
+                show: "blind",
+                title: "Ver documento",
+                width: 350,
+                hide: "explode"
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{path('buscar2')}}",
+                async: "true",                
+                data: {num:num}
+                }).done(function(msg) {                                               
+                    if ( msg == 0 ){
+                        jAlert("El Acta de Inspección de Reproducción elegido a sido eliminado","Detalle de Documento");
+                    }                       
+            });  
+            
+        };
+    
         </script>           
