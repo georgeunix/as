@@ -65,10 +65,12 @@ class cites{
         return $result;        
     }
     
-    public function ActaVerif_Guardar($cn,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs){                                    
-        $sql = "exec p_ACTAREPRODUCCION_ADD '".$nActaRep."','".$Acuicultor."','".$nResol."','".$nFecha."','".$nObs."'";           
-        $query = $cn->prepare($sql);        
+    public function ActaVerif_Guardar($cn,$NumActaRep,$NumActa,$Fecha,$NumAlevinos,$LongAlevinos,$Observaciones){                                    
+        $sql = "exec p_ActaVerificacion_Add '".$NumActaRep."','".$NumActa."','".$Fecha."','".$NumAlevinos."','".$LongAlevinos."','".$Observaciones."'";        
+        $query = $cn->prepare($sql);            
         $query->execute();
+        $result = $query->fetchColumn();
+        return $result;
     }    
     
     public function ActaVerif_Actualizar($cn,$nID,$nActaRep,$Acuicultor,$nResol,$nFecha,$nObs){                                    
