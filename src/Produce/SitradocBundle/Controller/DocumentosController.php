@@ -401,88 +401,26 @@ class DocumentosController extends Controller {
      */
     public function pruebagridAction(Request $request) {
 
+        $page = "1";  // Almacena el numero de pagina actual
+        $limit = "10"; // Almacena el numero de filas que se van a mostrar por pagina
+//        $sidx = $request->request->get("sidx");  // Almacena el indice por el cual se hará la ordenación de los datos
 
-        $page = $request->request->get("page");  // Almacena el numero de pagina actual
-        $limit = $request->request->get("rows"); // Almacena el numero de filas que se van a mostrar por pagina
-        $sidx = $request->request->get("sidx");  // Almacena el indice por el cual se hará la ordenación de los datos
-        $sord = $request->request->get("sord");  // Almacena el modo de ordenación
+        $sql_select = "SELECT DAT.ID_DOCUMENTO_PROY,CLA.DESCRIPCION ,convert(char(10), DAT.AUDITMOD, 103) as FECHA_CREACION,";
+        $sql_select.=" CIC.DESCRIPCION,DAT.INDICATIVO_OFICIO, DAT.ASUNTO , DAT.USUARIO";
+        $sql_select.=" FROM DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
+        $sql_select.=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO";
 
+        $sql_where = "CIC.ID_CICLOFIRMA=1 AND USUARIO=  'lsantos'";
 
-        if (!$sidx)
-            $sidx = 1;
+        $sidx = "convert(DATETIME, DAT.AUDITMOD, 103)";
 
+        $sord = "asc";  // Almacena el modo de ordenación
 
-
-        $DB_TRAMITE_DOCUMENTARIO = $this->getDoctrine()->getConnection("DB_TRAMITE_DOCUMENTARIO");
-
-        $sql_count = "select count(DAT.ID_DOCUMENTO_PROY) as cantidad";
-        $sql_count .= " from DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
-        $sql_count .=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO where CIC.ID_CICLOFIRMA=1";
-        $sql_count .=" AND   USUARIO=  'lsantos'";
-
-        $qCount = $DB_TRAMITE_DOCUMENTARIO->prepare($sql_count);
-        $qCount->execute();
-
-        // Se obtiene el resultado de la consulta
-        $count = trim($qCount->fetchColumn());
-
-        //En base al numero de registros se obtiene el numero de paginas
-        if ($count > 0) {
-            $total_pages = ceil($count / $limit);
-        } else {
-            $total_pages = 0;
-        }
-        if ($page > $total_pages)
-            $page = $total_pages;
-
-        //Almacena numero de registro donde se va a empezar a recuperar los registros para la pagina
-        $start = $limit * $page - $limit;
+        $con = new consultas();
+        $rs = $con->listar_jqgrid($this, $sql_select, $sql_where, $sidx, $sord, $page, $limit);
 
 
-        $sql = "DAT.ID_DOCUMENTO_PROY AS CODIGO,CLA.DESCRIPCION AS TIPO_DE_DOCUMENTO,convert(char(10), DAT.AUDITMOD, 103) as FECHA_CREACION,";
-        $sql.=" CIC.DESCRIPCION AS CICLO,DAT.INDICATIVO_OFICIO AS INDICATIVO_DEL_DOCUMENTO, DAT.ASUNTO AS ASUNTO, DAT.USUARIO AS USUARIO";
-        $sql.=" from DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
-        $sql.=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO where CIC.ID_CICLOFIRMA=1";
-        $sql.=" AND   USUARIO=  'lsantos'";
-
-        $order_by = " order by convert(DATETIME, DAT.AUDITMOD, 103) $sord";
-
-        $sql_no_incluye = " SELECT TOP $start DAT.ID_DOCUMENTO_PROY ";
-        $sql_no_incluye.=" FROM DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
-        $sql_no_incluye.=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO where CIC.ID_CICLOFIRMA=1";
-        $sql_no_incluye.=" AND   USUARIO=  'lsantos' order by convert(DATETIME, DAT.AUDITMOD, 103) $sord";
-
-        $new_sql = "SELECT TOP $limit $sql AND DAT.ID_DOCUMENTO_PROY NOT IN ($sql_no_incluye) $order_by";
-
-
-        $query = $DB_TRAMITE_DOCUMENTARIO->prepare($new_sql);
-        $query->execute();
-
-//        Consulta que devuelve los registros de una sola pagina    
-        $result = $query->fetchAll();
-
-
-// Se agregan los datos de la respuesta del servidor
-        $respuesta = (object) '';
-
-        $respuesta->page = $page;
-        $respuesta->total = $total_pages;
-        $respuesta->records = $count;
-        $i = 0;
-
-        foreach ($result as $fila) {
-            $respuesta->rows[$i]['id'] = $fila["CODIGO"];
-            $celdas = array($fila["CODIGO"], $fila["TIPO_DE_DOCUMENTO"], $fila["FECHA_CREACION"], $fila["CICLO"], $fila["INDICATIVO_DEL_DOCUMENTO"], $fila["ASUNTO"], $fila["USUARIO"]);
-            $respuesta->rows[$i]['cell'] = $celdas;
-            $i++;
-        }
-
-        $rs = new Response();
-        $rs->setContent(json_encode($respuesta));
-//        $rs->setContent($new_sql);
-
-
-        return $rs;
+        return new Response($rs);
     }
 
     /**
@@ -501,13 +439,10 @@ class DocumentosController extends Controller {
         $page = "";  // Almacena el numero de pagina actual
         $limit = 10; // Almacena el numero de filas que se van a mostrar por pagina
         $sidx = "convert(DATETIME, DAT.AUDITMOD, 103)";  // Almacena el indice por el cual se hará la ordenación de los datos
-        $sord = "desc";  // Almacena el modo de ordenación
+        $sord = "ASC";  // Almacena el modo de ordenación
 
 
-
-
-
-        $sql_select = "select DAT.ID_DOCUMENTO_PROY,CLA.DESCRIPCION,convert(char(10), DAT.AUDITMOD, 103),";
+        $sql_select = "select DAT.ID_DOCUMENTO_PROY,CLA.DESCRIPCION,convert(char(10) , DAT.AUDITMOD, 103)AS FECHA_CREACION,";
         $sql_select.=" CIC.DESCRIPCION,DAT.INDICATIVO_OFICIO, DAT.ASUNTO, DAT.USUARIO";
         $sql_select.=" FROM DAT_DOCUMENTO_PROYECTO DAT INNER JOIN TBL_CICLO_FIRMA CIC ON DAT.ID_CICLOFIRMA=CIC.ID_CICLOFIRMA INNER JOIN";
         $sql_select.=" dbo.CLASE_DOCUMENTO_INTERNO CLA ON DAT.ID_CLASE_DOCUMENTO_INTERNO=CLA.ID_CLASE_DOCUMENTO_INTERNO";
@@ -515,9 +450,9 @@ class DocumentosController extends Controller {
         $sql_where = "CIC.ID_CICLOFIRMA=1 AND   USUARIO=  'lsantos'";
 //        $sql_where = "";
 
-        $sql_where = trim($sql_where) == "" ? "" : "where $sql_where";
+        $sql_where = trim($sql_where) == "" ? "" : "WHERE $sql_where";
 
-        $order_by = trim($sidx) == "" ? "" : "order by $sidx $sord";
+        $order_by = trim($sidx) == "" ? "" : "ORDER BY $sidx $sord";
 //        $order_by = "";
 
 
