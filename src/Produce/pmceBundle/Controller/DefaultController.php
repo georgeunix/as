@@ -31,7 +31,7 @@ class DefaultController extends Controller {
     /**
      * @route("/pmce_inserta", name="_insert_wem")
      */
-    public function llena_Solicitud_Action(Request $request) {
+    public function llena_Solicitud_Action(Request $request){
         if ($request->isXmlHttpRequest()) {
             $respuesta = consultas::InsertarSolicitud($this, $request);
             // return new Response($respuesta);
@@ -50,7 +50,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/pmce", name="_index_pmce")
      */
-    public function IndexAction() {
+    public function IndexAction(){
         return $this->render('ProducepmceBundle:plantillas:interfaces_1.html.twig', array('uname' => "ratin "));
     }
 

@@ -27,6 +27,7 @@ class consultas {
         $PMCE_APORTANTE_REPARTIR=0;
         $porcentaje_aportacion=0;
         $PMCE_DISTRIBUIDO=0;
+        $CUOTA_TOTAL_ASIGNADA=810000;                        /////////////////AQUI ME QUERDEEPROFE
         
         $new_documento =" exec sp_solicitud_insert ";
         $new_documento.="@A0=0,";
@@ -85,9 +86,7 @@ class consultas {
        
                // return "".$rece*$PMCE_DISTRIBUIDO." es equal ".($PMCE_APORTANTE_REPARTIR*100)."     -----     ".$PMCE_DISTRIBUIDO; 
                     if($rece*$PMCE_DISTRIBUIDO=($PMCE_APORTANTE_REPARTIR*100))
-                    {
-                        // return "".$rece*$PMCE_DISTRIBUIDO." es equal ".($PMCE_APORTANTE_REPARTIR*100)."     -----     ".$PMCE_DISTRIBUIDO;
-                                 
+                    {   // return "".$rece*$PMCE_DISTRIBUIDO." es equal ".($PMCE_APORTANTE_REPARTIR*100)."     -----     ".$PMCE_DISTRIBUIDO;
                         $sql_historial="insert into HIST_PMCE_DET ([des_hist_ini],[id_solicitud], [fecha] , [pmce_calculado] , [lmce_calculado] , [porcentaje_aportacion],[id_receptoras])VALUES
                         ('agregando',(SELECT MAX(id_solicitud) FROM DAT_SOLICITUD) , GETDATE(), '".$PMCE_DISTRIBUIDO."' , '".$PMCE_DISTRIBUIDO."' , '".$porcentaje_aportacion."' , '24' )";
                         $query2=$DB_CON->prepare($sql_historial);
