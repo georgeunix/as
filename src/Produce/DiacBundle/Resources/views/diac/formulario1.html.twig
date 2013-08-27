@@ -47,7 +47,12 @@
             $(function() {                
                 $("#txtfecha").datepicker();
                 // para idioma en español
-                $("#txtfecha").datepicker('option',{dateFormat: 'yy-mm-dd'},{timeFormat: 'hh:mm:00'});         
+                $("#txtfecha").datepicker('option',{dateFormat: 'yy-mm-dd'},{timeFormat: 'hh:mm:00'});
+                
+                $("#txtfecha2").datepicker();
+                // para idioma en español
+                $("#txtfecha2").datepicker('option',{dateFormat: 'yy-mm-dd'},{timeFormat: 'hh:mm:00'});
+                
             });         
         </script>
         
@@ -74,15 +79,15 @@
                 <thead>
                     <tr>
                         <th width="5%">ID</th>
-                        <th width="2%">EDITAR</th>
-                        <th width="2%">QUITAR</th>
+                        <th width="1%">&nbsp;</th>
+                        <th width="1%">&nbsp</th>
                         <th width="5%">N° ACTA</th>
                         <th width="20%">ACUICULTOR</th>                        
                         <th width="5%">RESOLUCIÓN</th>                        
                         <th width="5%">FECHA</th>
                         <th width="5%">HORA</th>                                                
                         <th width="20%">OBSERVACIONES</th>  
-                        <th width="2%">DOC2</th>
+                        <th width="1%">&nbsp;</th>
                     </tr>
                 </thead>                            
                 <tbody>                                    
@@ -98,7 +103,8 @@
                         <td></td>                        
                         <td></td>                        
                         <td></td>    
-                        <td></td>    
+                        <td></td>  
+                        <td></td>
                     </tr>
                 </tbody>                
             </table>
@@ -107,10 +113,20 @@
         <div id="divBotones" style="width: 95%; float: left; margin-left: 3%; padding-left: 3px;">        
             <a class="button" id="btnVerDatos" href="javascript:;" onClick="verDatos();"><span class="icon icon120"></span><span class="label">Ver Listado</span></a>
             <a class="button" id="btnVerFormulario" href="javascript:;" onClick="verFormulario();"><span class="icon icon68"></span><span class="label">Nuevo</span></a>
+            
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-textfield-add"></i></span></a>
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-table-add"></i></span></a>
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-application-add"></i></span></a>
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-book-addresses"></i></span></a>
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-page-add"></i></span></a>
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-page-red"></i></span></a>
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-page-white-picture"></i></span></a>
+            <a href="javascript:;" onclick="buscar();"><span class="btn"><i class="cus cus-page-find"></i></span></a>
+
             <!--
             <a class="button" id="btnBuscar" href="javascript:;" onClick="buscar();"><span class="icon icon87"></span><span class="label">Buscar</span></a>                        
             <a class="button" id="btnBuscar" href="javascript:;" onClick="buscar();"><span class="cus cus-folder-add"></span><span class="label">Buscar</span></a>
-            -->
+            -->            
         </div>
         
         <div id="divForm1" style="width: 50%; float: left; margin-left: 3%; padding-left: 3px; border: 1px solid #004163;">
@@ -164,26 +180,24 @@
         </div>   
         
         <div id="divForm2" style="width: 50%; float: left; margin-left: 3%; padding-left: 3px; border: 1px solid #004163;">
-            <input type="hidden" name="hdnaccion" id="hdnaccion" value="N" size="4"/>    
-            <input type="hidden" name="hdncodigo" id="hdncodigo" value="0" size="4"/>
+            <input type="TEXT" name="hdnaccion2" id="hdnaccion2" value="N" size="4"/>    
+            <input type="TEXT" name="hdncodigo2" id="hdncodigo2" value="0" size="4"/>
             <table width="100%" align="center">
+                <input type="text" name="txtpk" id="txtpk" size="10"/>
+                <input type="text" name="txtpknum" id="txtpknum" size="10"/>
                 <tr>
                     <td colspan="2" style="background-color:#004163; height: 30px;">
                         <p style="font-family:arial;color:#fff;font-size:13px;text-align:center;"><span class="titulo_perfil">Crear Acta de Inspección de Reproducción de Paiche</span></p>
                     </td>
-                </tr>
+                </tr>                
                 <tr>
                     <td align="right">N° de Acta de Inspección y Levante: </td>                
-                    <td><input type="text" name="txtnumacta" id="txtnumacta" size="10"/></td>                                            
+                    <td><input type="text" name="txtnumacta2" id="txtnumacta2" size="10"/></td>                                            
                 </tr>
                 <tr>
                     <td align="right">N° de Acta de Inspección de Reproducción: </td>                
-                    <td><input type="text" name="txtnumacta0" id="txtnumacta0" size="10"/></td>                                            
-                </tr>
-                <tr>
-                    <td align="right">Acui: </td>                
-                    <td><input type="text" name="txtAcui" id="txtAcui" size="10"/></td>                                            
-                </tr>                
+                    <td><input type="text" name="txtnumacta1" id="txtnumacta1" size="10" disabled/></td>
+                </tr>                        
                 <tr>                                        
                     <td align="right">N° de Alevinos: </td>
                     <td><input type="text" name="txtcantidad" id="txtcantidad" size="10"/></td>
@@ -195,27 +209,27 @@
                 <tr>                    
                     <td align="right">Destino: </td>
                     <td>
-                        <select id="cbodestino" name="cbodestino" onchange="activartxt();">                                    
+                        <select id="cbodestino2" name="cbodestino2" onchange="activartxt();">                                    
                             <option value="0" selected>SELECCIONAR</option>
                             <option value="1">ESTANQUE</option>
                             <option value="2">ACUARIO</option>                            
                         </select>
-                        <input type="text" name="txtdestino" id="txtdestino" size="30"/>
+                        <input type="text" name="txtdestino2" id="txtdestino2" size="30"/>
                     </td>
                 </tr>                
                 <tr>                                        
                     <td align="right">Fecha: </td>
-                    <td><input type="text" name="txtfecha" id="txtfecha" size="8"/></td>                                            
+                    <td><input type="text" name="txtfecha2" id="txtfecha2" size="8"/></td>                                            
                 </tr>
                 <tr>                                        
                     <td align="right">Observaciones: </td>
-                    <td><input type="text" name="txtobser" id="txtobser" size="60"/></td>                            
+                    <td><input type="text" name="txtobser2" id="txtobser2" size="60"/></td>                            
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
                     <td>
-                        <a class="button" href="javascript:;" onClick="guardar();"><span class="icon icon67"></span><span class="label">Guardar</span></a>
-                        <a class="button" href="javascript:;" onClick="cancelar();"><span class="icon icon188"></span><span class="label">Cancelar</span></a>
+                        <a class="button" href="javascript:;" onClick="guardar2();"><span class="icon icon67"></span><span class="label">Guardar</span></a>
+                        <a class="button" href="javascript:;" onClick="cancelar2();"><span class="icon icon188"></span><span class="label">Cancelar</span></a>
                     </td>
                 </tr>                        
                 <tr>
@@ -289,8 +303,6 @@
                         <input type="text" name="txtdestino" id="txtdestino" size="30"/>
                     </td>
                 </tr>
-                
-                
                 <tr>                                        
                     <td align="right">Fecha: </td>
                     <td><input type="text" name="txtfecha" id="txtfecha" size="8"/></td>                                            
@@ -312,6 +324,23 @@
                 </tr>
             </table>                    
         </div>
+        
+        
+        
+        <div id="verdocumento" style="display:none;">
+            <table>
+                <tr>
+                    <th colspan="2">Acta de Inspección de Verificación y Levante de Alevinos</th>
+                </tr>
+                <tr>
+                    <td>Número de Documento:</td>
+                    <td><input type="text" name="txtdoc" id="txtdoc"></td>
+                </tr>
+            </table>
+        </div>
+        
+        
+        
 
         <div style="clear:left;"></div>                
 
