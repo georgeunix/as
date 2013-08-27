@@ -32,9 +32,9 @@ class DiacFormulario2Controller extends Controller{
             if ($response == true) {
                 $cites = new cites();                
                 
-                $spk = $request->request->get("id2");                
+                $spk = $request->request->get("num");                
                                                                
-                $x = $cites->ActaVerif_Guardar($DNA,$spk);                                    
+                $x = $cites->ActaVerif_Buscar($DNA,$spk);                                    
                 
                 //return new Response("Registro grabado correctamente"); 
                 return new Response ($x);
