@@ -26,6 +26,6 @@ servicios:
 producepmce:
     resource: "@ProducepmceBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /pmce
 
 
