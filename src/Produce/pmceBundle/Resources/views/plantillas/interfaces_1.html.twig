@@ -27,10 +27,26 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
+
+        /* LUIS SANTOS*/
+        $("#radio").buttonset();
+        $("#magnitud").buttonset();
+        $(".spinner").spinner({
+            width: 50,
+            min: 1,
+            max: 20
+        });
+        $(".boton").button();
+        /*end LUIS SANTOS*/
+
+
+
+
+
         $(".capa-negra").css("display", "none");
         $(".capa-negra-papa").css("display", "none");
 
-        $("#Category_options2").change(function() {
+        $("#procesar").click(function() {
             $("#contend-tabla1").empty();
             $("#contend-tabla2").empty();
             var slec1 = $("#Category_options1").val();
@@ -223,45 +239,47 @@
 
 
          <div id="form-1" >
-             <form id="form-param" >
+             <div style="margin:0 auto; width: 40%;padding-top: 31px;">
+                 <form id="form-param" >
+                     <table>
+                         <tr>
 
-                 <div id="title-asoc"  class="tite" > <h1>Asociaci&oacute;n</h1> </div>
+                             <td width="17%">Aportantes:</td>
+                             <td>
 
-                 <div style="margin-left:32%;margin-top:7px;">
+                                 <input class="spinner" id="Category_options1" name="aportantes" value="1" disabled size="1" />
 
-                     <div id="metod_distribucion" >
-                         <input type="radio" name="radio-proporcion" value="radio1" checked="checked" id="r1" tabindex="-1"/>
-                         <label for="r1">Distribuci&oacute;n</label>
-                         <input type="radio" name="radio-proporcion" value="radio2" id="r1" tabindex="-1" />
-                         <label for="r2">Equitativo</label>
-                     </div>
+                             </td>
+                             <td width="16%">Receptores:</td>
+                             <td >
+                                 <input class="spinner" id="Category_options2" name="receptores" value="1" disabled size="1"/>
 
-                     <div id="espacio">  </div>
+                             </td>
 
-                     <div id="metod_magnitud">
-                         <input type="radio" name="radio-magnitud" value="radio1" checked="checked" id="r2"/>
-                         <label for="r3">%</label>
-                         <input type="radio" name="radio-magnitud" value="radio2" id="r2"/>
-                         <label for="r4">m3</label>
-                     </div>
-                     <label>Aportantes</label>
-                     <select name="aportantes" id="Category_options1" >
-                         <option selected="selected" class="option" value="1">1</option>
-                         <option class="option" value="2">2</option>
-                         <option class="option" value="3">3</option>
-                         <option class="option" value="4">4</option>
-                     </select>
-                     <label>Receptores</label>
-                     <select name="receptores"  id="Category_options2">
-                         <option class="option" value="1">1</option>
-                         <option class="option" value="2">2</option>
-                         <option class="option" value="3">3</option>
-                         <option class="option" value="4">4</option>
-                         <option class="option" value="5">5</option>
-                         <option class="option" value="6">6</option>
-                     </select>
-                 </div>   
-             </form>
+                         </tr>
+                         <tr>
+                             <td >Distribuci&oacute;n&nbsp;/&nbsp;Equitativo:</td>
+                             <td>
+                                 <div id="radio">
+                                     <input type="radio" id="radio1" name="radio-proporcion" checked="checked"/><label for="radio1">D</label>
+                                     <input type="radio" id="radio2" name="radio-proporcion" /><label for="radio2">E</label>
+                                 </div>
+                             </td>
+                             <td >Tipo de Magnitud:</td>
+                             <td>
+                                 <div id="magnitud">
+                                     <input type="radio" id="magnitud1" name="radio-magnitud"  value="radio1" checked="checked"/><label for="magnitud1"><b>%</b></label>
+                                     <input type="radio" id="magnitud2" name="radio-magnitud"  value="radio2"/><label for="magnitud2">m&sup3;</label>
+                                 </div>
+                             </td>
+                             <td width="10%"><input type="button" id="procesar" class="boton" value="Procesar"></td>
+                         </tr>
+
+
+                     </table>
+
+                 </form>
+             </div>   
          </div> 
 
 
@@ -293,7 +311,7 @@
 
 
                  <div id="aportantes">
-                     <p id="apo-cabezera">Aportantes</p>
+                     <p class="grid-cabecera">Aportantes</p>
                      <table  border="1" width="100%" >
                          <thead id="deco_1" >
                              <tr>
@@ -325,7 +343,7 @@
                  <div style="clear: both" ></div>
                  </br>
                  <div id="receptores">
-                     <p id="rece-cabezera"> Receptores</p>
+                     <p class="grid-cabecera"> Receptores</p>
                      <table  border="1" width="100%" >
                          <thead id="deco_2">
                              <tr>

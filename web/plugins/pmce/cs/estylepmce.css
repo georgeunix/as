@@ -69,58 +69,66 @@ div {
     border-bottom: 1px solid #959494;
     border-radius: 0px 0px 23px 23px;
     color: black;
-    /*display: none;*/
-    float: left;
     height: 115px;
-    width: 100%;
+    margin-bottom: 16px;
 }
 
-* html #form-1 { display:inline;}
 
-#metod_distribucion{float: left;}
-#espacio{width:15%;height:12px;float:left; } * html #espacio { display:inline; }
 .input-{width:100%}
 .fuente_table{
     font-size: 10px;
     text-align: center;
     height: 25px;
 }
-table {
-    border: #abcdef 3px solid;
+table{
+
     width: 100%;
-    font-size: 12px;
-    text-align: center;
+
 }
 #aportantes{
     /*display:none;*/
-    border-radius:8px 8px 8px 8px;margin-top: 20px;}
-#apo-cabezera{
-    border-radius: 70px 70px 0 0;
-    font-size: 25px;
-    text-align: center;
-    background:#ABCDEF;
+    /*border-radius:8px 8px 8px 8px;margin-top: 20px;}*/
+}
+.grid-cabecera{
+    border-radius: 10px 10px 0 0;
+    font-size: 15px;
+    font-weight: bold;
+    color:#ffffff;
+    text-align: left;
+    border: 2px #004467 solid;
+    background-color: #004467;
+    background-image: -o-linear-gradient(top, #004467 7%, #2E6C91 93%);
+    background-image: -moz-linear-gradient(top, #004467 7%, #2E6C91 93%);
+    background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#004467), to(#2E6C91));
+    background-image: -webkit-linear-gradient(top, #004467 7%, #2E6C91 93%);
+    -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr='#004467', endColorstr='#2E6C91', gradientType='0')';
+    padding: 5px;
 
 }
-#rece-cabezera{
-    border-radius: 70px 70px 0 0;
-    color: #044E72;
-    font-size: 25px;
-    text-align: center;
-    background:skyblue;
-}
+
 #receptores{
     /*display:none;*/
     border-radius:8px 8px 8px 8px;}
 
 #deco_1{
+
     background: -moz-linear-gradient(center top , white 19%, silver 90%) repeat scroll 0 0 #004467;
     background-image: -webkit-linear-gradient(top, white 19%, silver 90%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='silver', gradientType='0'); 
 }
+#deco_1 td{
+    text-align: center; 
+}
+
+
 #deco_2{
     background: -moz-linear-gradient(center top , white 54%, silver 100%) repeat scroll 0 0 #004467; 
     background-image: -webkit-linear-gradient(top, white  7%, silver 93%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='silver', gradientType='0');
+}
+
+#deco_2 td{
+    text-align: center; 
 }
 
 #calcul{
@@ -141,16 +149,6 @@ table {
 }
 #encise{
     background-color:#4787ED  ;width: 120px;height: 340px;float: left;
-}
-
-#title-asoc{
-    display: none;
-}
-#title-susti{
-    display:none;
-}
-#title-incor{
-    display: none;
 }
 
 .tite{
