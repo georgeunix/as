@@ -13,7 +13,7 @@ use Produce\pmceBundle\Util\consultas;
 class DefaultController extends Controller {
 
     /**
-     * @Route("/pmce", name="_index_pmce")
+     * @Route("/pmce_asindef", name="_pmce_asindef")
      */
     public function mapaAction() {
 
@@ -22,9 +22,6 @@ class DefaultController extends Controller {
             array("Title" => "daisy", "Price" => 0.75, "Number" => 25),
             array("Title" => "orchid", "Price" => 1.15, "Number" => 7)
         );
-
-
-
         return $this->render('ProducepmceBundle:plantillas:interfaces_1.html.twig', array("empresa_tripu" => $errors, 'uname' => "ratin "));
     }
 
@@ -34,14 +31,12 @@ class DefaultController extends Controller {
     public function llena_Solicitud_Action(Request $request){
         if ($request->isXmlHttpRequest()) {
             $respuesta = consultas::InsertarSolicitud($this, $request);
-            // return new Response($respuesta);
-
             return new Response($respuesta);
         }
     }
 
     /**
-     * @route("/pmce_home", name="_pmce_home")
+     * @route("/home", name="_home")
      */
     public function homeAction() {
         return $this->render('ProducepmceBundle:plantillas:index.html.twig', array('uname' => "prueba"));

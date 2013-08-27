@@ -77,7 +77,6 @@
 
     </style>
 
-
 {% endblock javascript%}
 
 {%block name%}
@@ -89,7 +88,7 @@
 {%block panel1%}                  
     <div class="titulo-pmce">CASO DE CALCULO DE LIMITES MAXIMOS POR DE CAPTURA POR EMBARCACION (LMCE)</div>
     <div class="panel-pmce-option">
-        <div class="option-pmce">Asociación o incorporación<br> definitiva de<br> PMCE</div>
+        <div class="option-pmce" onclick="location.href='{{path('_pmce_asindef')}}'">Asociación o incorporación<br> definitiva de<br> PMCE</div>
         <div class="option-pmce">Reducción <br>de<br> PMCE</div>
         <div class="option-pmce">Sustitución <br>(Incremento de Flota)</div>
         <div style="clear: both;"></div>

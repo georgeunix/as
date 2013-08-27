@@ -71,7 +71,7 @@
                 content_listarecepto += "</tr>";
             }
         }
-        var content=[];
+        var content = [];
         var data0 = ["4052", "COMANCHE II", "CE-4052-PM", "Decreto Ley N25977", "314,75", "VIGENTE", "0,16965%", "1.374,38", "1.374,17", "0,00", "0,21", "NO FIGURA BENEFICIO"];
         var data1 = ["22904", "COSTA DE ORO", "CO-22904-PM", "Decreto Ley N25977", "300", "VIGENTE", "0,15378%", "1.245,81", "1.245,62", "0,00", "0,19", "NO FIGURA BENEFICIO"];
         var data2 = ["14964", "GUANAY", "CO-14964-PM", "Decreto Ley N25977", "298,05", "VIGENTE", "0,17018%", "1.378,67", "1.378,46", "0,00", "0,21", "NO FIGURA BENEFICIO"];
@@ -92,49 +92,49 @@
         content.push(data4);
         content.push(data5);
 
-        $(".agrega").click(function(){
+        $(".agrega").click(function() {
             var pos_fila = $(".agrega").attr("rel");
             var pos = $(".search2").val();
-            console.log(" :"+pos);
+            console.log(" :" + pos);
             buscatext(content, pos);
-            
+
             var ar = pos_fila.split("-");
             var tt = ar[0];
-            for (var r = 0; r <= 12; r++){
+            for (var r = 0; r <= 12; r++) {
                 $(".input-id" + r).eq(tt).val(content[pos][r]);
             }
             $(".capa-negra-papa").css("display", "none");
         });
-             
-             
-           $("#clibuscar").live("click",function (){
-                 var al = $(this).val();
-                 alert(al);
-              $(".capa-negra-papa").css("display", "none");
-           });
-             
-           
-        function buscatext(data,text) {
-        //    console.log(text);
-        $("#log").empty();
-            for(var i in data){
-              //  if(text === data[i][1]){
+
+
+        $("#clibuscar").live("click", function() {
+            var al = $(this).val();
+            alert(al);
+            $(".capa-negra-papa").css("display", "none");
+        });
+
+
+        function buscatext(data, text) {
+            //    console.log(text);
+            $("#log").empty();
+            for (var i in data) {
+                //  if(text === data[i][1]){
 //                for(var i =0;i<data.length ;i++){
-                    for(var a=2;a<=data[i][1].length;a++){
-                                   //    console.log(data[i][1].substring(0,a)+"=="+text);
-                                   if(text.toUpperCase()===data[i][1].substring(0,a)){
-                                   //    console.log((data[i][1].substring(0,a)));
-                                   $("#log").append('<li id=clibuscar >'+data[i][1]+'</li>');
-                                   console.log(data[i][1]);   
-                                //         alert(data[i][1]);
-                                   }   
-                                                
+                for (var a = 2; a <= data[i][1].length; a++) {
+                    //    console.log(data[i][1].substring(0,a)+"=="+text);
+                    if (text.toUpperCase() === data[i][1].substring(0, a)) {
+                        //    console.log((data[i][1].substring(0,a)));
+                        $("#log").append('<li id=clibuscar >' + data[i][1] + '</li>');
+                        console.log(data[i][1]);
+                        //         alert(data[i][1]);
                     }
-                    console.log("---");
-                 //                               }
-              //  }
-                 //console.log(data[i][1]);
-        }
+
+                }
+                console.log("---");
+                //                               }
+                //  }
+                //console.log(data[i][1]);
+            }
             return data[i][1];
         }
 
@@ -168,66 +168,23 @@
 
 
 
-        $(".item_menu").click(function() {
-            var idp = $(this).attr("id");
-            switch (idp) {
-                case "link_asociaci":
-                    $("#form-1").css("display", "block");
-                    $("#title-asoc").css("display", "block");
-                    $("#title-susti").css("display", "none");
-                    $("#title-incor").css("display", "none");
-                    $("#receptores").css("display", "none");
-                    $("#aportantes").css("display", "none");
-                    $(".tite").attr("rel", $(".item_menu").index(this));
-
-                    $("#calcul").css("display", "none");
-                    break;
-                case "link_sustituc":
-                    $("#form-1").css("display", "block");
-                    $("#title-susti").css("display", "block");
-                    $("#title-incor").css("display", "none");
-                    $("#title-asoc").css("display", "none");
-                    $("#receptores").css("display", "none");
-                    $("#aportantes").css("display", "none");
-                    $(".tite").attr("rel", $(".item_menu").index(this));
-
-                    $("#calcul").css("display", "none");
-                    break;
-                case "link_incorpor":
-                    $("#form-1").css("display", "block");
-                    $("#title-incor").css("display", "block");
-
-                    $("#title-susti").css("display", "none");
-                    $("#title-asoc").css("display", "none");
-
-                    $("#receptores").css("display", "none");
-                    $("#aportantes").css("display", "none");
-
-                    $(".tite").attr("rel", $(".item_menu").index(this));
-
-                    $("#calcul").css("display", "none");
-                    break;
-            }
-        });
-
-
-        $("#calcul").click(function(){
+        $("#calcul").click(function() {
             var cad = "";
-            $(".input-id0").each(function(i){
+            $(".input-id0").each(function(i) {
                 var po = $(".input-id0").eq(i).val();
-                if (po === ""){
+                if (po === "") {
                     alert("Falta ingresar Embarcaciones!");
                     cad = "";
                     return false;
                 }
-                cad +="&codem"+i+"="+po+"";
+                cad += "&codem" + i + "=" + po + "";
             });
             var item_me = $(".tite").attr("rel");
             if (cad != "")
                 insertar_solicitud(cad + "&item=" + item_me);
         });
 
-        function insertar_solicitud(cad){
+        function insertar_solicitud(cad) {
             $.ajax({
                 type: "POST",
                 url: "{{path('_insert_wem')}}",
@@ -244,173 +201,162 @@
 {% endblock javascript%}
 
 {%block name%}
-    <div style="background-color:red;width: 120px;height: 340px;float: left;">
-    </div>
-    <div style="background-color:#33ff99  ;width: 120px;height: 340px;float: left;">
-    </div>
+
 {%endblock%}
 
- 
+
 
 {%block panel1%}                  
+    <div class="titulo-pmce" style="
+         color: #ffffff;
+         font-size:24px;
+         text-align: center;
+         padding:1%;
+         border: 2px #004467 solid;
+         background-color: #004467;
+         background-image: -o-linear-gradient(top, #004467 7%, #2E6C91 93%);
+         background-image: -moz-linear-gradient(top, #004467 7%, #2E6C91 93%);
+         background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#004467), to(#2E6C91));
+         background-image: -webkit-linear-gradient(top, #004467 7%, #2E6C91 93%);
+         -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr='#004467', endColorstr='#2E6C91', gradientType='0')';
+         ">Asociación o incorporación definitiva de PMCE</div>
 
-     <div style="float:right;background: #ffffff;width: 18%;">
-        <div>
-            <div class="navi">
-                <a href="#" class="item-selec"> Solicitud </a>        
-            </div>
 
-            <div class="option">
-                <div class="doc-type" style="float:right;width:95%;" >
+         <div id="form-1" >
+             <form id="form-param" >
 
-                    <a href="#"><div id="link_asociaci" class="item_menu" rel="1" > Asociaci&oacute;n o incorporaci&oacute;n definitiva de PMCE </div></a>   
-                    <a href="#"><div id="link_incorpor" class="item_menu" rel="2" > Reducci&oacute;n de PMCE     </div></a>
-                    <a href="#"><div id="link_sustituc" class="item_menu" rel="3" > Sustituci&oacute;n (Incremento de Flota)</div></a>  
+                 <div id="title-asoc"  class="tite" > <h1>Asociaci&oacute;n</h1> </div>
 
-                </div>
-                <div style="clear: both;"></div>
-            </div>    
-        </div>
-    </div>
-    
-    
+                 <div style="margin-left:32%;margin-top:7px;">
 
-    <div id="conten">
-        <div class="capa-negra-papa" style="position: absolute">
-            <div class="capa-negra-sub2" >
-            </div>       
-
-            <div id="tolltip" style="z-index:11;width: 300px;height: 300px; margin: auto;margin-top:5%;background-color: white; border:4px solid skyblue; position:relative;top: 50%;left:50%">
-                <div style="
-                     background-image: -moz-linear-gradient(center top,#46b9ed 7%, #2E6C91 93%);
-                     background-image: -webkit-linear-gradient(top, #46b9ed 7%, #2E6C91  93%);
-                     color: #FFFFFF;font-size: 13px;font-weight: bold;padding: 10px 4px 4px 0;
-                     position: relative;text-align: center;margin-bottom: 27px;" >
-                         Busqueda por Enbarcaci&oacute;n  <div class="cierre" > <i class="cus cus-cancel"></i> </div>
-
+                     <div id="metod_distribucion" >
+                         <input type="radio" name="radio-proporcion" value="radio1" checked="checked" id="r1" tabindex="-1"/>
+                         <label for="r1">Distribuci&oacute;n</label>
+                         <input type="radio" name="radio-proporcion" value="radio2" id="r1" tabindex="-1" />
+                         <label for="r2">Equitativo</label>
                      </div>
-                     <div class="ui-widget">
-                         <div class="cont_id"></div>
-                         <input class="search2" id="search2" value="3"  />  <input type="submit" class="agrega" value="buscar" />
+
+                     <div id="espacio">  </div>
+
+                     <div id="metod_magnitud">
+                         <input type="radio" name="radio-magnitud" value="radio1" checked="checked" id="r2"/>
+                         <label for="r3">%</label>
+                         <input type="radio" name="radio-magnitud" value="radio2" id="r2"/>
+                         <label for="r4">m3</label>
                      </div>
-                     <div class="ui-widget" style="margin-top: 2em; font-family: Arial;">
-                         Resultado:
-                         <div id="log" style="height:164px;width: 300px; overflow: auto;" class="ui-widget-content"></div>
-                     </div> 
-                </div>      
-            </div>          
+                     <label>Aportantes</label>
+                     <select name="aportantes" id="Category_options1" >
+                         <option selected="selected" class="option" value="1">1</option>
+                         <option class="option" value="2">2</option>
+                         <option class="option" value="3">3</option>
+                         <option class="option" value="4">4</option>
+                     </select>
+                     <label>Receptores</label>
+                     <select name="receptores"  id="Category_options2">
+                         <option class="option" value="1">1</option>
+                         <option class="option" value="2">2</option>
+                         <option class="option" value="3">3</option>
+                         <option class="option" value="4">4</option>
+                         <option class="option" value="5">5</option>
+                         <option class="option" value="6">6</option>
+                     </select>
+                 </div>   
+             </form>
+         </div> 
 
-            <div id="fase-1" style="background-color:transparent ;height: 145px;width: 100%;">
-                <form id="form-param" >
-                    <div id="form-1" >
 
-                        <div id="title-asoc"  class="tite" > <h1>Asociaci&oacute;n</h1> </div>
-                        <div id="title-susti" class="tite" > <h1>Sustituci&oacute;n</h1> </div>
-                        <div id="title-incor" class="tite" > <h1>Reducci&oacute;n</h1> </div>
+         <div id="conten">
+             <div class="capa-negra-papa" style="position: absolute">
+                 <div class="capa-negra-sub2" >
+                 </div>       
 
-                        <div style="margin-left:32%;margin-top:7px;">
+                 <div id="tolltip" style="z-index:11;width: 300px;height: 300px; margin: auto;margin-top:5%;background-color: white; border:4px solid skyblue; position:relative;top: 50%;left:50%">
+                     <div style="
+                          background-image: -moz-linear-gradient(center top,#46b9ed 7%, #2E6C91 93%);
+                          background-image: -webkit-linear-gradient(top, #46b9ed 7%, #2E6C91  93%);
+                          color: #FFFFFF;font-size: 13px;font-weight: bold;padding: 10px 4px 4px 0;
+                          position: relative;text-align: center;margin-bottom: 27px;" >
+                              Busqueda por Enbarcaci&oacute;n  <div class="cierre" > <i class="cus cus-cancel"></i> </div>
 
-                            <div id="metod_distribucion" >
-                                <input type="radio" name="radio-proporcion" value="radio1" checked="checked" id="r1" tabindex="-1"/>
-                                <label for="r1">Distribuci&oacute;n</label>
-                                <input type="radio" name="radio-proporcion" value="radio2" id="r1" tabindex="-1" />
-                                <label for="r2">Equitativo</label>
-                            </div>
+                          </div>
+                          <div class="ui-widget">
+                              <div class="cont_id"></div>
+                              <input class="search2" id="search2" value="3"  />  <input type="submit" class="agrega" value="buscar" />
+                          </div>
+                          <div class="ui-widget" style="margin-top: 2em; font-family: Arial;">
+                              Resultado:
+                              <div id="log" style="height:164px;width: 300px; overflow: auto;" class="ui-widget-content"></div>
+                          </div> 
+                     </div>      
+                 </div>          
 
-                            <div id="espacio">  </div>
 
-                            <div id="metod_magnitud">
-                                <input type="radio" name="radio-magnitud" value="radio1" checked="checked" id="r2"/>
-                                <label for="r3">%</label>
-                                <input type="radio" name="radio-magnitud" value="radio2" id="r2"/>
-                                <label for="r4">m3</label>
-                            </div>
-                            <label>Aportantes</label>
-                            <select name="aportantes" id="Category_options1" >
-                                <option selected="selected" class="option" value="1">1</option>
-                                <option class="option" value="2">2</option>
-                                <option class="option" value="3">3</option>
-                                <option class="option" value="4">4</option>
-                            </select>
-                            <label>Receptores</label>
-                            <select name="receptores"  id="Category_options2">
-                                <option class="option" value="1">1</option>
-                                <option class="option" value="2">2</option>
-                                <option class="option" value="3">3</option>
-                                <option class="option" value="4">4</option>
-                                <option class="option" value="5">5</option>
-                                <option class="option" value="6">6</option>
-                            </select>
-                        </div>   
-                    </div> 
-                </form>
-            </div>                          
 
-            <div id="aportantes">
-                <p id="apo-cabezera">Aportantes</p>
-                <table  border="1" width="100%" >
-                    <thead id="deco_1" >
-                        <tr>
-                            <td> Matrícula</td>
-                            <td> Embarcación</td>
-                            <td> R&eacute;gimen</td>
-                            <td> Capacidad Bod.Neta m3</td>
-                            <td> Permiso de pesca</td>
-                            <td> PMCE</td>
-                            <td> LMCE</td>
-                            <td> Cuota Asignada</td>
-                            <td> Descuent</td>
-                            <td> Redist. Descue.</td>
-                            <td> Con Beneficio</td>
-                            <td> Sin Beneficio</td>
-                        </tr>
-                    </thead>
-                    <tbody id="es">
-                        <!-- 
-                        <tr> 
-                        <td>feoegrer
-                        <input class="listt input-id0" type="text" value="endotesi ">
-                        </td>
-                        </tr>
-                        -->   
-                    </tbody>
-                </table>
-            </div>
-            <div style="clear: both" ></div>
-            </br>
-            <div id="receptores">
-                <p id="rece-cabezera"> Receptores</p>
-                <table  border="1" width="100%" >
-                    <thead id="deco_2">
-                        <tr>
-                            <td width="8%"> Matrícula</td>
-                            <td width="11%"> Embarcación</td>
-                            <td width="7%"> Régimen</td>
-                            <td width="7%"> Capacidad Bod.Neta m3</td>
-                            <td width="8%"> Permiso de pesca</td>
-                            <td width="4%"> PMCE </td>
-                            <td width="4%"> LMCE </td>
-                            <td width="7%"> Cuota Asignada </td>
-                            <td width="7%"> Descuent </td>
-                            <td width="7%"> Redist. Descue. </td>
-                            <td width="7%"> Con Beneficio </td>
-                            <td width="7%"> Sin Beneficio </td>
-                            <td width="10%"> <p style="color: #2149ed;font-weight: bold;">Entrada de datos</p>  </td>
-                        </tr>
-                    </thead>
-                    <tbody id="es2">
-                    </tbody>
-                </table>
-                <div id="contend-tabla2"></div>
-            </div>
-            <input type="submit" value="Calcular" id="calcul" >
-            <div id="" >
-                <ul>
+                 <div id="aportantes">
+                     <p id="apo-cabezera">Aportantes</p>
+                     <table  border="1" width="100%" >
+                         <thead id="deco_1" >
+                             <tr>
+                                 <td> Matrícula</td>
+                                 <td> Embarcación</td>
+                                 <td> R&eacute;gimen</td>
+                                 <td> Capacidad Bod.Neta m3</td>
+                                 <td> Permiso de pesca</td>
+                                 <td> PMCE</td>
+                                 <td> LMCE</td>
+                                 <td> Cuota Asignada</td>
+                                 <td> Descuent</td>
+                                 <td> Redist. Descue.</td>
+                                 <td> Con Beneficio</td>
+                                 <td> Sin Beneficio</td>
+                             </tr>
+                         </thead>
+                         <tbody id="es">
+                             <!-- 
+                             <tr> 
+                             <td>feoegrer
+                             <input class="listt input-id0" type="text" value="endotesi ">
+                             </td>
+                             </tr>
+                             -->   
+                         </tbody>
+                     </table>
+                 </div>
+                 <div style="clear: both" ></div>
+                 </br>
+                 <div id="receptores">
+                     <p id="rece-cabezera"> Receptores</p>
+                     <table  border="1" width="100%" >
+                         <thead id="deco_2">
+                             <tr>
+                                 <td width="8%"> Matrícula</td>
+                                 <td width="11%"> Embarcación</td>
+                                 <td width="7%"> Régimen</td>
+                                 <td width="7%"> Capacidad Bod.Neta m3</td>
+                                 <td width="8%"> Permiso de pesca</td>
+                                 <td width="4%"> PMCE </td>
+                                 <td width="4%"> LMCE </td>
+                                 <td width="7%"> Cuota Asignada </td>
+                                 <td width="7%"> Descuent </td>
+                                 <td width="7%"> Redist. Descue. </td>
+                                 <td width="7%"> Con Beneficio </td>
+                                 <td width="7%"> Sin Beneficio </td>
+                                 <td width="10%"> <p style="color: #2149ed;font-weight: bold;">Entrada de datos</p>  </td>
+                             </tr>
+                         </thead>
+                         <tbody id="es2">
+                         </tbody>
+                     </table>
+                     <div id="contend-tabla2"></div>
+                 </div>
+                 <input type="submit" value="Calcular" id="calcul" >
+                 <div id="" >
+                     <ul>
                     {#% for user in empresa_tripu %#}
                     {#{ user.descripcion }#}
                     {#% endfor %#}
-                    </ul> 
-                </div>
-            </div>
+                         </ul> 
+                     </div>
+                 </div>
 {%endblock%}
 
