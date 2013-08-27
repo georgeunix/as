@@ -179,7 +179,10 @@
                 }
                 cad += "&codem" + i + "=" + po + "";
             });
-            var item_me = $(".tite").attr("rel");
+            
+ 
+            var item_me = $(".titulo-pmce").attr("rel");
+            
             if (cad != "")
                 insertar_solicitud(cad + "&item=" + item_me);
         });
@@ -197,12 +200,14 @@
             });
         }
         
-        
         $("#reporte").click(function(){
 //     document.onload();
 //     window.open("{#{path('_reporte_pmce')}#}","target");
        window.location ="{{path('_reporte_pmce')}}";
         });
+
+
+         
          
         
         
@@ -231,7 +236,7 @@
          background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#004467), to(#2E6C91));
          background-image: -webkit-linear-gradient(top, #004467 7%, #2E6C91 93%);
          -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr='#004467', endColorstr='#2E6C91', gradientType='0')';
-         ">Asociación o incorporación definitiva de PMCE</div>
+         " rel="1"  >Asociación o incorporación definitiva de PMCE </div>
 
 
          <div id="form-1" >

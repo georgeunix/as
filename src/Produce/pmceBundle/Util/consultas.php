@@ -6,36 +6,36 @@ namespace Produce\pmceBundle\Util;
 class consultas {
     
      
-    public static function InsertarSolicitud($cn,$request){
+    public static function InsertarSolicitud($cn,$request){                 
         
-        $apor = $request->request->get("aportantes");        
-        $rece = $request->request->get("receptores");  
-     
-        $distribucion = $request->request->get("radio-proporcion");
-        // distribuicion radio1            equitativo radio2
-        $magnitud = $request->request->get("radio-magnitud");          
-        // %radio1                        m3 radio2        
-        $item_tipo = $request->request->get("item");                     
- 
-        if($item_tipo==0) $value="Asociación";                  
-        if($item_tipo==1) $value="Reducción";                   
-        if($item_tipo==2) $value="Sustitución";             
+        $apor = $request->request->get("aportantes");                           
+        $rece = $request->request->get("receptores");                           
+                                                                                
+        $distribucion = $request->request->get("radio-proporcion");             
+        // distribuicion radio1            equitativo radio2                    
+        $magnitud = $request->request->get("radio-magnitud");                   
+        // %radio1                        m3 radio2                             
+        $item_tipo = $request->request->get("item");                            
+                                                                                
+        if($item_tipo==0) $value="Asociación";                                  
+        if($item_tipo==1) $value="Reducción";                                   
+        if($item_tipo==2) $value="Sustitución";                                 
         //$ultimo = $request->request->get("codem0");         
-        $DB_CON= $cn->getDoctrine()->getConnection("PMCE");
+        $DB_CON= $cn->getDoctrine()->getConnection("PMCE");                     
         ////var comprobacion
-        $IMPRMIW=$distribucion+"-"+$magnitud;
-        $suma_PMCE=0;
-        $PMCE_APORTANTE_REPARTIR=0;
-        $porcentaje_aportacion=0;
-        $PMCE_DISTRIBUIDO=0;
-        $CUOTA_TOTAL_ASIGNADA=810000;                        /////////////////AQUI ASIGNO EL CUOTA TOTAL
+        $IMPRMIW=$distribucion+"-"+$magnitud;                                                                       
+        $suma_PMCE=0;                                        ////////////////Para la comprobacion                   
+        $PMCE_APORTANTE_REPARTIR=0;                                                                                     
+        $porcentaje_aportacion=0;                                                                                       
+        $PMCE_DISTRIBUIDO=0;                                                                                        
+        $CUOTA_TOTAL_ASIGNADA=810000;                        /////////////////AQUI ASIGNO EL CUOTA TOTAL                
         
         $new_documento =" exec sp_solicitud_insert ";
         $new_documento.="@A0=0,";
         $new_documento.="@A1=".$item_tipo.",";
         $new_documento.="@A2='$value'";
-//        $query1 = $DB_CON->prepare($new_documento);
-//        $query1->execute();
+        $query1 = $DB_CON->prepare($new_documento);
+        $query1->execute();
         $total=$apor+$rece;
         $cont=0;
      
@@ -65,7 +65,6 @@ class consultas {
                                 $result = $query->fetchAll();
                                 foreach ($result as $pmce_apor){
                                 $suma_PMCE+=$pmce_apor["PMCE"];
-                                //$IMPRMIW=$pmce_apor["ID_EMB"]+"----"+$pmce_apor["PMCE"];
                                 }
                 }
             $total--;
@@ -95,11 +94,7 @@ class consultas {
                             $query2=$DB_CON->prepare($sql_historial);
                             $query2->execute();
                         }
-                        
-                       
-                         
-                        return "paso por el inserto"."";
-                         
+                        return "paso por el inserto"."";   
                     }
                     else 
                     {
@@ -117,7 +112,19 @@ class consultas {
     }
     
    
-    
+      
+    public static function listareporte($cn){
+         
+        $sql = "SELECT ma.EMBARCACION,ma.MATRICULA,ma.REGIMEN,ma.CAP_BOD_M3,ma.ESTADO_PERMISO,hd.pmce_calculado, hd.lmce_calculado,hd.porcentaje_aportacion  FROM ";
+        $sql.= "HIST_PMCE_DET as hd inner join DAT_MATRIZ_PMCE_ACTUAL ma on ma.ID_EMB=hd.id_receptoras where id_solicitud=(SELECT MAX(id_solicitud) FROM DAT_SOLICITUD)";
+//        $sql .= " CIC.DESCRIPCION AS CICLO,DAT.INDICATIVO_OFICIO AS INDICATIVO_DEL_DOCUMENTO, DAT.ASUNTO AS ASUNTO, DAT.USUARIO AS USUARIO,";
+        
+        $query = $cn->prepare($sql);
+        $query->execute();
+        $result_query = $query->fetchAll();
+        return $result_query;
+    }
+            
     
     
      
