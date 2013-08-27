@@ -13,9 +13,10 @@ class consultas {
      
         $distribucion = $request->request->get("radio-proporcion");
         // distribuicion radio1            equitativo radio2
-        $magnitud = $request->request->get("radio-magnitud"); 
-        // %radio1                        m3 radio2
-        $item_tipo = $request->request->get("item");        
+        $magnitud = $request->request->get("radio-magnitud");          
+        // %radio1                        m3 radio2        
+        $item_tipo = $request->request->get("item");                     
+ 
         if($item_tipo==0) $value="Asociación";                  
         if($item_tipo==1) $value="Reducción";                   
         if($item_tipo==2) $value="Sustitución";             
@@ -33,11 +34,11 @@ class consultas {
         $new_documento.="@A0=0,";
         $new_documento.="@A1=".$item_tipo.",";
         $new_documento.="@A2='$value'";
-        $query1 = $DB_CON->prepare($new_documento);
-        $query1->execute();
+//        $query1 = $DB_CON->prepare($new_documento);
+//        $query1->execute();
         $total=$apor+$rece;
         $cont=0;
-        return "sigue";
+     
             while($total>0){
                 if($cont<$apor){
                     $embarcacion= $request->request->get("codem".$cont);
@@ -87,16 +88,15 @@ class consultas {
                // return "".$rece*$PMCE_DISTRIBUIDO." es equal ".($PMCE_APORTANTE_REPARTIR*100)."     -----     ".$PMCE_DISTRIBUIDO; 
                     if($rece*$PMCE_DISTRIBUIDO=($PMCE_APORTANTE_REPARTIR*100))
                     {   // return "".$rece*$PMCE_DISTRIBUIDO." es equal ".($PMCE_APORTANTE_REPARTIR*100)."     -----     ".$PMCE_DISTRIBUIDO;
+                        //$apor+$rece;
+                        for($i=($apor);$i<$apor+$rece;$i++){
+                            $sql_historial="insert into HIST_PMCE_DET ([des_hist_ini],[id_solicitud], [fecha] , [pmce_calculado] , [lmce_calculado] , [porcentaje_aportacion],[id_receptoras])VALUES
+                            ('agregando',(SELECT MAX(id_solicitud) FROM DAT_SOLICITUD) , GETDATE(), '".$PMCE_DISTRIBUIDO."' , '".$PMCE_DISTRIBUIDO."' , '".$porcentaje_aportacion."' , '".$request->request->get("codem".$i)."' )";
+                            $query2=$DB_CON->prepare($sql_historial);
+                            $query2->execute();
+                        }
                         
-//                        for($i=0;$i<;$i++){
-//                            
-//                        }
-                        $embarcacion= $request->request->get("codem".$cont);
-                        
-                        $sql_historial="insert into HIST_PMCE_DET ([des_hist_ini],[id_solicitud], [fecha] , [pmce_calculado] , [lmce_calculado] , [porcentaje_aportacion],[id_receptoras])VALUES
-                        ('agregando',(SELECT MAX(id_solicitud) FROM DAT_SOLICITUD) , GETDATE(), '".$PMCE_DISTRIBUIDO."' , '".$PMCE_DISTRIBUIDO."' , '".$porcentaje_aportacion."' , '24' )";
-                        $query2=$DB_CON->prepare($sql_historial);
-                        $query2->execute();
+                       
                          
                         return "paso por el inserto"."";
                          

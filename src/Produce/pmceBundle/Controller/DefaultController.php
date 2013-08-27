@@ -52,7 +52,7 @@ class DefaultController extends Controller {
      * @Pdf()
      * @Route("/reporte_pmce",name="_reporte_pmce")
      */
-    public function reportePDFAction() {
+    public function reportePDFAction(){
 
         $facade = $this->get('ps_pdf.facade');
         $response = new Response();

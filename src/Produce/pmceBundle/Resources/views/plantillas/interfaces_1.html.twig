@@ -10,8 +10,8 @@
 <link rel=stylesheet type=text/css href="{{asset('plugins/pmce/cs/estylepmce.css')}}">
 
 
-{% endblock%} 
-{% block javascript%} 
+{% endblock%}
+{% block javascript%}
 {{parent()}}
 
 <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
@@ -190,11 +190,23 @@
                 url: "{{path('_insert_wem')}}",
                 data: $("#form-param").serialize() + cad,
                 dataType: "text",
-                success: function(e) {
+                success: function(e){
                     alert(""+e);
+                $("#reporte").click();
                 }
             });
         }
+        
+        
+        $("#reporte").click(function(){
+//     document.onload();
+//     window.open("{#{path('_reporte_pmce')}#}","target");
+       window.location ="{{path('_reporte_pmce')}}";
+        });
+         
+        
+        
+        
     });
     </script>                                   
 
@@ -350,6 +362,9 @@
                      <div id="contend-tabla2"></div>
                  </div>
                  <input type="submit" value="Calcular" id="calcul" >
+                 
+                 <div id="reporte"> </div>
+                 
                  <div id="" >
                      <ul>
                     {#% for user in empresa_tripu %#}
