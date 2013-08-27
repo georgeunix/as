@@ -30,6 +30,25 @@ class MapaController extends Controller {
     }
 
     /**
+     * @Route("/mapa_vista", name="_mapa_vista")
+     */
+    public function mapa_vistaAction() {
+
+        $anio = date("Y");
+        $mes = date("m");
+
+        $DB_CONFLICTOS_SOCIALES = $this->getDoctrine()->getConnection("DB_CONFLICTOS_SOCIALES");
+        $sql = " select co.conflicto_id,re.region_nombre,re.region_variable ";
+        $sql .=" from conflictos co inner join dbo.REGION re on co.region_id=re.region_id";
+        $sql .=" where co.anio=$anio and mes=$mes";
+
+        $query = $DB_CONFLICTOS_SOCIALES->prepare($sql); //preparo consulta
+        $query->execute(); //ejecuto la consulta
+        $result = $query->fetchAll();
+        return $this->render("ConflictosSocialesBundle:mapa:mapa_vista_conflictos_sociales.html.twig", array("punto_conflicto" => $result));
+    }
+
+    /**
      * @Route("/buscarMapa", name="_buscarMapa")
      */
     public function buscarMapaAction(Request $request) {
@@ -170,7 +189,6 @@ class MapaController extends Controller {
         $content = $facade->render($xml);
 
         return new Response($content, 200, array('content-type' => 'application/pdf'));
-
     }
 
 }
