@@ -43,8 +43,25 @@ class DefaultController extends Controller {
     /**
      * @route("/pmce_home", name="_pmce_home")
      */
-    public function indexAction() {
+    public function homeAction() {
         return $this->render('ProducepmceBundle:plantillas:index.html.twig', array('uname' => "prueba"));
+    }
+
+    /**
+     * @Route("/pmce", name="_index_pmce")
+     */
+    public function IndexAction() {
+        return $this->render('ProducepmceBundle:plantillas:interfaces_1.html.twig', array('uname' => "ratin "));
+    }
+
+    /**
+     * @route("/pmce_inserta", name="_insert_wem")
+     */
+    public function Inserta_Solicitud_Action(Request $request) {
+        if ($request->isXmlHttpRequest()) {
+            $respuesta = consultas::InsertarSolicitud($this, $request);
+            return new Response($respuesta);
+        }
     }
 
     /**
@@ -54,7 +71,6 @@ class DefaultController extends Controller {
     public function reportePDFAction() {
 
         $facade = $this->get('ps_pdf.facade');
-
         $response = new Response();
 
         $errors = array(
