@@ -15,8 +15,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/pmce_asindef", name="_pmce_asindef")
      */
-    public function mapaAction() {
-
+    public function mapaAction(){
         $errors = array(
             array("Title" => "rose", "Price" => 1.25, "Number" => 15),
             array("Title" => "daisy", "Price" => 0.75, "Number" => 25),
@@ -47,16 +46,6 @@ class DefaultController extends Controller {
      */
     public function IndexAction(){
         return $this->render('ProducepmceBundle:plantillas:interfaces_1.html.twig', array('uname' => "ratin "));
-    }
-
-    /**
-     * @route("/pmce_inserta", name="_insert_wem")
-     */
-    public function Inserta_Solicitud_Action(Request $request) {
-        if ($request->isXmlHttpRequest()) {
-            $respuesta = consultas::InsertarSolicitud($this, $request);
-            return new Response($respuesta);
-        }
     }
 
     /**

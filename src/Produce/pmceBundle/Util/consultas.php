@@ -10,7 +10,7 @@ class consultas {
         
         $apor = $request->request->get("aportantes");        
         $rece = $request->request->get("receptores");  
-
+     
         $distribucion = $request->request->get("radio-proporcion");
         // distribuicion radio1            equitativo radio2
         $magnitud = $request->request->get("radio-magnitud"); 
@@ -37,7 +37,7 @@ class consultas {
         $query1->execute();
         $total=$apor+$rece;
         $cont=0;
-        
+        return "sigue";
             while($total>0){
                 if($cont<$apor){
                     $embarcacion= $request->request->get("codem".$cont);
