@@ -15,8 +15,7 @@ class DefaultController extends Controller {
     /**
      * @Route("/pmce_asindef", name="_pmce_asindef")
      */
-    public function mapaAction() {
-
+    public function mapaAction(){
         $errors = array(
             array("Title" => "rose", "Price" => 1.25, "Number" => 15),
             array("Title" => "daisy", "Price" => 0.75, "Number" => 25),
@@ -50,31 +49,45 @@ class DefaultController extends Controller {
     }
 
     /**
-     * @route("/pmce_inserta", name="_insert_wem")
-     */
-    public function Inserta_Solicitud_Action(Request $request) {
-        if ($request->isXmlHttpRequest()) {
-            $respuesta = consultas::InsertarSolicitud($this, $request);
-            return new Response($respuesta);
-        }
-    }
-
-    /**
      * @Pdf()
      * @Route("/reporte_pmce",name="_reporte_pmce")
      */
-    public function reportePDFAction() {
+    public function reportePDFAction(){
 
         $facade = $this->get('ps_pdf.facade');
-        $response = new Response();
+        $response = new Response();                                 
+                                                                    
+        $DB_PMCE = $this->getDoctrine()->getConnection("PMCE");                         
+        $listaProyecto = consultas::listareporte($DB_PMCE);         
+        $botones = "";                                                                  
+        $new_listaProyecto = array();                              
+        foreach ($listaProyecto as $value){
 
+//            $botones = "<span class='btn edit-doc' title='Editar Documento' rel='" . $value["CODIGO"] . "' type='button' ><i class='cus cus-application-form-edit'></i></span>";
+//            $botones .= "<span class='btn generar_word' title='Generar Word' rel='" . $value["CODIGO"] . "' type='button' ><i class='cus cus-page-word'></i></span>";
+//            $botones .= "<span class='btn subir_documento' title='Cargar documento' rel='" . $value["CODIGO"] . "' type='button' ><i class='cus  cus-page-save'></i></span>";
+
+            $row = array("EMBARCACION" => $value["EMBARCACION"],
+                "MATRICULA" => $value["MATRICULA"],
+                "REGIMEN" => $value["REGIMEN"],
+                "CAP_BOD_M3" => $value["CAP_BOD_M3"],
+                "INDICATIVO_DEL_DOCUMENTO" => $value["ESTADO_PERMISO"],
+                "pmce_calculado" => $value["pmce_calculado"],
+                "lmce_calculado" => $value["lmce_calculado"],
+                "porcentaje_aportacion" => $value["porcentaje_aportacion"] );
+
+            array_push($new_listaProyecto, $row);
+        }
+        $rs = new Response();
+       // $rs->setContent(json_encode($new_listaProyecto));
+       // return $rs;
+          
         $errors = array(
             array("Title" => "rose", "Price" => 1.25, "Number" => 15),
             array("Title" => "daisy", "Price" => 0.75, "Number" => 25),
             array("Title" => "orchid", "Price" => 1.15, "Number" => 7)
         );
-
-        $this->render('ProducepmceBundle:plantillas:Template_pmce.pdf.twig', $errors, $response);
+        $this->render('ProducepmceBundle:plantillas:Template_pmce.pdf.twig',  array("info" => $new_listaProyecto) , $response);
         $xml = $response->getContent();
         $content = $facade->render($xml);
 

@@ -76,10 +76,24 @@
                 </tr>
             </table>  
         </div>
-     
+ 
+              
+        
+        
+         {% for row in info %}
+                <tr>
+                     <td>{{row.Title}}</td>
+                     <td>{{row.Price}}</td>
+                     <td>{{row.Number}}</td>
                     
+                <!--     <td>{#{row.EMBARCACION}#}</td>
+                    <td>{#{row.REGIMEN}#}</td>
+                    <td>{#{row.porcentaje_aportacion}#}</td>
+               --> 
+                </tr>
+        {% endfor %}
          
-             
+            
             
         </dynamic-page>
     </pdf>

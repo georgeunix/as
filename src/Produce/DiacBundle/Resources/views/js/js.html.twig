@@ -85,30 +85,28 @@
             
         }
 
+        /* crear formulario de verificacion */
         function crear(fk,num){
-            jAlert("Acta de Reproducción N°: " + num + "<br>ID: " + fk, "Registro de Actas");
+            alert("ksgd");
+            //jAlert("Acta de Reproducción N°: " + num + "<br>ID: " + fk, "Registro de Actas");
             $("#btnVerDatos").css("display","");
             $("#divDatos").css("display","none");
             $("#btnVerFormulario").css("display","none");
             $("#divForm1").css("display","none");				
             $("#divForm2").css("display","");
-            $("#txtnumacta0").val(fk);
-            $("#txtAcui").val(num);
+            $("#txtpk").val(fk);
+            $("#txtpknum").val(num);
+            $("#txtnumacta1").val(num);            
             $("#txtdestino").css("display","none");
-            
-            
         }
         
         function activartxt(){            
-            if ( $("#cbodestino").val() == 0 ){                
-                $("#txtdestino").css("display","none");
-                jAlert("Caja activada","Alerta");
-            }else if ( $("#cbodestino").val() == 1 ){                
-                $("#txtdestino").css("display","");
-                jAlert("ESTANQUE","Alerta");            
-            }else if ( $("#cbodestino").val() == 2 ){                
-                $("#txtdestino").css("display","");
-                jAlert("ACUARIO","Alerta");
+            if ( $("#cbodestino2").val() == 0 ){                
+                $("#txtdestino2").css("display","none");                
+            }else if ( $("#cbodestino2").val() == 1 ){                
+                $("#txtdestino2").css("display","");                
+            }else if ( $("#cbodestino2").val() == 2 ){                
+                $("#txtdestino2").css("display","");                
             }
         }
         
@@ -178,12 +176,7 @@
                 }).done(function(msg) {
                     //$("#cboPerfil"+id).val("");                        
                     //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
-                    //alert (msg); 
-                    
-                    
-                    
-                    
-                    
+                    //alert (msg);                     
                     if (msg == 0){
                         if ( valor == 1 ){
                             jAlert("El documento " + num + " ha sido registrado","ACTA DE REPRODUCCIÓN");
@@ -204,7 +197,96 @@
             $("#grilla-usuarios").dataTable().fnDraw();         
             cancelar();
             verDatos();
-         }         
+         }    
+         
+         function guardar2(){
+            accion2 = $("#hdnaccion2").val();           
+            id2 = $("#txtpk").val();
+            num2 = $("#txtnumacta2").val();
+            cant2 = $("#txtcantidad").val();
+            long2 = $("#txtlongitud").val();
+            iddest = $("#cbodestino2").val();
+            dest2 = $("#txtdestino2").val();
+            fec2 = $("#txtfecha2").val();
+            obs2 = $("#txtobser2").val();
+            
+            // validar campos vacios
+            if ( id2 == "" ){
+                jAlert("El Id de Acta de Reproducción es vacio");
+                $("#txtpk").focus();
+                return false;
+            }else if ( num2 == "" ){
+                alert("El número de Acta de Verificación no debe ser vacio");
+                $("#txtnumacta2").focus();
+                return false;
+            }else if ( cant2  == "" ){
+                alert("La cantidad debe ser mayo que cero");
+                $("#txtcantidad").focus();
+                return false;
+            }else if ( long2 == "" ){
+                alert("La longitud debe ser mayor a cero");
+                $("#txtlongitud").focus();
+                return false;
+            }else if ( iddest  == "" ){
+                alert("El codigo de destino no debe ser vacio");
+                $("#cbodestino2").focus();
+                return false;
+            }else if ( dest2  == "" ){
+                alert("El destino no puede ser vacio");
+                $("#txtdestino2").focus();
+                return false;
+            }else if ( fec2  == "" ){
+                alert("La fecha es invalida");
+                $("#txtfecha2").focus();
+                return false;
+            }
+            
+            // acción           
+            if (accion2 == "N"){
+                accion2 = "N";
+                url2 = "{{path('guardar2')}}";
+                valor2 = 1;
+            }else if(accion2 == "U"){
+                accion2 = "U"; 
+                url2 = "{{path('actualizar')}}";                
+                valor2 = 2;
+            }
+            //grabar datos con ajax
+            //alert ('Acción: ' + accion2 + '\n Llave Foranea: ' + id2 + '\n Documento: ' + num2 + '\n Cantidad: '+ cant2 + '\n Longitud:' + long2+ '\n Destino:' + iddest+ '\n Nombre Destino:' + dest2+ '\n Fecha:' + fec2+ '\n Obs:' + obs2+ '\n Ruta:' + url2);            
+            alert ('\n Llave Foranea: ' + id2 + '\n Documento: '+ num2 + '\n Cantidad: '+ cant2 + '\n Longitud:' + long2 + '\n Fecha:' + fec2 + '\n Obs:' + obs2);            
+            
+            $.ajax({
+                type: "POST",
+                url: url2, 
+                async: "true",                                    
+                //data: {accion2:accion2, id2:id2, num2:num2, cant2:cant2, long2:long2, iddest:iddest, dest2:dest2, fec2:fec2, obs2:obs2}
+                data: {accion2:accion2, id2:id2, num2:num2, cant2:cant2, long2:long2, fec2:fec2, obs2:obs2}
+                }).done(function(msg) {
+                    //$("#cboPerfil"+id).val("");                        
+                    //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
+                    //alert (msg);                     
+                    if (msg == 0){
+                        if ( valor2 == 1 ){
+                            jAlert("El documento " + num2 + " ha sido registrado","ACTA DE VERIFICACIÓN");
+                        }else if ( valor2 == 2 ){
+                            jAlert("El documento " + num2 + " ha sido modificado","ACTA DE VERIFICACIÓN");
+                        }                    
+                    }else if (msg == 1){
+                        if ( valor2 == 1 ){
+                            jAlert("Error al registrar el documento " + num2,"ACTA DE VERIFICACIÓN");
+                        }else if ( valor2 == 2 ){
+                            jAlert("Error al actualizar el documento " + num2,"ACTA DE VERIFICACIÓN");
+                        }                        
+                    }else {
+                        jAlert("El documento ya existe " + num2,"ACTA DE REPRODUCCIÓN");                                              
+                    }
+                    
+            });
+            $("#grilla-usuarios").dataTable().fnDraw();         
+            cancelar2();
+            verDatos();              
+         }
+         
          
         function editar(id,num,nom,resol,fec,obs){        
             $("#pnl_actarep").show();
@@ -219,7 +301,21 @@
             $("#hdnaccion").val("U"); 
             verFormulario();
         }
-         
+        
+        function editar2(id,num,nom,resol,fec,obs){        
+            $("#pnl_actarep").show();
+            $("#hdncodigo").val(id);                          
+            $("#txtnumacta").val(num);             
+            $("#cboacuicultor").val(nom);
+            $("#txtnresol").val(resol);
+            $("#txtfecha").val(fec);             
+            $("#txtobser").val(obs);             
+            $(".titulo_perfil").html("Editar Acta de Inspección de Reproducción de Paiche");
+            $("#pnl_opciones").hide();
+            $("#hdnaccion").val("U"); 
+            verFormulario();
+        }
+       
         function cancelar(){
             $(".titulo_perfil").html("Crear Acta de Inspección de Reproducción de Paiche");
             $("#hdncodigo").val("");             
@@ -234,7 +330,26 @@
             $("#hdncodigo").val("0");  
             verDatos();             
         }
-         
+        
+        function cancelar2(){
+            $(".titulo_perfil").html("Crear Acta de Inspección de Reproducción de Paiche");
+            $("#hdncodigo").val("");             
+            $("#txtnumacta2").val("");
+            $("#txtnumacta1").val("");
+            $("#txtcantidad").val("");
+            $("#txtlongitud").val("");
+            $("#cbodestino2").val("");
+            $("#txtdestino2").val(""); 
+
+            $("#txtfecha2").val(""); 
+            $("#txtobser2").val(""); 
+            
+            $("#pnl_opciones").hide();
+            $("#hdnaccion").val("N");
+            $("#hdncodigo").val("0");  
+            verDatos();             
+        } 
+        
         function eliminar(id){
             var xcodigo = 0;
             $("#pnl_actarep").show();
@@ -242,20 +357,38 @@
             $("#pnl_opciones").hide();
             $("#hdnaccion").val("E");
             $.ajax({
-                   type: "POST",
-                   url: "{{path('eliminar')}}",
-                   async: "true",
-                   //data: {accion:accion, idgrupo: idgrupo, descri: descri }
-                   data: {id:id}
-                   }).done(function(msg) {                        
-                       //alert (msg);     
-                       if ( msg == 0 ){
-                           jAlert("El Acta de Inspección de Reproducción elegido a sido eliminado","Eliminación de Documento");
-                        }
-                       //$("#cboPerfil"+id).val("");                        
-                       //alert("El Perfil asigando ha sido eliminado, seleccione uno por favor");                        
-               });  
+                type: "POST",
+                url: "{{path('eliminar')}}",
+                async: "true",                
+                data: {id:id}
+                }).done(function(msg) {                                               
+                    if ( msg == 0 ){
+                        jAlert("El Acta de Inspección de Reproducción elegido a sido eliminado","Eliminación de Documento");
+                    }                       
+            });  
             $("#grilla-usuarios").dataTable().fnDraw();         
             cancelar();
         } 
+        
+        function verdoc(num) {
+        alert (num);
+            $( "#verdocumento" ).dialog({
+                show: "blind",
+                title: "Ver documento",
+                width: 350
+                //hide: "explode"
+            });
+            $.ajax({
+                type: "POST",
+                url: "{{path('buscar2')}}",
+                async: "true",                
+                data: {num:num}
+                }).done(function(msg) {                                               
+                    if ( msg == 0 ){
+                        jAlert("El Acta de Inspección de Reproducción elegido a sido eliminado","Detalle de Documento");
+                    }                       
+            });  
+            
+        };
+    
         </script>           

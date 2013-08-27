@@ -10,8 +10,8 @@
 <link rel=stylesheet type=text/css href="{{asset('plugins/pmce/cs/estylepmce.css')}}">
 
 
-{% endblock%} 
-{% block javascript%} 
+{% endblock%}
+{% block javascript%}
 {{parent()}}
 
 <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
@@ -195,7 +195,10 @@
                 }
                 cad += "&codem" + i + "=" + po + "";
             });
-            var item_me = $(".tite").attr("rel");
+            
+ 
+            var item_me = $(".titulo-pmce").attr("rel");
+            
             if (cad != "")
                 insertar_solicitud(cad + "&item=" + item_me);
         });
@@ -206,11 +209,25 @@
                 url: "{{path('_insert_wem')}}",
                 data: $("#form-param").serialize() + cad,
                 dataType: "text",
-                success: function(e) {
-                    alert(e);
+                success: function(e){
+                    alert(""+e);
+                $("#reporte").click();
                 }
             });
         }
+        
+        $("#reporte").click(function(){
+//     document.onload();
+//     window.open("{#{path('_reporte_pmce')}#}","target");
+       window.location ="{{path('_reporte_pmce')}}";
+        });
+
+
+         
+         
+        
+        
+        
     });
     </script>                                   
 
@@ -235,7 +252,7 @@
          background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#004467), to(#2E6C91));
          background-image: -webkit-linear-gradient(top, #004467 7%, #2E6C91 93%);
          -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr='#004467', endColorstr='#2E6C91', gradientType='0')';
-         ">Asociación o incorporación definitiva de PMCE</div>
+         " rel="1"  >Asociación o incorporación definitiva de PMCE </div>
 
 
          <div id="form-1" >
@@ -368,6 +385,9 @@
                      <div id="contend-tabla2"></div>
                  </div>
                  <input type="submit" value="Calcular" id="calcul" >
+                 
+                 <div id="reporte"> </div>
+                 
                  <div id="" >
                      <ul>
                     {#% for user in empresa_tripu %#}
