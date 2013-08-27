@@ -34,6 +34,7 @@ while ($i < 6) {
     echo $encriptado . "<br>";
     $i++;
 }
+//bkfdhfdhfdkhgl
 
 echo "<br>Desencriptado:" . base64_decode(base64_decode(base64_decode(base64_decode(base64_decode($encriptado)))));
 

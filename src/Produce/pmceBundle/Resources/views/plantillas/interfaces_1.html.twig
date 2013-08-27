@@ -1,13 +1,28 @@
 {% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
-{% block stylesheet%} 
+{% block stylesheet%}
 {{parent()}}
+<link rel="stylesheet" href="{{asset('bundles/sitradoc/css/sitradoc.css')}}">
+
+<link rel="stylesheet" href="{{asset('plugins/jquery-ui/css/redmond/jquery-ui-1.10.3.custom.css')}}">
 
 <link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+
 <link rel=stylesheet type=text/css href="{{asset('plugins/pmce/cs/estylepmce.css')}}">
+
 
 {% endblock%} 
 {% block javascript%} 
 {{parent()}}
+
+<script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('plugins/jqgrid/js/i18n/grid.locale-es.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/jqgrid/js/jquery.jqGrid.min.js')}}"></script>
+
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -32,7 +47,11 @@
             for (var l = 0; l < data; l++) {
                 content_listaaporta += "<tr>";
                 for (var i = 0; i < 12; i++) {
-                    content_listaaporta += "<td> <input type='text' class='listt input-id" + i + " ' > </td>";
+                    if (i == 0)
+                        content_listaaporta += "<td> <input type='text' class='listt input-id" + i + "'  > </td>";
+                    else
+                        content_listaaporta += "<td> <input type='text' class='listt input-id" + i + "' readonly > </td>";
+
                     $("#es").html(content_listaaporta);
                 }
                 content_listaaporta += "</tr>";
@@ -43,19 +62,29 @@
             for (var n = 0; n < data; n++) {
                 content_listarecepto += "<tr>";
                 for (var i = 0; i < 13; i++) {
-                    content_listarecepto += "<td> <input type='text' class='listt input-id" + i + " ' > </td>";
+                    if (i == 0 || i == 12)
+                        content_listarecepto += "<td> <input type='text' class='listt input-id" + i + " ' > </td>";
+                    else
+                        content_listarecepto += "<td> <input type='text' class='listt input-id" + i + " ' readonly > </td>";
                     $("#es2").html(content_listarecepto);
                 }
                 content_listarecepto += "</tr>";
             }
         }
-        var content = [];
+        var content=[];
         var data0 = ["4052", "COMANCHE II", "CE-4052-PM", "Decreto Ley N25977", "314,75", "VIGENTE", "0,16965%", "1.374,38", "1.374,17", "0,00", "0,21", "NO FIGURA BENEFICIO"];
         var data1 = ["22904", "COSTA DE ORO", "CO-22904-PM", "Decreto Ley N25977", "300", "VIGENTE", "0,15378%", "1.245,81", "1.245,62", "0,00", "0,19", "NO FIGURA BENEFICIO"];
         var data2 = ["14964", "GUANAY", "CO-14964-PM", "Decreto Ley N25977", "298,05", "VIGENTE", "0,17018%", "1.378,67", "1.378,46", "0,00", "0,21", "NO FIGURA BENEFICIO"];
         var data3 = ["14268", "IPANEMA", "CO-14268-PM", "Decreto Ley N25977", "296,44", "VIGENTE", "0,16626%", "1.346,92", "1.346,71", "0,00", "0,21", "NO FIGURA BENEFICIO"];
         var data4 = ["10437", "CARMEN JUDITH 1", "IO-10437-PM", "Decreto Ley N25977", "296,39", "SUSPENDIDO", "0,11919%", "965,59", "965,44", "0,00", "0,15", "NO FIGURA BENEFICIO"];
         var data5 = ["192", "SUSANA", "CO-192-PM", "Decreto Ley N25977", "295,87", "VIGENTE", "0,11321%", "917,14", "917", "0,00", "0,14", "NO FIGURA BENEFICIO"];
+
+        var arr = [
+            {id: "4052", tag: "COMANCHE II", placa: "CE-4052-PM", ley: "Decreto Ley N25977", mtres: "314,75", esta: "VIGENTE", pmc: "0,16965%", lmce: "1.374,38", lmce2: "1.374,17", cero: "0,00", dato: "0,21", bene: "NO FIGURA BENEFICIO"},
+            {id: "4052", tag: "COMANCHE II", placa: "CE-4052-PM", ley: "Decreto Ley N25977", mtres: "314,75", esta: "VIGENTE", pmc: "0,16965%", lmce: "1.374,38", lmce2: "1.374,17", cero: "0,00", dato: "0,21", bene: "NO FIGURA BENEFICIO"},
+            {id: "c", tagName: "li"}
+        ];
+
         content.push(data0);
         content.push(data1);
         content.push(data2);
@@ -63,23 +92,52 @@
         content.push(data4);
         content.push(data5);
 
-        $(".agrega").click(function() {
+        $(".agrega").click(function(){
             var pos_fila = $(".agrega").attr("rel");
             var pos = $(".search2").val();
+            console.log(" :"+pos);
+            buscatext(content, pos);
+            
             var ar = pos_fila.split("-");
-            var valu = "";
-            if (ar[1] === "1")
-                valu = "apor_file";
-            else
-                valu = "recep_file";
             var tt = ar[0];
-            for (var r = 0; r <= 12; r++) {
+            for (var r = 0; r <= 12; r++){
                 $(".input-id" + r).eq(tt).val(content[pos][r]);
             }
             $(".capa-negra-papa").css("display", "none");
         });
-  
-    
+             
+             
+           $("#clibuscar").live("click",function (){
+                 var al = $(this).val();
+                 alert(al);
+              $(".capa-negra-papa").css("display", "none");
+           });
+             
+           
+        function buscatext(data,text) {
+        //    console.log(text);
+        $("#log").empty();
+            for(var i in data){
+              //  if(text === data[i][1]){
+//                for(var i =0;i<data.length ;i++){
+                    for(var a=2;a<=data[i][1].length;a++){
+                                   //    console.log(data[i][1].substring(0,a)+"=="+text);
+                                   if(text.toUpperCase()===data[i][1].substring(0,a)){
+                                   //    console.log((data[i][1].substring(0,a)));
+                                   $("#log").append('<li id=clibuscar >'+data[i][1]+'</li>');
+                                   console.log(data[i][1]);   
+                                //         alert(data[i][1]);
+                                   }   
+                                                
+                    }
+                    console.log("---");
+                 //                               }
+              //  }
+                 //console.log(data[i][1]);
+        }
+            return data[i][1];
+        }
+
         $(".input-id1").live("click", function(ev) {
             $(".capa-negra-papa").css("display", "block");
             var hi = $(".input-id1").index(this);
@@ -89,9 +147,9 @@
         $(".cierre").live("click", function() {
             $(".capa-negra-papa").css("display", "none");
         });
-  
-  
-       $(".input-id0").live("keydown", function(tecla){
+
+
+        $(".input-id0").live("keydown", function(tecla) {
             var hi = $(".input-id0").index(this);
             if (tecla.keyCode == 13) {
                 var pos = $(".input-id0").eq(hi).val();
@@ -107,47 +165,79 @@
                 $(".input-id0").eq(hi + 1).focus();
             }
         });
-        
-        
-        
-        $(".item_menu").click(function (){
-           var idp=$(this).attr("id"); 
-            
-            switch(idp){
-               case "link_asociaci":
-                             $("#form-1").css("display","block");
-                             $("#title-asoc").css("display","block");
-                             
-                            $("#title-susti").css("display","none");
-                            $("#title-incor").css("display","none");
-                            
-                            $("#receptores").css("display","none");  
-                            $("#aportantes").css("display","none");  
-                            break;
-               case "link_sustituc":
-                             $("#form-1").css("display","block");
-                             $("#title-susti").css("display","block");
-                             
-                             $("#title-incor").css("display","none");
-                             $("#title-asoc").css("display","none");
-                             
-                            $("#receptores").css("display","none");  
-                            $("#aportantes").css("display","none");  
-                            break;
-               case "link_incorpor":
-                             $("#form-1").css("display","block");
-                             $("#title-incor").css("display","block");
-                                
-                             $("#title-susti").css("display","none");
-                             $("#title-asoc").css("display","none");
-                             
-                            $("#receptores").css("display","none");  
-                            $("#aportantes").css("display","none");  
-                            break;
+
+
+
+        $(".item_menu").click(function() {
+            var idp = $(this).attr("id");
+            switch (idp) {
+                case "link_asociaci":
+                    $("#form-1").css("display", "block");
+                    $("#title-asoc").css("display", "block");
+                    $("#title-susti").css("display", "none");
+                    $("#title-incor").css("display", "none");
+                    $("#receptores").css("display", "none");
+                    $("#aportantes").css("display", "none");
+                    $(".tite").attr("rel", $(".item_menu").index(this));
+
+                    $("#calcul").css("display", "none");
+                    break;
+                case "link_sustituc":
+                    $("#form-1").css("display", "block");
+                    $("#title-susti").css("display", "block");
+                    $("#title-incor").css("display", "none");
+                    $("#title-asoc").css("display", "none");
+                    $("#receptores").css("display", "none");
+                    $("#aportantes").css("display", "none");
+                    $(".tite").attr("rel", $(".item_menu").index(this));
+
+                    $("#calcul").css("display", "none");
+                    break;
+                case "link_incorpor":
+                    $("#form-1").css("display", "block");
+                    $("#title-incor").css("display", "block");
+
+                    $("#title-susti").css("display", "none");
+                    $("#title-asoc").css("display", "none");
+
+                    $("#receptores").css("display", "none");
+                    $("#aportantes").css("display", "none");
+
+                    $(".tite").attr("rel", $(".item_menu").index(this));
+
+                    $("#calcul").css("display", "none");
+                    break;
             }
-            
         });
 
+
+        $("#calcul").click(function(){
+            var cad = "";
+            $(".input-id0").each(function(i){
+                var po = $(".input-id0").eq(i).val();
+                if (po === ""){
+                    alert("Falta ingresar Embarcaciones!");
+                    cad = "";
+                    return false;
+                }
+                cad +="&codem"+i+"="+po+"";
+            });
+            var item_me = $(".tite").attr("rel");
+            if (cad != "")
+                insertar_solicitud(cad + "&item=" + item_me);
+        });
+
+        function insertar_solicitud(cad){
+            $.ajax({
+                type: "POST",
+                url: "{{path('_insert_wem')}}",
+                data: $("#form-param").serialize() + cad,
+                dataType: "text",
+                success: function(e) {
+                    alert(e);
+                }
+            });
+        }
     });
     </script>                                   
 
@@ -160,37 +250,30 @@
     </div>
 {%endblock%}
 
+ 
 
-{%block panel1%}
+{%block panel1%}                  
 
-    <div style="float:right;background: #ffffff">
+     <div style="float:right;background: #ffffff;width: 18%;">
         <div>
             <div class="navi">
-                <a href="#" class="item-selec"> Proceso </a>        
+                <a href="#" class="item-selec"> Solicitud </a>        
             </div>
 
             <div class="option">
-                <div class="doc-type">
-                    <a href="#"><div id="link_asociaci" class="item_menu">Asociaci&oacute;n</div></a>
-                    <a href="#"><div id="link_sustituc" class="item_menu">Sustituci&oacute;n</div></a>
-                    <a href="#"><div id="link_incorpor" class="item_menu">Incorporaci&oacute;n</div></a>
+                <div class="doc-type" style="float:right;width:95%;" >
+
+                    <a href="#"><div id="link_asociaci" class="item_menu" rel="1" > Asociaci&oacute;n o incorporaci&oacute;n definitiva de PMCE </div></a>   
+                    <a href="#"><div id="link_incorpor" class="item_menu" rel="2" > Reducci&oacute;n de PMCE     </div></a>
+                    <a href="#"><div id="link_sustituc" class="item_menu" rel="3" > Sustituci&oacute;n (Incremento de Flota)</div></a>  
+
                 </div>
                 <div style="clear: both;"></div>
-
             </div>    
-
         </div>
-
     </div>
-
-
-               
-    <!--                      
-    <div id="enciso">                  
-    </div>               
-    <div id="encise">                
-        </div>                   
-    -->                        
+    
+    
 
     <div id="conten">
         <div class="capa-negra-papa" style="position: absolute">
@@ -198,40 +281,46 @@
             </div>       
 
             <div id="tolltip" style="z-index:11;width: 300px;height: 300px; margin: auto;margin-top:5%;background-color: white; border:4px solid skyblue; position:relative;top: 50%;left:50%">
-                <div style="background-image: -moz-linear-gradient(center top , #EBEBEB 7%, #2E6C91 93%);color: #FFFFFF;font-size: 13px;font-weight: bold;padding: 10px 4px 4px 0;
-                     position: relative;text-align: center;" >
+                <div style="
+                     background-image: -moz-linear-gradient(center top,#46b9ed 7%, #2E6C91 93%);
+                     background-image: -webkit-linear-gradient(top, #46b9ed 7%, #2E6C91  93%);
+                     color: #FFFFFF;font-size: 13px;font-weight: bold;padding: 10px 4px 4px 0;
+                     position: relative;text-align: center;margin-bottom: 27px;" >
                          Busqueda por Enbarcaci&oacute;n  <div class="cierre" > <i class="cus cus-cancel"></i> </div>
 
                      </div>
                      <div class="ui-widget">
                          <div class="cont_id"></div>
-                         <input class="search2" id="search2" value="buscar"  />  <input type="submit" class="agrega" value="buscar" />
+                         <input class="search2" id="search2" value="3"  />  <input type="submit" class="agrega" value="buscar" />
                      </div>
                      <div class="ui-widget" style="margin-top: 2em; font-family: Arial;">
                          Resultado:
-                         <div id="log" style="height: 188px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+                         <div id="log" style="height:164px;width: 300px; overflow: auto;" class="ui-widget-content"></div>
                      </div> 
                 </div>      
             </div>          
 
             <div id="fase-1" style="background-color:transparent ;height: 145px;width: 100%;">
-                <form>
+                <form id="form-param" >
                     <div id="form-1" >
-                        
-                        <div id="title-asoc" > <h1>Asociaci&oacute;n</h1> </div>
-                        <div id="title-susti" > <h1>Sustituci&oacute;n</h1> </div>
-                        <div id="title-incor" > <h1>Incorporaci&oacute;n</h1> </div>
-                        
-                        <div style="margin-left:25%;margin-top:7px;" >
+
+                        <div id="title-asoc"  class="tite" > <h1>Asociaci&oacute;n</h1> </div>
+                        <div id="title-susti" class="tite" > <h1>Sustituci&oacute;n</h1> </div>
+                        <div id="title-incor" class="tite" > <h1>Reducci&oacute;n</h1> </div>
+
+                        <div style="margin-left:32%;margin-top:7px;">
+
                             <div id="metod_distribucion" >
                                 <input type="radio" name="radio-proporcion" value="radio1" checked="checked" id="r1" tabindex="-1"/>
                                 <label for="r1">Distribuci&oacute;n</label>
-                                <input type="radio" name="radio-proporcion" value="radio2" id="r2" tabindex="-1" />
+                                <input type="radio" name="radio-proporcion" value="radio2" id="r1" tabindex="-1" />
                                 <label for="r2">Equitativo</label>
                             </div>
+
                             <div id="espacio">  </div>
-                            <div id="metod_magnitud"  >
-                                <input type="radio" name="radio-magnitud" value="radio1" checked="checked" id="r1"/>
+
+                            <div id="metod_magnitud">
+                                <input type="radio" name="radio-magnitud" value="radio1" checked="checked" id="r2"/>
                                 <label for="r3">%</label>
                                 <input type="radio" name="radio-magnitud" value="radio2" id="r2"/>
                                 <label for="r4">m3</label>
@@ -244,7 +333,7 @@
                                 <option class="option" value="4">4</option>
                             </select>
                             <label>Receptores</label>
-                            <select name="receptores"  id="Category_options2" >
+                            <select name="receptores"  id="Category_options2">
                                 <option class="option" value="1">1</option>
                                 <option class="option" value="2">2</option>
                                 <option class="option" value="3">3</option>
@@ -257,36 +346,37 @@
                 </form>
             </div>                          
 
-
-
-
             <div id="aportantes">
                 <p id="apo-cabezera">Aportantes</p>
                 <table  border="1" width="100%" >
                     <thead id="deco_1" >
                         <tr>
-                            <td > Matrícula </td>
-                            <td > Embarcación</td>
-                            <td > R&eacute;gimen    </td>
-                            <td > Capacidad Bod.Neta m3</td>
-                            <td > Permiso de pesca</td>
-                            <td > PMCE </td>
-                            <td > LMCE </td>
-                            <td > Cuota Asignada  </td>
-                            <td > Descuent        </td>
-                            <td > Redist. Descue. </td>
-                            <td > Con Beneficio   </td>
-                            <td > Sin Beneficio   </td>
+                            <td> Matrícula</td>
+                            <td> Embarcación</td>
+                            <td> R&eacute;gimen</td>
+                            <td> Capacidad Bod.Neta m3</td>
+                            <td> Permiso de pesca</td>
+                            <td> PMCE</td>
+                            <td> LMCE</td>
+                            <td> Cuota Asignada</td>
+                            <td> Descuent</td>
+                            <td> Redist. Descue.</td>
+                            <td> Con Beneficio</td>
+                            <td> Sin Beneficio</td>
                         </tr>
                     </thead>
                     <tbody id="es">
-
+                        <!-- 
+                        <tr> 
+                        <td>feoegrer
+                        <input class="listt input-id0" type="text" value="endotesi ">
+                        </td>
+                        </tr>
+                        -->   
                     </tbody>
                 </table>
-
-
             </div>
-            <div style="clear: both" ></div>   
+            <div style="clear: both" ></div>
             </br>
             <div id="receptores">
                 <p id="rece-cabezera"> Receptores</p>
@@ -294,14 +384,14 @@
                     <thead id="deco_2">
                         <tr>
                             <td width="8%"> Matrícula</td>
-                            <td width="9%"> Embarcación</td>
-                            <td width="9%   "> Régimen</td>
-                            <td width="10%"> Capacidad Bod.Neta m3</td>
+                            <td width="11%"> Embarcación</td>
+                            <td width="7%"> Régimen</td>
+                            <td width="7%"> Capacidad Bod.Neta m3</td>
                             <td width="8%"> Permiso de pesca</td>
-                            <td width="8%"> PMCE </td>
-                            <td width="8%"> LMCE </td>
-                            <td width="9%"> Cuota Asignada </td>
-                            <td width="9%"> Descuent </td>
+                            <td width="4%"> PMCE </td>
+                            <td width="4%"> LMCE </td>
+                            <td width="7%"> Cuota Asignada </td>
+                            <td width="7%"> Descuent </td>
                             <td width="7%"> Redist. Descue. </td>
                             <td width="7%"> Con Beneficio </td>
                             <td width="7%"> Sin Beneficio </td>
@@ -309,16 +399,18 @@
                         </tr>
                     </thead>
                     <tbody id="es2">
-
                     </tbody>
                 </table>
                 <div id="contend-tabla2"></div>
             </div>
-
             <input type="submit" value="Calcular" id="calcul" >
-
-        </div>
-
-
+            <div id="" >
+                <ul>
+                    {#% for user in empresa_tripu %#}
+                    {#{ user.descripcion }#}
+                    {#% endfor %#}
+                    </ul> 
+                </div>
+            </div>
 {%endblock%}
 

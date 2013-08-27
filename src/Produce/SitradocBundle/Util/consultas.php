@@ -5,6 +5,7 @@ namespace Produce\SitradocBundle\Util;
 class consultas {
 
     public static function comboTrabajador($cn, $filtro) {
+
         $sql = "SELECT top 30 CODIGO_TRABAJADOR,(LTRIM(RTRIM(NOMBRES_TRABAJADOR))+' '+LTRIM(RTRIM(APELLIDOS_TRABAJADOR)))as TRABAJADOR, LTRIM(RTRIM(EMAIL))";
         $sql.=" FROM db_general.jcardenas.H_TRABAJADOR ";
         $sql.=" WHERE LTRIM(RTRIM(APELLIDOS_TRABAJADOR)) LIKE '$filtro%'";
@@ -394,6 +395,63 @@ class consultas {
         }
 
         return "SE ACTUALIZO DOCUMENTO";
+    }
+
+    public function listar_jqgrid($controller, $sql_select, $sql_where, $sidx, $sord, $page, $limit) {
+
+        $DB_TRAMITE_DOCUMENTARIO = $controller->getDoctrine()->getConnection("DB_TRAMITE_DOCUMENTARIO");
+
+        if (!$sidx)
+            $sidx = 1;
+
+        $sql_select = trim($sql_select);
+        $sql_where = trim($sql_where) == "" ? "" : "where $sql_where";
+        $order_by = trim($sidx) == "" ? "" : "order by $sidx $sord";
+
+
+        $sql_no_select = substr($sql_select, 6, strlen($sql_select));
+        $sql_colums = "SELECT TOP $limit $sql_no_select";
+        $sql_not_in = "";
+
+//        CONSULTA CANTIDAD DE FILAS
+        $sql_num = "WITH DATOS AS($sql_select $sql_where)SELECT COUNT(*) FROM DATOS";
+        $count_query = $DB_TRAMITE_DOCUMENTARIO->prepare($sql_num);
+        $count_query->execute();
+        $num_rows = $count_query->fetchColumn();
+//       END CONSULTA CANTIDAD DE FILAS
+        //En base al numero de registros se obtiene el numero de paginas
+        if ($num_rows > 0) {
+            $total_pages = ceil($num_rows / $limit);
+        } else {
+            $total_pages = 0;
+        }
+        if ($page > $total_pages)
+            $page = $total_pages;
+
+        //Almacena numero de registro donde se va a empezar a recuperar los registros para la pagina
+        $start = $limit * $page - $limit;
+
+        if ($sql_where != "") {
+
+            $array_from_cad = explode("FROM", $sql_no_select);
+            $from_cade = $array_from_cad[count($array_from_cad) - 1];
+
+            $array_prim_dato = explode(",", $sql_no_select);
+            $prim_dato = $array_prim_dato[0];
+
+
+            $sql_not_in = "AND $prim_dato NOT IN (SELECT TOP $start $prim_dato FROM $from_cade $sql_where $order_by)";
+        }
+
+        $sql_result = "$sql_colums $sql_where $sql_not_in $order_by";
+
+
+//        $result_query = $DB_TRAMITE_DOCUMENTARIO->prepare($sql_result);
+//        $result_query->execute();
+//
+//        $resultado = (json_encode($result_query->fetchAll()));
+
+        return $sql_result;
     }
 
 }
