@@ -74,27 +74,79 @@
                     <td>Data</td>
                     <td>Data</td>
                 </tr>
-            </table>  
+            </table>
         </div>
- 
-              
+            
         
+        <br> </br>
+        <div>
+        Nota:(*) PMCE y LMCE calculado y publicado en la   RD Nº 843-2008-PRODUCE/DGEPP    y   RD Nº 015-2012-PRODUCE/DGCHI  , respectivamente.
+        <br></br>
+        () PMCE y LMCE calculado vía asociación definitiva de otras E/P, aprobado mediante la RD Nº 015-2013-PRODUCE/DGCHI
+        <br></br>
+        1/ Para la obtención del Límite Máximo de Captura por Embarcación en TM se ha tomado una cuota global de  TM para la especie anchoveta, la cual ha sido establecida por IMARPE 
+        <br></br>
+        2/ Dicho LMCE  incluye el incremento asignado por la redistribución del volumen descontado a las embarcaciones que sobrepasaron su LMCE la temporada anterior (Art.27° del D.L N° 1084),  que esta considerado en el listado de LMCE aprobado mediante la
+        </div>
+          
+         <br></br>
         
-         {% for row in info %}
-                <tr>
-                     <td>{{row.Title}}</td>
-                     <td>{{row.Price}}</td>
-                     <td>{{row.Number}}</td>
-                    
-                <!--     <td>{#{row.EMBARCACION}#}</td>
-                    <td>{#{row.REGIMEN}#}</td>
-                    <td>{#{row.porcentaje_aportacion}#}</td>
-               --> 
+
+{% for row in info %}   
+<br></br>
+<br></br>
+         <table>
+                <tr color="white" background-color="#004163"  font-style="bold" >
+                    <td>Embarcación </td>
+                    <td>Matrícula</td>
+                    <td>Régimen</td>
+                    <td>Capacidad de Bodega Neta Autorizada (M3)</td>
+                    <td>Permiso de pesca</td>
+                    <td  color="black" background-color="white">PMCE %</td>
+                    <td  color="black" background-color="white">LMCE 1/ 2/ </td>
                 </tr>
-        {% endfor %}
-         
-            
-            
+                <tr>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                </tr>
+                
+                <tr>
+                   <td>{{row.EMBARCACION}}</td>
+                   <td>{{row.MATRICULA}}</td>
+                   <td>{{row.REGIMEN}}</td>
+                   <td>{{row.CAP_BOD_M3}}</td>
+                   <td>{{row.porcentaje_aportacion}}</td>
+                   <td>{{row.pmce_calculado}}</td>
+                   <td>{{row.lmce_calculado}}</td>
+                </tr>
+                 <tr>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                    <td>Data</td>
+                </tr>
+            </table>           
+{% endfor %}
+        
         </dynamic-page>
     </pdf>
+
+
+
+
+
+
+
+ 
+
+
+
 

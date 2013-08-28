@@ -14,6 +14,16 @@ td  {
     color:steelblue;
     display:none;
 }
+#_disabled{
+    float:right;
+    font-size:19px;
+    height:32px;
+    margin:10px 0 0;
+    width:119px;
+    color:steelblue;
+    display:none;
+    background-color: #cdcbcb;
+}
 
 .capa-negra-sub2{
     position: fixed;

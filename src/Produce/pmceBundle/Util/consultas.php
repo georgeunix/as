@@ -8,9 +8,9 @@ class consultas {
      
     public static function InsertarSolicitud($cn,$request){                 
         
-        $apor = $request->request->get("aportantes");                           
-        $rece = $request->request->get("receptores");                           
-                                                                                
+        $apor = $request->request->get("aportantes");
+        $rece = $request->request->get("receptores");
+        
         $distribucion = $request->request->get("radio-proporcion");             
         // distribuicion radio1            equitativo radio2                    
         $magnitud = $request->request->get("radio-magnitud");                   
@@ -71,7 +71,7 @@ class consultas {
             $cont++;
             }
             
-          
+           
             //porcentajes de aportacion                                                                                     
             if($distribucion=="radio1"){      //armador asigna y si la distribucion se ingresan por los campos de entrada
                 
@@ -83,7 +83,6 @@ class consultas {
                 //$PMCE_APORTANTE_REPARTIR;
                 //round($rece*$PMCE_DISTRIBUIDO,2);
                 // $rece*$PMCE_DISTRIBUIDO
-       
                // return "".$rece*$PMCE_DISTRIBUIDO." es equal ".($PMCE_APORTANTE_REPARTIR*100)."     -----     ".$PMCE_DISTRIBUIDO; 
                     if($rece*$PMCE_DISTRIBUIDO=($PMCE_APORTANTE_REPARTIR*100))
                     {   // return "".$rece*$PMCE_DISTRIBUIDO." es equal ".($PMCE_APORTANTE_REPARTIR*100)."     -----     ".$PMCE_DISTRIBUIDO;
@@ -101,20 +100,14 @@ class consultas {
                         return "salio de la condicion"."";  
                     }
             }
-        
             
-        
-       return "hola "."no salio pòrque ".$distribucion;    
-        
+       return "no salio pòrque ".$distribucion;    
         //(SELECT MAX(id_solicitud) FROM SOLICITUD)
- 
- 
     }
     
    
       
     public static function listareporte($cn){
-         
         $sql = "SELECT ma.EMBARCACION,ma.MATRICULA,ma.REGIMEN,ma.CAP_BOD_M3,ma.ESTADO_PERMISO,hd.pmce_calculado, hd.lmce_calculado,hd.porcentaje_aportacion  FROM ";
         $sql.= "HIST_PMCE_DET as hd inner join DAT_MATRIZ_PMCE_ACTUAL ma on ma.ID_EMB=hd.id_receptoras where id_solicitud=(SELECT MAX(id_solicitud) FROM DAT_SOLICITUD)";
 //        $sql .= " CIC.DESCRIPCION AS CICLO,DAT.INDICATIVO_OFICIO AS INDICATIVO_DEL_DOCUMENTO, DAT.ASUNTO AS ASUNTO, DAT.USUARIO AS USUARIO,";

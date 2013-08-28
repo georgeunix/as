@@ -49,6 +49,7 @@
         $("#procesar").click(function() {
             $("#contend-tabla1").empty();
             $("#contend-tabla2").empty();
+            $("#_disabled").attr('id', 'calcul')
             var slec1 = $("#Category_options1").val();
             var slec2 = $("#Category_options2").val();
             agregar_listaaporta(slec1);
@@ -175,18 +176,19 @@
                     hi++;
                 }
             }
-            else if (tecla.which == 38) {
+            else if (tecla.which == 38){
                 $(".input-id0").eq(hi - 1).focus();
-            } else if (tecla.which == 40) {
+            }else if (tecla.which == 40){
                 $(".input-id0").eq(hi + 1).focus();
             }
         });
 
 
 
-        $("#calcul").click(function() {
+        $("#calcul").click(function(){
+        $("#calcul").attr('id', '_disabled')
             var cad = "";
-            $(".input-id0").each(function(i) {
+            $(".input-id0").each(function(i){
                 var po = $(".input-id0").eq(i).val();
                 if (po === "") {
                     alert("Falta ingresar Embarcaciones!");
@@ -198,7 +200,6 @@
             
  
             var item_me = $(".titulo-pmce").attr("rel");
-            
             if (cad != "")
                 insertar_solicitud(cad + "&item=" + item_me);
         });
@@ -260,26 +261,21 @@
                  <form id="form-param" >
                      <table>
                          <tr>
-
                              <td width="17%">Aportantes:</td>
                              <td>
-
-                                 <input class="spinner" id="Category_options1" name="aportantes" value="1" disabled size="1" />
-
+                                 <input class="spinner"  name="aportantes" id="Category_options1" value="1"  size="1" type="text" />
                              </td>
                              <td width="16%">Receptores:</td>
                              <td >
-                                 <input class="spinner" id="Category_options2" name="receptores" value="1" disabled size="1"/>
-
+                                 <input class="spinner"  name="receptores" id="Category_options2" value="1"  size="1" type="text" />
                              </td>
-
                          </tr>
                          <tr>
                              <td >Distribuci&oacute;n&nbsp;/&nbsp;Equitativo:</td>
                              <td>
                                  <div id="radio">
-                                     <input type="radio" id="radio1" name="radio-proporcion" checked="checked"/><label for="radio1">D</label>
-                                     <input type="radio" id="radio2" name="radio-proporcion" /><label for="radio2">E</label>
+                                     <input type="radio" id="radio1" name="radio-proporcion" value="radio1" checked="checked"/><label for="radio1">D</label>
+                                     <input type="radio" id="radio2" name="radio-proporcion" value="radio2" /><label for="radio2">E</label>
                                  </div>
                              </td>
                              <td >Tipo de Magnitud:</td>
@@ -294,7 +290,6 @@
 
 
                      </table>
-
                  </form>
              </div>   
          </div> 
