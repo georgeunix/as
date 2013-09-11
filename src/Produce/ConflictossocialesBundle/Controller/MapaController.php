@@ -52,7 +52,7 @@ class MapaController extends Controller {
      * @Route("/buscarMapa", name="_buscarMapa")
      */
     public function buscarMapaAction(Request $request) {
-        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()){
 
             $cbo_mes = $request->request->get("cbo_mes");
             $cbo_anio = $request->request->get("cbo_anio");
@@ -65,7 +65,7 @@ class MapaController extends Controller {
             $query->execute(); //ejecuto la consulta
             $result = $query->fetchAll();
             $contenido = '';
-            foreach ($result as $value) {
+            foreach ($result as $value){
                 $contenido.= '<div class="' . $value["region_variable"] . '-area" >';
                 $contenido.= '<div class="div-tooltip ' . $value["region_variable"] . '-alert alert-icon" rel="' . $value["conflicto_id"] . '" title="' . $value["region_nombre"] . '">';
                 $contenido.= '<div class="flecha_nube"></div>';

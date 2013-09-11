@@ -51,7 +51,13 @@ parameters:
         database_name7:     DB_PMCE
         database_user7:     usr_pmce
         database_password7: 1234567   
-      
+        
+        #DB_GENERAL_2 
+        database_host8:     172.16.247.22
+        database_port8:     ~
+        database_name8:     DB_GENERAL
+        database_user8:     usr_pmce
+        database_password8: 1234567      
 
         mailer_transport:  smtp
         mailer_host:       127.0.0.1

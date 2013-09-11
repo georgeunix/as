@@ -6,15 +6,12 @@
             <header>
                 <div height="55px" width="100%"   color="blue" text-align="center" font-style="bold" >
                  REPORTE PARA INFORME
-                 <br></br><span color="black">  ANEXO N° 1 </span>
+                 <br></br><span color="black">  ANEXO N° 1 </span>                 
                 </div>
-                
             </header>
         </placeholders>
-            
         <div>
-            
-            <div text-align="center"  font-style="bold" margin-top="20px" margin-bottom="20px">
+            <div text-align="center"  font-style="bold" >
                Cálculo de PMCE y LMCE
                <br></br>
                2da. TEMPORADA DE PESCA DE ANCHOVETA EN LA ZONA NORTE-CENTRO 2012
@@ -27,9 +24,9 @@
                 <div margin='5px'  padding-left="30px" >
                       <span font-style="bold">I. PMCE y LMCE asignados</span> 
                 
-                </div>  
-            <table>
-                <tr color="white" background-color="#004163"  font-style="bold" >
+                </div>
+            <table text-align="center"  >
+                <tr color="white" background-color="#004163"  font-style="bold" text-align="center"  >
                     <td>Embarcación </td>
                     <td>Matrícula</td>
                     <td>Régimen</td>
@@ -38,104 +35,125 @@
                     <td  color="black" background-color="white">PMCE %</td>
                     <td  color="black" background-color="white">LMCE 1/ 2/ </td>
                 </tr>
-                <tr>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
+                {% set value1 = "" %}
+                {% set value2 = "" %}
+                {% set value3 = "" %}
+                {% set value4 = "" %}
+                {% for row in hola %}
+                <tr background-color="#cccccc" >
+                    <td>{{row.EMBARCACION}}</td>
+                    <td>{{row.MATRICULA}}</td>
+                    <td>{{row.REGIMEN}}</td>
+                    <td>{{row.CAP_BOD_M3}}</td>
+                    <td>{{row.ESTADO_PERMISO}}</td>
+                    <td>{{row.PMCE}}</td>
+                    <td> </td>
+                {% set value1 = row.EMBARCACION %}
+                {% set value2 = row.MATRICULA %}
+                {% set value3 = row.REGIMEN %}
+                {% set value4 = row.CAP_BOD_M3 %}
                 </tr>
+                {% endfor %}
+                
+                
+                
+                {% for row in info %}
                 <tr>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
+                    <td background-color="#BFDFAE" >{{row.EMBARCACION}}</td>
+                    <td>{{row.MATRICULA}}</td>
+                    <td>{{row.REGIMEN}}</td>
+                    <td>{{row.CAP_BOD_M3}}</td>
+                    <td>{{row.ESTADO_PERMISO}}</td>
+                    <td>{{row.PMCE}}</td>
+                    <td>{{row.lmce}}</td>
                 </tr>
-                <tr>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                </tr>
-                <tr>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                </tr>
+                {% endfor %}
+               
             </table>
         </div>
             
         
         <br> </br>
-        <div>
-        Nota:(*) PMCE y LMCE calculado y publicado en la   RD Nº 843-2008-PRODUCE/DGEPP    y   RD Nº 015-2012-PRODUCE/DGCHI  , respectivamente.
+        <div> 
+        Nota:(*) PMCE y LMCE calculado y publicado en la RD Nº 843-2008-PRODUCE/DGEPP  y  RD Nº 015-2012-PRODUCE/DGCHI , respectivamente.
         <br></br>
-        () PMCE y LMCE calculado vía asociación definitiva de otras E/P, aprobado mediante la RD Nº 015-2013-PRODUCE/DGCHI
+        (**) PMCE y LMCE calculado vía asociación definitiva de otras E/P, aprobado mediante la RD Nº 015-2013-PRODUCE/DGCHI.
         <br></br>
-        1/ Para la obtención del Límite Máximo de Captura por Embarcación en TM se ha tomado una cuota global de  TM para la especie anchoveta, la cual ha sido establecida por IMARPE 
+        1/ Para la obtención del Límite Máximo de Captura por Embarcación en TM se ha tomado una cuota global de  TM para la especie anchoveta, la cual ha sido establecida por IMARPE para la segunda temporada de pesca 2012 en la zona norte-centro
         <br></br>
-        2/ Dicho LMCE  incluye el incremento asignado por la redistribución del volumen descontado a las embarcaciones que sobrepasaron su LMCE la temporada anterior (Art.27° del D.L N° 1084),  que esta considerado en el listado de LMCE aprobado mediante la
+        2/ Dicho LMCE  incluye el incremento asignado por la redistribución del volumen descontado a las embarcaciones que sobrepasaron su LMCE la temporada anterior (Art.27° del D.L N° 1084),  que esta considerado en el listado de LMCE aprobado mediante la RD Nº 015-2012-PRODUCE/DGCHI.
         </div>
           
          <br></br>
-        
+         <br></br>
+         <br></br>
+         <br></br>
+            
+    
+             
+            <div text-align="center"  >     
+            <div>ASOCIACIÓN O INCORPORACIÓN DEFINITIVA</div> 
+            <br></br>
+            <div font-style="bold" >Cálculo de PMCE y LMCE</div>
+            <br></br>
+            <div font-style="bold">2da. TEMPORADA DE PESCA DE ANCHOVETA EN LA ZONA NORTE-CENTRO 2010</div>
+            </div>
+               
+{% for row in info %}
+<br></br>
+<br></br>
+<div margin='5px'  padding-left="30px" >
+             <span font-style="bold">II.a. Asignación de PMCE y LMCE para E/P {{row.EMBARCACION}} </span> 
+</div>
 
-{% for row in info %}   
 <br></br>
-<br></br>
-         <table>
-                <tr color="white" background-color="#004163"  font-style="bold" >
+         <table text-align="center" >
+                <tr color="white" background-color="#004163"  font-style="bold"     >
                     <td>Embarcación </td>
                     <td>Matrícula</td>
                     <td>Régimen</td>
                     <td>Capacidad de Bodega Neta Autorizada (M3)</td>
-                    <td>Permiso de pesca</td>
+                    <td>% de Aportación de PMCE y LMCE</td>
                     <td  color="black" background-color="white">PMCE %</td>
-                    <td  color="black" background-color="white">LMCE 1/ 2/ </td>
+                    <td  color="black" background-color="white">LMCE </td>
                 </tr>
                 <tr>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
+                    <td background-color="#C2DDEF" >{{row.EMBARCACION}}</td>
+                    <td>{{row.MATRICULA}}</td>
+                    <td>{{row.REGIMEN}}</td>
+                    <td>{{row.CAP_BOD_M3}}</td>
+                    <td>100,0%</td>
+                    <td>{{row.PMCE}}</td>
+                    <td>{{row.lmce}}</td>
                 </tr>
                 
-                <tr>
-                   <td>{{row.EMBARCACION}}</td>
-                   <td>{{row.MATRICULA}}</td>
-                   <td>{{row.REGIMEN}}</td>
-                   <td>{{row.CAP_BOD_M3}}</td>
-                   <td>{{row.porcentaje_aportacion}}</td>
-                   <td>{{row.pmce_calculado}}</td>
+                <tr background-color="#cccccc">
+                   <td>{{ value1 }} (Aportante)</td>
+                   <td>{{ value2 }}</td>
+                   <td>{{ value3 }}</td>
+                   <td>{{ value4 }}</td>
+                   <td>{{row.porcentaje_aportacion}}%</td>
+                   <td>{{row.pmce_calculado}}%</td>
                    <td>{{row.lmce_calculado}}</td>
                 </tr>
                  <tr>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
-                    <td>Data</td>
+                    <td background-color="#C2DDEF" >{{row.EMBARCACION}} (*)</td>
+                    <td>{{row.MATRICULA}}</td>
+                    <td>{{row.REGIMEN}}</td>
+                    <td>{{row.CAP_BOD_M3}}</td>
+                    <td> </td>
+                    <td background-color="#C2DDEF">{{row.PMCE+row.pmce_calculado}}%</td>
+                    <td background-color="#C2DDEF">{{row.lmce+row.lmce_calculado}}</td>
                 </tr>
-            </table>           
+            </table>
+
+Nota:(*) Embarcación pesquera con incorporación definitiva de PMCE, cuya aportación del PMCE se efectuó acorde a lo precisado en el RD Nº 015-2013-PRODUCE/DGCHI
+
 {% endfor %}
-        
+
+            
+            
+                 
         </dynamic-page>
     </pdf>
 

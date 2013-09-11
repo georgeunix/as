@@ -1,0 +1,101 @@
+{% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+{% block stylesheet%}
+{{parent()}}
+<link rel="stylesheet" href="{{asset('bundles/sitradoc/css/sitradoc.css')}}">
+
+<link rel="stylesheet" href="{{asset('plugins/jquery-ui/css/redmond/jquery-ui-1.10.3.custom.css')}}">
+
+<link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
+
+<link rel=stylesheet type=text/css href="{{asset('plugins/pmce/cs/estylepmce.css')}}">
+
+
+{% endblock%}
+{% block javascript%}
+{{parent()}}
+
+<script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('plugins/jqgrid/js/i18n/grid.locale-es.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/jqgrid/js/jquery.jqGrid.min.js')}}"></script>
+
+
+<script type="text/javascript">
+ 
+  $(function() {
+    function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+    }
+ 
+    $( "#city" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax({
+          url: "http://ws.geonames.org/searchJSON",
+          dataType: "jsonp",
+          data: {
+            featureClass: "P",
+            style: "full",
+            maxRows: 12,
+            name_startsWith: request.term
+          },
+          success: function( data ) {
+            response( $.map( data.geonames, function( item ) {
+              return {
+                label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                value: item.name
+              }
+            }));
+          }
+        });
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+        log( ui.item ?
+          "Selected: " + ui.item.label :
+          "Nothing selected, input was " + this.value);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+  });
+  </script>
+ 
+        
+{% endblock javascript%}
+
+{%block name%}
+
+{%endblock%}
+
+
+
+{%block panel1%}
+    
+  
+  
+<div class="ui-widget">
+  <label for="city">Your city: </label>
+  <input id="city" />
+  Powered by <a href="http://geonames.org">geonames.org</a>
+</div>
+ 
+<div class="ui-widget" style="margin-top: 2em; font-family: Arial;">
+  Result:
+  <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+ 
+
+
+
+  
+{%endblock%}
+

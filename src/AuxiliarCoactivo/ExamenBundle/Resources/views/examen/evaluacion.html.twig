@@ -1,19 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
+        
         <link rel="stylesheet" href="{{asset('bundles/AuxiliarCoactivo/css/estilo.css')}}" />
+        <link rel="stylesheet" href="{{asset('plugins/jquery-ui/css/smoothness/jquery-ui-1.10.3.custom.css')}}" />
+       
         <script src="{{asset('plugins/jquery/jquery-1.8.3.js')}}"></script>
-        <script>
-            $(document).ready(function() {
+        
+        
+    <script type="text/javascript" src="{{asset('plugins/jquery-ui/development-bundle/external/jquery.mousewheel.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/jquery-ui/development-bundle/external/globalize.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/jquery-ui/development-bundle/external/globalize.culture.de-DE.js')}}"></script>
+      
+    <script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
 
+        <script>
+            
+        $(function(){
+                      
+        
+                           var icons = {
+                           header: "ui-icon-circle-arrow-e",
+                           activeHeader: "ui-icon-circle-arrow-s"
+                           };
+                    
+                $("#datepicker").datepicker({
+                  changeYear: true
+                });
+
+                $("#accordion").accordion({
+                      collapsible:true,
+                      icons: icons
+                });
+                        
+                $("#check").button().click(function(){
+                            $("#accordion").css("display", "block");
+                });                  
+                                 
+                $("#check").button();
+               // $( "#format" ).buttonset();
+    
+        });
+        
+         
+        
+            
+ $.widget( "ui.timespinner", $.ui.spinner, {
+options: {
+// seconds
+step: 60 * 1000,
+// hours
+page: 60
+},
+_parse: function( value ) {
+if ( typeof value === "string" ) {
+// already a timestamp
+if ( Number( value ) == value ) {
+return Number( value );
+}
+return +Globalize.parseDate( value );
+}
+return value;
+},
+_format: function( value ) {
+return Globalize.format( new Date(value), "t" );
+}
+});
+$(function() {
+$( "#spinner" ).timespinner();
+$( "#culture" ).change(function() {
+var current = $( "#spinner" ).timespinner( "value" );
+Globalize.culture( $(this).val() );
+$( "#spinner" ).timespinner( "value", current );
+});
+});
+
+            $(document).ready(function() {
                 fecha_hoy();
                 $(".init-quiz").click(function() {
                     var tiempo;
                     var min = 0;
                     var seg = 0;
-
-
                     $(".div-ini").css("display", "none");
                     tiempo = setInterval(
                             function() {
@@ -23,25 +92,19 @@
                                 }
                                 var minutos = llenarCeros("" + min);
                                 var segundos = llenarCeros("" + seg);
-
                                 $(".minuto").html(minutos);
                                 $(".segundo").html(segundos);
                                 seg++;
-
                                 if (min === 60) {
                                     clearInterval(tiempo);
                                     $(".div-ini").css("display", "block");
                                     $(".div-ini").html("Gracias por su tiempo.");
                                     agregar_examen();
                                 }
-
                             }, 1000);
-
                 });
 
-
                 $(".exit-quiz").click(function() {
-
                     if ($(".NOMBRES_APELLIDOS").val() === "") {
                         alert("No ingreso su nombre completo");
                     } else {
@@ -59,20 +122,16 @@
                         success: function(e) {
                             alert(e);
                         }
-
                     });
                 }
-
-
+                
                 function fecha_hoy() {
                     var dias_semana = new Array("Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado");
                     var meses = new Array("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
                     var fecha_actual = new Date();
-
                     var fecha_hoy = (dias_semana[fecha_actual.getDay()] + " dia " + fecha_actual.getDate() + " de " + meses[fecha_actual.getMonth()] + " de " + fecha_actual.getFullYear());
                     $(".fecha-hoy").val(fecha_hoy);
                 }
-
 
                 function llenarCeros(cade) {
                     if (cade.length === 1) {
@@ -80,57 +139,85 @@
                     }
                     return cade;
                 }
-
-
-
+                
+                 $("#accordion").css("display", "none");
             });
 
             </script>
-
+            
+            
         </head>
         <body>
+            
             <div class='div-ini'>
-                Tienes un tiempo estimado de 60 minutos...<br>
-                <input type="button" class='init-quiz'value="Empezar la prueba">
-
+                Al finalizar debes elegir una de 3 opciones
+                <br>
+                <input type="button" class='init-quiz'value="Iniciar el test">
             </div>
             <div class='hoja'>
                 <form id="cuestionario">
+                                            
+                                            
+                        
                     <div class="cabecera">
-                        <div class="logo-produce"></div>
-                        <div class="titulo-principal">PRUEBA DE CONOCIMIENTO DEL CONCURSO DE MÉRITOS N° 02-2013-PRODUCE/OGA –SELECCIÓN<br>AUXILIAR COACTIVO</div>
+                        <div class="logo-produce_2"></div>
+                        <div class="titulo-principal"> TEST DE VERACIDAD </div>
                         <div class="datos-personales">
-                            <label>APELLIDOS Y NOMBRES:&nbsp;&nbsp;</label><input class='datos-personales NOMBRES_APELLIDOS' name="NOMBRES_APELLIDOS"type="text" size="100%"><br><br>
-                            <label>FECHA:</label>&nbsp;&nbsp;<input class='datos-personales fecha-hoy' type="text" disabled="true" size="50px">
+                            &nbsp; <input class='datos-personales fecha-hoy' type="text" disabled="true" size="32px">
                         </div>
-                        <p class="instrucciones">
-
-                            <b><u>Instrucciones:</u></b><br>
-                            Lea detenidamente cada una de las siguientes cuarenta (40) preguntas, 
-                            y marque con una (x) la alternativa que considere correcta. 
-                            Sólo una de las alternativas es la correcta.  
-                            Las preguntas desde la N°1 al N° 40 tienen un valor de 0.5 medio punto 
-                            cada una, sumando así un total de 20 puntos. No existen puntos en contra por respuestas incorrectas. Mucha Suerte.
-
-
-                        </p>   
                     </div>
+                     
                     <div class="cuestionario">
-            {{cuestionario|raw('html')}}
+                        
+                        <p>Fecha: <input type="text" id="datepicker" />
+                        
+                                                        <label for="spinner">Hora:</label>
+                                                        <input id="spinner" name="spinner" value="08:30 PM" />
+                        </p>
+                        <br></br>        
+
+                        
+                        <input type="checkbox" id="check" /><label for="check">Elegir</label>
+                          
+                          
+                        <div id="accordion">
+                            <h3>Opcion 1</h3>
+                                <div>
+                                <p>Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui. </p>
+                                <ul>
+                                <li>personalidad one</li>
+                                <li>personalidad two</li>
+                                <li>personalidad three</li>
+                                </ul>
+                                </div>
+                            <h3>Opcion 2</h3>
+                                <div>
+                                <p>Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui. </p>
+                                <ul>
+                                <li>personalidad one</li>
+                                <li>personalidad two</li>
+                                <li>personalidad three</li>
+                                </ul>
+                                </div>
+                            <h3>Opcion 3</h3>
+                                <div>
+                                    <p>Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui. </p>
+                                    <ul>
+                                        <li>personalidad one</li>
+                                        <li>personalidad two</li>
+                                        <li>personalidad three</li>
+                                    </ul>
+                                </div>
                         </div>
-                    </form>
 
-                </div>
-
-
-
-                <div class="div-confirmacion">
-                    <div>
-                        <div class='timelabel'>Tienes un tiempo estimado de <span class="minuto">00</span>:<span class="segundo">00</span> minutos.</div>
-                        <input type="button" class="exit-quiz" value="Terminar">
                     </div>
-
-                </div>
-
-            </body>
-        </html>
+                    <div class="div-confirmacion">
+                        <div>
+                            <div class='timelabel'>Tienes un tiempo estimado de <span class="minuto">00</span>:<span class="segundo">00</span> minutos.</div>
+                            <input type="button" class="exit-quiz" value="Terminar">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </body>
+    </html>

@@ -14,11 +14,9 @@
 
 <link rel=stylesheet type=text/css href="{{asset('plugins/msgbox/jquery.msgbox.css')}}">
 
-
 {% endblock%} 
 {% block javascript%} 
 {#{parent()}#}
-
 <script type="text/javascript" src="{{asset('plugins/jquery/jquery-1.8.3.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('plugins/comboAdd/comboAdd.js')}}"></script>
@@ -33,7 +31,6 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-
         $(".inhabilitar-pantalla").css("display", "none");
         carga_grilla_documento_proyecto();
 
@@ -52,7 +49,6 @@
                 data: "filtro=" + obj.val(),
                 url: "{{path('_cboFirmantes')}}",
                 success: function(e) {
-
                     $("#cbo_data1").html(e);
                 }
             });
@@ -115,39 +111,27 @@
             carga_grilla_documento(url);
         }
 
-
-
-
-        function carga_grilla_documento(url) {
+        function carga_grilla_documento(url){
             var grilla = "#table-documento";
-
             $(".ajax-icon").css("display", "block");
             $.ajax({
                 type: "POST",
                 dataType: "text",
                 url: url,
-                success: function(e) {
-
+                success: function(e){
                     $(".ajax-icon").css("display", "none");
-
                     var mydata = JSON.parse(e);
-
                     $(grilla).clearGridData(true).trigger("reloadGrid");
                     $(grilla).jqGrid('setGridParam', {data: mydata, autowidth: true}).trigger('reloadGrid');
-
                 }
             });
-
         }
-
-
 
         /*--------------END INSTANCIA DE PLUGINS--------------------*/
         $(".buscar-data").button();
         $(".upload").button();
         $("#link_enProyecto").css("background", "#666666");
         $("#link_enProyecto").css("color", "#ffffff");
-
         $(".item_menu").click(function() {
             var menu_option = $(this).attr("id");
             switch (menu_option) {
@@ -217,11 +201,9 @@
 
 
         $("#editarDocumentoAction").live("click", function() {
-
-            if (valida_formulario() === true) {
-
+            if (valida_formulario() === true){
                 jConfirm('¿Estas seguro que deseas modificar el documento?', 'Mantenimiento Sitradoc', function(r) {
-                    if (r === true) {
+                    if (r === true){
                         $.ajax({
                             type: "POST",
                             url: "{{path('_editarDocumento')}}",
@@ -238,15 +220,12 @@
         });
 
 
-
-
-        $(".generar_word").live("click", function() {
+        $(".generar_word").live("click", function(){
             var id_docu = $(this).attr("rel");
             generarword(id_docu);
-
         });
 
-        $(".subir_documento").live("click", function() {
+        $(".subir_documento").live("click", function(){
             $(".inhabilitar-pantalla").css("display", "block");
             $(".frmcapa").css("display", "none");
             $(".capa-upload-documento").css("display", "block");

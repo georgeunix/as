@@ -139,8 +139,8 @@ class DocumentosController extends Controller {
     /**
      * @Route("/listacicloProyecto", name="_listacicloProyecto")
      */
-    public function listacicloProyectoAction(Request $request) {
-        if ($request->isXmlHttpRequest()) {
+    public function listacicloProyectoAction(Request $request){
+        if ($request->isXmlHttpRequest()){
             $session = new SessionManager();
             $obj_session = $session->valida_session($this);
             $response = $obj_session["response"];
@@ -191,7 +191,6 @@ class DocumentosController extends Controller {
 
             if ($response == true) {
                 $detalleproyecto = consultas::detalleProyecto($this, $request);
-
                 return new Response($detalleproyecto);
             } else {
                 return new Response("vuelva a iniciar sesion.");
@@ -454,36 +453,22 @@ class DocumentosController extends Controller {
 
         $order_by = trim($sidx) == "" ? "" : "ORDER BY $sidx $sord";
 //        $order_by = "";
-
-
         $sql_select = trim($sql_select);
-
         $sql_no_select = substr(trim($sql_select), 6, strlen($sql_select));
-
         $sql_colums = "SELECT TOP $limit $sql_no_select";
-
         $sql_not_in = "";
-
         if ($sql_where != "") {
-
             //ULTIMO "FROM" DE LA CONSULTA
             $array_from_cad = explode("FROM", $sql_no_select);
             $from_cade = $array_from_cad[count($array_from_cad) - 1];
-
             //1er DATO A MOSTRAR DE LA CONSULTA
             $array_prim_dato = explode(",", $sql_no_select);
             $prim_dato = $array_prim_dato[0];
-
-
             $sql_not_in = "AND $prim_dato NOT IN (SELECT TOP 0 $prim_dato FROM $from_cade $sql_where $order_by)";
         }
-
         $sql_result = "$sql_colums $sql_where $sql_not_in $order_by";
-
-
         return new Response($sql_result);
     }
-
 }
 
 //            ::::::::  DESCARGAR DE ARCHIVOS::::::::

@@ -1,28 +1,26 @@
 {% extends 'ServiciosBundle::plantillas/portadas/intranet.html.twig' %}
+
 {% block stylesheet%}
 {{parent()}}
 <link rel="stylesheet" href="{{asset('bundles/sitradoc/css/sitradoc.css')}}">
-
 <link rel="stylesheet" href="{{asset('plugins/jquery-ui/css/redmond/jquery-ui-1.10.3.custom.css')}}">
-
 <link rel="stylesheet" href="{{asset('plugins/iconos/cus-icons.css')}}" />
-
 <link rel=stylesheet type=text/css href="{{asset('plugins/pmce/cs/estylepmce.css')}}">
 
+<link rel="stylesheet" type="text/css" media="screen" href="{{asset('plugins/JAlert/jquery.alerts.css')}}" />
 
 {% endblock%}
+
 {% block javascript%}
 {{parent()}}
-
+ 
 <script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
-
 <script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
-
 <script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
-
 <script type="text/javascript" src="{{asset('plugins/jqgrid/js/i18n/grid.locale-es.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/jqgrid/js/jquery.jqGrid.min.js')}}"></script>
 
+<script type="text/javascript" src="{{asset('plugins/JAlert/jquery.alerts.js')}}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -38,9 +36,6 @@
         });
         $(".boton").button();
         /*end LUIS SANTOS*/
-
-
-
 
 
         $(".capa-negra").css("display", "none");
@@ -89,18 +84,27 @@
             }
         }
         var content = [];
-        var data0 = ["4052", "COMANCHE II", "CE-4052-PM", "Decreto Ley N25977", "314,75", "VIGENTE", "0,16965%", "1.374,38", "1.374,17", "0,00", "0,21", "NO FIGURA BENEFICIO"];
-        var data1 = ["22904", "COSTA DE ORO", "CO-22904-PM", "Decreto Ley N25977", "300", "VIGENTE", "0,15378%", "1.245,81", "1.245,62", "0,00", "0,19", "NO FIGURA BENEFICIO"];
-        var data2 = ["14964", "GUANAY", "CO-14964-PM", "Decreto Ley N25977", "298,05", "VIGENTE", "0,17018%", "1.378,67", "1.378,46", "0,00", "0,21", "NO FIGURA BENEFICIO"];
-        var data3 = ["14268", "IPANEMA", "CO-14268-PM", "Decreto Ley N25977", "296,44", "VIGENTE", "0,16626%", "1.346,92", "1.346,71", "0,00", "0,21", "NO FIGURA BENEFICIO"];
-        var data4 = ["10437", "CARMEN JUDITH 1", "IO-10437-PM", "Decreto Ley N25977", "296,39", "SUSPENDIDO", "0,11919%", "965,59", "965,44", "0,00", "0,15", "NO FIGURA BENEFICIO"];
-        var data5 = ["192", "SUSANA", "CO-192-PM", "Decreto Ley N25977", "295,87", "VIGENTE", "0,11321%", "917,14", "917", "0,00", "0,14", "NO FIGURA BENEFICIO"];
+        var data0 = ["4052", "COMANCHE II", "Ley N25977", "314,75", "VIGENTE", "0,16965%", "1.374,38", "1.374,17", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
+        var data1 = ["22904", "COSTA DE ORO", "Ley N25977", "300", "VIGENTE", "0,15378%", "1.245,81", "1.245,62", "0,00", "0,19", "NO BENEFICIO", "NO BENEFICIO"];
+        var data2 = ["14964", "GUANAY", "Ley N25977", "298,05", "VIGENTE", "0,17018%", "1.378,67", "1.378,46", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
+        var data3 = ["14268", "IPANEMA", "Ley N25977", "296,44", "VIGENTE", "0,16626%", "1.346,92", "1.346,71", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
+        var data4 = ["10437", "CARMEN JUDITH 1", "Ley N25977", "296,39", "SUSPENDIDO", "0,11919%", "965,59", "965,44", "0,00", "0,15", "NO BENEFICIO", "NO BENEFICIO"];
+        var data5 = ["192", "SUSANA", "Ley N25977", "295,87", "VIGENTE", "0,11321%", "917,14", "917", "0,00", "0,14", "NO BENEFICIO", "NO BENEFICIO"];
 
-        var arr = [
-            {id: "4052", tag: "COMANCHE II", placa: "CE-4052-PM", ley: "Decreto Ley N25977", mtres: "314,75", esta: "VIGENTE", pmc: "0,16965%", lmce: "1.374,38", lmce2: "1.374,17", cero: "0,00", dato: "0,21", bene: "NO FIGURA BENEFICIO"},
-            {id: "4052", tag: "COMANCHE II", placa: "CE-4052-PM", ley: "Decreto Ley N25977", mtres: "314,75", esta: "VIGENTE", pmc: "0,16965%", lmce: "1.374,38", lmce2: "1.374,17", cero: "0,00", dato: "0,21", bene: "NO FIGURA BENEFICIO"},
-            {id: "c", tagName: "li"}
-        ];
+        var data6 = ["17970", "ARCA DE NOE", "Ley N26920", "62,89", "VIGENTE", "0,034050%", "275,85", "275,81", "0,00", "0,04", "NO BENEFICIO", "NO BENEFICIO"];
+        var data7 = ["20333", "SIEMPRE ROSITA YANET", "Ley N26920", "62,49", "VIGENTE", "0,040660%", "329,40", "329,35", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO"];
+        var data8 = ["15664", "ISABELLA", "Ley N26920", "62,49", "VIGENTE", "0,040850%", "330,94", "330,89", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO", "NO BENEFICIO"];
+
+        var data9 = ["4826", "CAJAMARCA 6", "Ley N25977", "395,14", "VIGENTE", "0,168910%", "1.368,38", "1.368,17", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
+        var data10 = ["11394", "FABIOLA", "Ley N25977", "390,15", "VIGENTE", "0,208960%", "1.692,84", "1.692,58", "0,00", "0,26", "NO BENEFICIO", "NO BENEFICIO"];
+        var data11 = ["12517", "SALMON", "Ley N25977", "384,70", "VIGENTE", "0,155460%", "1.259,42", "1.259,23", "0,00", "0,19", "NO BENEFICIO", "NO BENEFICIO"];
+        var data12 = ["10418", "ALEXANDRA", "Ley N25977", "381,60", "VIGENTE", "0,179400%", "1.453,36", "1.453,14", "0,00", "0,22", "NO BENEFICIO", "NO BENEFICIO"];
+
+        var data13 = ["17970", "ARCA DE NOE", "Ley N26920", "62.89", "VIGENTE", "0.034050%", "275.85", "275.81", "0,00", "0,04", "NO BENEFICIO", "NO BENEFICIO"];
+        var data14 = ["20333", "SIEMPRE ROSITA YANET", "Ley N26920", "62.49", "VIGENTE", "0.040660%", "329.40", "329.35", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO"];
+        var data15 = ["15664", "ISABELLA", "Ley N26920", "62.49", "VIGENTE", "0.040850%", "330.94", "330.89", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO"];
+
+
 
         content.push(data0);
         content.push(data1);
@@ -108,13 +112,23 @@
         content.push(data3);
         content.push(data4);
         content.push(data5);
+        content.push(data6);
+        content.push(data7);
+        content.push(data8);
+        content.push(data9);
+        content.push(data10);
+        content.push(data11);
+        content.push(data12);
+        content.push(data13);
+        content.push(data14);
+        content.push(data15);
+
 
         $(".agrega").click(function() {
             var pos_fila = $(".agrega").attr("rel");
             var pos = $(".search2").val();
             console.log(" :" + pos);
             buscatext(content, pos);
-
             var ar = pos_fila.split("-");
             var tt = ar[0];
             for (var r = 0; r <= 12; r++) {
@@ -123,34 +137,22 @@
             $(".capa-negra-papa").css("display", "none");
         });
 
-
         $("#clibuscar").live("click", function() {
             var al = $(this).val();
             alert(al);
             $(".capa-negra-papa").css("display", "none");
         });
 
-
         function buscatext(data, text) {
-            //    console.log(text);
             $("#log").empty();
             for (var i in data) {
-                //  if(text === data[i][1]){
-//                for(var i =0;i<data.length ;i++){
                 for (var a = 2; a <= data[i][1].length; a++) {
-                    //    console.log(data[i][1].substring(0,a)+"=="+text);
                     if (text.toUpperCase() === data[i][1].substring(0, a)) {
-                        //    console.log((data[i][1].substring(0,a)));
                         $("#log").append('<li id=clibuscar >' + data[i][1] + '</li>');
                         console.log(data[i][1]);
-                        //         alert(data[i][1]);
                     }
-
                 }
                 console.log("---");
-                //                               }
-                //  }
-                //console.log(data[i][1]);
             }
             return data[i][1];
         }
@@ -170,39 +172,101 @@
             var hi = $(".input-id0").index(this);
             if (tecla.keyCode == 13) {
                 var pos = $(".input-id0").eq(hi).val();
-                var ll = hi;
-                for (var n = 0; n < 12; n++) {
-                    $(".input-id" + n).eq(ll).val(content[pos][n]);
-                    hi++;
-                }
+                console.log(hi + pos + "---");
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    data: "id_embar=" + pos,
+                    url: "{{path('_datos_embarcaciones')}}",
+                    success: function(e){
+                        $(".ajax-icon").css("display", "none");
+                        var mydata = $.parseJSON(e);  // var mydata = jQuery.parseJSON(e);// JSON.parse(e);
+                        
+                   //         if(mydata=="")){}
+                    
+                        console.log(mydata);
+                        
+                        var myarray=[];
+                            myarray.push(mydata[0]["ID_EMB"]);
+                            myarray.push(mydata[0]["EMBARCACION"]);
+                            myarray.push(mydata[0]["REGIMEN"]);
+                            myarray.push(mydata[0]["CAP_BOD_AUT"]);
+                            myarray.push(mydata[0]["ESTADO_PERMISO"]);
+                            myarray.push(mydata[0]["PMCE"]);
+                            myarray.push(mydata[0]["LMCE"]);
+                            myarray.push(mydata[0]["ID_EMB"]);
+                            myarray.push(mydata[0]["DSCTO_LMCE"]);
+                            myarray.push(mydata[0]["REDISTRIB_DSCTO"]);
+                            myarray.push("NO FIGURA");//mydata[0]["ZONA"]   //mydata[0]["USUARIO"]
+                            myarray.push("NO FIGURA");
+                         for (var n = 0; n < 12; n++){
+                         $(".input-id" + n).eq(hi).val(myarray[n]);         
+                         }
+                    }
+                });
             }
-            else if (tecla.which == 38){
+            else if (tecla.which == 38) {
                 $(".input-id0").eq(hi - 1).focus();
-            }else if (tecla.which == 40){
+            } else if (tecla.which == 40) {
                 $(".input-id0").eq(hi + 1).focus();
             }
         });
 
 
 
-        $("#calcul").click(function(){
-        $("#calcul").attr('id', '_disabled')
+$("input[name='radio-proporcion']").click(function(){
+  if($(this).val()=="radio2")
+   $(".input-id12").css("display", "none");
+   
+  if($(this).val()=="radio1")
+   $(".input-id12").css("display", "block");
+ });                                                                          
+ 
+
+
+
+        $("#calcul").click(function() {
+            var validar = 0;
+            $("#calcul").attr('id', '_disabled');
+
             var cad = "";
-            $(".input-id0").each(function(i){
+            $(".input-id0").each(function(i) {
                 var po = $(".input-id0").eq(i).val();
                 if (po === "") {
-                    alert("Falta ingresar Embarcaciones!");
-                    cad = "";
+                    JAlert("Debe ingresar Embarcaciones","Falta Embarcacion");
+                
+                    validar = 1;
                     return false;
                 }
                 cad += "&codem" + i + "=" + po + "";
             });
-            
- 
+
+            if (validar === 1)
+                return false;
+
+            var distri = "";
+            if ($("input[name='radio-proporcion']:checked").val() == "radio1") {
+
+                $(".input-id12 ").each(function(n) {
+                    var dat = $(".input-id12").eq(n).val();
+                    if (dat === "") {
+                        validar = 2;
+                        alert("Falta ingresar " + (n + 1) + "º distribucion!");
+                        return false;
+                    }
+                    distri += "&distr" + n + "=" + dat + "";
+                });
+            }
+
+            if (validar === 2)
+                return false;
             var item_me = $(".titulo-pmce").attr("rel");
-            if (cad != "")
-                insertar_solicitud(cad + "&item=" + item_me);
+            if (validar === 0) {
+                insertar_solicitud(cad + "&item=" + item_me + distri);
+            }
         });
+
 
         function insertar_solicitud(cad) {
             $.ajax({
@@ -210,27 +274,19 @@
                 url: "{{path('_insert_wem')}}",
                 data: $("#form-param").serialize() + cad,
                 dataType: "text",
-                success: function(e){
-                    alert(""+e);
-                $("#reporte").click();
+                success: function(e) {
+                    alert("" + e);
+                    $("#reporte").click();
                 }
             });
         }
-        
-        $("#reporte").click(function(){
+        $("#reporte").click(function() {
 //     document.onload();
 //     window.open("{#{path('_reporte_pmce')}#}","target");
-       window.location ="{{path('_reporte_pmce')}}";
+            window.location = "{{path('_reporte_pmce')}}";
         });
-
-
-         
-         
-        
-        
-        
     });
-    </script>                                   
+    </script>
 
 {% endblock javascript%}
 
@@ -240,7 +296,7 @@
 
 
 
-{%block panel1%}                  
+{%block panel1%}
     <div class="titulo-pmce" style="
          color: #ffffff;
          font-size:24px;
@@ -253,7 +309,7 @@
          background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#004467), to(#2E6C91));
          background-image: -webkit-linear-gradient(top, #004467 7%, #2E6C91 93%);
          -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr='#004467', endColorstr='#2E6C91', gradientType='0')';
-         " rel="1"  >Asociación o incorporación definitiva de PMCE </div>
+         " rel="0"  >Asociación o incorporación definitiva de PMCE </div>
 
 
          <div id="form-1" >
@@ -316,29 +372,27 @@
                           <div class="ui-widget" style="margin-top: 2em; font-family: Arial;">
                               Resultado:
                               <div id="log" style="height:164px;width: 300px; overflow: auto;" class="ui-widget-content"></div>
-                          </div> 
-                     </div>      
-                 </div>          
-
-
+                          </div>
+                     </div>
+                 </div>
 
                  <div id="aportantes">
                      <p class="grid-cabecera">Aportantes</p>
                      <table  border="1" width="100%" >
                          <thead id="deco_1" >
                              <tr>
-                                 <td> Matrícula</td>
-                                 <td> Embarcación</td>
-                                 <td> R&eacute;gimen</td>
-                                 <td> Capacidad Bod.Neta m3</td>
-                                 <td> Permiso de pesca</td>
-                                 <td> PMCE</td>
-                                 <td> LMCE</td>
-                                 <td> Cuota Asignada</td>
-                                 <td> Descuent</td>
-                                 <td> Redist. Descue.</td>
-                                 <td> Con Beneficio</td>
-                                 <td> Sin Beneficio</td>
+                                 <td width="8%"> Matrícula</td>
+                                 <td width="12%"> Embarcación</td>
+                                 <td width="8%"> R&eacute;gimen</td>
+                                 <td width="8%"> Capacidad Bod.Neta m3</td>
+                                 <td width="8%"> Permiso de pesca</td>
+                                 <td width="8%"> PMCE</td>
+                                 <td width="8%"> LMCE</td>
+                                 <td width="8%"> Cuota Asignada</td>
+                                 <td width="8%"> Descuent</td>
+                                 <td width="8%"> Redist. Descue.</td>
+                                 <td width="8%"> Con Beneficio</td>
+                                 <td width="8%"> Sin Beneficio</td>
                              </tr>
                          </thead>
                          <tbody id="es">
@@ -380,9 +434,9 @@
                      <div id="contend-tabla2"></div>
                  </div>
                  <input type="submit" value="Calcular" id="calcul" >
-                 
+
                  <div id="reporte"> </div>
-                 
+
                  <div id="" >
                      <ul>
                     {#% for user in empresa_tripu %#}

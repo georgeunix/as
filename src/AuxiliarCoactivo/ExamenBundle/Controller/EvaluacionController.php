@@ -37,7 +37,7 @@ class EvaluacionController extends Controller {
             $query2->execute();
             $notas = $query2->fetchAll();
             $puntaje = 0;
-            foreach ($notas as $n) {
+            foreach ($notas as $n){
                 if ($n["OPCION_MARCADA"] == $n["respuesta"]) {
                     $puntaje++;
                 }

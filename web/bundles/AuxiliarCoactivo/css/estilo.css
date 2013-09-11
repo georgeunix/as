@@ -1,7 +1,10 @@
-body{
-    background: #cccccc;
-    font-family: Arial;
+body {
+        background: #cccccc;
+        /* font-family: Arial;*/
+	font-family: "Trebuchet MS", "Helvetica", "Arial",  "Verdana", "sans-serif";
+	font-size: 62.5%;
 }
+
 .hoja{
     margin: 10px auto;
     width: 1000px;
@@ -19,7 +22,7 @@ body{
     text-decoration: underline;
     font-size: 25px;
     margin-bottom: 12px;
-
+    font-family: fantasy;
 }
 .cabecera > .datos-personales{
     margin-top: 20px;
@@ -51,19 +54,11 @@ body{
     text-align: justify;
 }
 .div-confirmacion{
-    position:fixed;
-    top:100px;
-    right: 0px;
-    height: 280px;
-    width: 220px;
+    width: 100%;
     background: #ffffff;
-    border: 1px #000000 solid;
-    padding: 15px 15px 0px 15px;
     text-align: center;
 }
-.timelabel{
-    font-size: 35px;
-}
+ 
 
 .exit-quiz{
     padding:10px;

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Produce</title>
+    {% block stylesheet%}
+    {%include 'ServiciosBundle::plantillas/otros/corner-radius.html.twig'%}
+    <link rel="stylesheet" href="{{asset('bundles/servicios/css/intranet_plantilla.css')}}">
+    <link rel="stylesheet" href="{{asset('bundles/servicios/css/menu_desplegable.css')}}">
+
+    <!-- Estilo para los botones-->
+    <link href="{{asset('plugins/boton-google/css/buttons.css')}}" rel="stylesheet" type="text/css"  media="screen">
+    <!--Fin Estilo botones-->
+    {%endblock%}
+
+    {% block javascript%}
+    {%endblock%}
+
+</head>
+<body>
+    <div class="inhabilitar-pantalla" style="display:none;">
+        <div class="capa-negra"></div>
+     {%block capa_inhabilitada%}
+        
+     {% endblock %}       
+        </div>
+        <div id="main-content">
+            <div class="header">
+                <div class="logo"></div>
+                <div class="nav-option">
+                    <div class="option inicio"></div>
+                    <div class="option portal"></div>
+                    <div class="option correo"></div>
+                    <a href="{{path('_close_session')}}"> <div class="option salir"></div></a>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="nav-user">+Usuario:&nbsp;
+                    <b>{{uname}}</b> Fecha: 17/06/2013</div>
+            </div>
+            <div class="margen-content">
+                <!--<div class="info"></div>-->
+                <!--<div class="nav"></div>-->
+            {#% include 'SitradocBundle::plantillas/menus/menu_portada.html.twig' %#}
+                <div class="content">
+                    <div class="panel-1">
+                    {%block panel1%}
+                            <!--contenido del bloque-->
+                    {%endblock%}
+                        </div>
+                    </div>    
+                </div> 
+                <div class="footer">
+                    <b>Calle Uno Oeste N&#176; 060 - Urb. C&oacute;rpac, San Isidro - Lima - Per&uacute;</b><br>
+                    <b>RUC: 20504794637 - Central Telef&oacute;nica: 616-2222</b><br>
+                    Horario de atenci&oacute;n en Mesa de Partes: Lunes a viernes de 08:30 a 16:30 hrs. <br>
+                    <b>E-mail: intranet@produce.gob.pe</b><br>
+                </div>
+            </div>
+        </body>
+    </html>

@@ -11,7 +11,7 @@ class intranetController extends Controller {
     /**
      * @Route("/intranet", name="_intranet")
      */
-    public function intranetAction() {
+    public function intranetAction(){
         $session = new SessionManager();
         $session_obj = $session->valida_session($this); //inicializo SessionManager
         $response = $session_obj["response"]; //seteo $respose puede tener 2 respuestas true o false
