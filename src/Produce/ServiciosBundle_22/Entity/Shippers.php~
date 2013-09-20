@@ -1,0 +1,39 @@
+<?php
+
+namespace Produce\ServiciosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Shippers
+ *
+ * @ORM\Table(name="Shippers")
+ * @ORM\Entity
+ */
+class Shippers
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ShipperID", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $shipperid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CompanyName", type="string", length=40, nullable=false)
+     */
+    private $companyname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Phone", type="string", length=24, nullable=true)
+     */
+    private $phone;
+
+
+}

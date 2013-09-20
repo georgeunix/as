@@ -5,6 +5,7 @@ namespace Produce\SitradocBundle\Util;
 class consultas {
 
     public static function comboTrabajador($cn, $filtro) {
+
         $sql = "SELECT top 30 CODIGO_TRABAJADOR,(LTRIM(RTRIM(NOMBRES_TRABAJADOR))+' '+LTRIM(RTRIM(APELLIDOS_TRABAJADOR)))as TRABAJADOR, LTRIM(RTRIM(EMAIL))";
         $sql.=" FROM db_general.jcardenas.H_TRABAJADOR ";
         $sql.=" WHERE LTRIM(RTRIM(APELLIDOS_TRABAJADOR)) LIKE '$filtro%'";

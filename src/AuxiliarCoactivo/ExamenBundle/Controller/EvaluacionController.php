@@ -87,13 +87,11 @@ class EvaluacionController extends Controller {
             );
             array_push($datos_examen, $row);
         }
-
        
         $sql2 = "select NOMBRES_APELLIDOS from EVALUACIONES WHERE EVALUACION_ID='$ID' ";
         $query2 = $cn->prepare($sql2);
         $query2->execute();
         $evaluacion = $query2->fetchAll();
-
 
 
         $this->render('ExamenBundle:examen:reporte_examen.pdf.twig', array("examen" => $datos_examen,"persona"=>$evaluacion[0]["NOMBRES_APELLIDOS"]), $response);

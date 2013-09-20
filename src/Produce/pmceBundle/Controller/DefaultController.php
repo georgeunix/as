@@ -58,13 +58,10 @@ class DefaultController extends Controller{
      */
     
     public function reportePDFAction(){
-        
         $facade = $this->get('ps_pdf.facade');
         $response = new Response();
-        
-        $DB_PMCE = $this->getDoctrine()->getConnection("PMCE");                         
-        $listaProyecto = consultas::listareporte($DB_PMCE);        
-   
+        $DB_PMCE = $this->getDoctrine()->getConnection("PMCE");
+        $listaProyecto = consultas::listareporte($DB_PMCE);
         $listaaportante = consultas::listar_idembarcacion($DB_PMCE);
         $this->render('ProducepmceBundle:plantillas:Template_pmce.pdf.twig',  array("info" => $listaProyecto  , "hola"=>$listaaportante) , $response);
         $xml = $response->getContent();
@@ -84,9 +81,27 @@ class DefaultController extends Controller{
         $listaProyecto = consultas::listareporte($DB_PMCE);
         $listaaportante = consultas::listar_idembarcacion($DB_PMCE);
         $this->render('ProducepmceBundle:plantillas:Template_pmce_3.pdf.twig',  array("info" => $listaProyecto  , "hola"=>$listaaportante) , $response);
+        
         $xml = $response->getContent();
         $content = $facade->render($xml);
         return new Response($content, 200, array('content-type' => 'application/pdf'));
+    }
+    
+
+    /**
+     * @Route("/buscando", name="_all_embarcaciones")
+     */
+    public function Embarcaciones_all_Action(Request $request){
+        if ($request->isXmlHttpRequest()){
+            //$session = new SessionManager();
+            //$obj_session = $session->valida_session($this);
+            //$response = $obj_session["response"];
+            //if ($response == true) {
+               $listaEmbarcacion = consultas::lista_all_embarcacion($this,$request);
+                $rs = new Response();
+                $rs->setContent(json_encode($listaEmbarcacion));
+                return $rs;
+        }
     }
     
      /**
@@ -96,18 +111,7 @@ class DefaultController extends Controller{
         return $this->render('ProducepmceBundle:plantillas:prueba.html.twig', array('uname' => "prueba"));
     }
      
-     /**
-     * @route("/probando", name="_probala")
-     */
-     public function returnoAction(Request $request){
-        if ($request->isXmlHttpRequest()){
-            $respuesta = consultas::InsertarSolicitud($this,$request);
-            return new Response($respuesta);
-        }
-        return $this->render('ProducepmceBundle:plantillas:prueba.html.twig', array('uname' => "prueba"));
-     }
-     
-     
+  
     /**
      * @Route("/listaembarcaciones", name="_datos_embarcaciones")
      */
@@ -124,13 +128,4 @@ class DefaultController extends Controller{
         }
     }
     
-     
-     
-
-
-
-
-
-
-
 }

@@ -1,0 +1,117 @@
+<?php
+
+namespace Produce\ServiciosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Customers
+ *
+ * @ORM\Table(name="Customers")
+ * @ORM\Entity
+ */
+class Customers
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CustomerID", type="string", length=5, nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $customerid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="CompanyName", type="string", length=40, nullable=false)
+     */
+    private $companyname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ContactName", type="string", length=30, nullable=true)
+     */
+    private $contactname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ContactTitle", type="string", length=30, nullable=true)
+     */
+    private $contacttitle;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Address", type="string", length=60, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="City", type="string", length=15, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Region", type="string", length=15, nullable=true)
+     */
+    private $region;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="PostalCode", type="string", length=10, nullable=true)
+     */
+    private $postalcode;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Country", type="string", length=15, nullable=true)
+     */
+    private $country;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Phone", type="string", length=24, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Fax", type="string", length=24, nullable=true)
+     */
+    private $fax;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Customerdemographics", inversedBy="customerid")
+     * @ORM\JoinTable(name="customercustomerdemo",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="CustomerID", referencedColumnName="CustomerID")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="CustomerTypeID", referencedColumnName="CustomerTypeID")
+     *   }
+     * )
+     */
+    private $customertypeid;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->customertypeid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

@@ -93,7 +93,7 @@
                         url: "{{path('_departamentosValidos')}}",
                         dataType: "text",
                         success: function(e) {
-                            if ((trim(e))=== '') {
+                            if ((trim(e)) === '') {
                                 alert("Ya se completaron todos los Departamentos en este mes.");
                             } else {
                                 $(".capa-inhabilitada").css("display", "block")
@@ -111,9 +111,7 @@
                     $(".mantenimiento-conflicto").css("display", "none");
                 });
 
-
                 $(".cancelar_detalle").live("click", function() {
-
                     var position = $(this).attr("rel");
                     $(".observacion" + position).remove();
                     $(".nueva-observacion").css("display", "block");
@@ -175,7 +173,6 @@
                             msg_error = true;
                             $(".msg_error").eq(i).html("( * )Debes ingresar como m&iacute;nimo 100 caracteres.");
                         }
-
                     });
                     if (msg_error === false) {
                         var observaciones = "";
@@ -192,11 +189,25 @@
                             data: $("#frm_agrega_conflicto_action").serialize() + "&detalles=" + observaciones,
                             success: function(e) {
 
+
+                                $.ajax({
+                                    type: "POST",
+                                    url: "{{path('_buscarMapa')}}",
+                                    dataType: "text",
+                                    data: "cbo_mes=" + (new Date().getMonth() + 1) + "&cbo_anio=" + (new Date).getFullYear(),
+                                    success: function(e) {
+                                        $("#map-content").html(e);
+                                    }
+                                });
                             }
                         });
 
                         $(".frm_close").click();
+                        $(".textarea-content").val('');
+
                     }
+
+
                 });
                 $(".textarea-content").live("keypress", function() {
                     var contenido = $(this).val();
@@ -219,7 +230,6 @@
                         "Loreto", "Madre De Dios", "Moquegua", "Pasco", "Piura", "Puno", "San Martin", "Tacna",
                         "Tumbes", "Ucayali"];
                     return array_region;
-
                 }
 
                 function data_mes() {
@@ -268,9 +278,33 @@
 
             </script>
 
-
+            <style>
+             #header-{
+                 position: relative;
+                 height: 96px;
+                 border: 1px #E4CB8E solid;
+                 -pie-background: linear-gradient(top, #FAF3E1 12%, #DFC17B 120%);
+                 background-image: -o-linear-gradient(top, #FAF3E1 12%, #DFC17B 120%);
+                 background-image: -moz-linear-gradient(top, #FAF3E1 12%, #DFC17B 120%);
+                 background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#FAF3E1), to(#DFC17B));
+                 background-image: -webkit-linear-gradient(top, #FAF3E1 12%, #DFC17B 120%);
+                 background-image: -ms-linear-gradient(top, #FAF3E1 12%, #DFC17B 120%);
+                 -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAF3E1', endColorstr='#DFC17B', gradientType='0')";
+                 behavior: url(/framework/web/pie/PIE.htc);
+                     }
+            </style>        
+             
         </head>
         <body>
+           
+            
+            <div id="header-">
+                <div>
+                </div>
+                        <div> Conflictos Sociales </div>
+            </div>
+            
+            
             <div class="capa-inhabilitada"></div>
             <div class="mantenimiento-conflicto">
                 <div class="frm_close cus cus-cross"></div>
@@ -321,51 +355,48 @@
             </div>
 
 
-
-            <div id="main-content">
-                <div id="map-content">
+                         <div id="main-content">                
+                             <div id="map-content">
                     {% for rs in punto_conflicto%}
-                        <div class="{{rs.region_variable}}-area">
-                            <div class="div-tooltip {{rs.region_variable}}-alert alert-icon" rel="{{rs.conflicto_id}}" title="{{rs.region_nombre}}">
-                                <div class="flecha_nube"></div>
-                                <div class="Info-Section">
-                                </div>
-                            </div>
-
-                        </div>
-
+                                     <div class="{{rs.region_variable}}-area">
+                                         <div class="div-tooltip {{rs.region_variable}}-alert alert-icon" rel="{{rs.conflicto_id}}" title="{{rs.region_nombre}}">
+                                             <div class="flecha_nube"></div>
+                                             <div class="Info-Section">
+                                             </div>
+                                         </div>
+                                     </div>
                   {%endfor%}
 
 
-                    </div>
-                    <div class="form-search">
-                        <div style="background: #000000;color:#ffffff;font-weight: bold;padding: 5px 0px 5px 70px;">Buscar Conflictos</div>
-                        <div style="width: 200px; margin: 5px auto;">
-                            <form id="form-search-ajax">
-                                <table>
-                                    <tr>
-                                        <td>A&ntilde;o:</td>
-                                        <td>
-                                            <select class="cbo_anio" name="cbo_anio"></select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mes:</td>
-                                        <td>
-                                            <select class="cbo_mes" name="cbo_mes"></select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="button" class="form-search-Action" value="Buscar"></td>
-                                        <td><input type="button" class="nuevo_conflicto" value="Nuevo"></td>
-                                    </tr>
+                                 </div>
+                                 <div class="form-search">
+                                     <div style="background: #000000;color:#ffffff;font-weight: bold;padding: 5px 0px 5px 70px;">Buscar Conflictos</div>
+                                     <div style="width: 200px; margin: 5px auto;">
+                                         <form id="form-search-ajax">
+                                             <table>
+                                                 <tr>
+                                                     <td>A&ntilde;o:</td>
+                                                     <td>
+                                                         <select class="cbo_anio" name="cbo_anio"></select>
+                                                     </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td>Mes:</td>
+                                                     <td>
+                                                         <select class="cbo_mes" name="cbo_mes"></select>
+                                                     </td>
+                                                 </tr>
+                                                 <tr>
+                                                     <td><input type="button" class="form-search-Action" value="Buscar"></td>
+                                                     <td><input type="button" class="nuevo_conflicto" value="Nuevo"></td>
+                                                 </tr>
 
-                                </table>
-                            </form>
-                        </div>
+                                             </table>
+                                         </form>
+                                     </div>
 
-                    </div>        
-                </div>
+                                 </div>        
+                             </div>
 
-            </body>
-        </html>
+                         </body>
+                     </html>

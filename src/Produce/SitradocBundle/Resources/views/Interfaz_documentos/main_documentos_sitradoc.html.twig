@@ -14,9 +14,11 @@
 
 <link rel=stylesheet type=text/css href="{{asset('plugins/msgbox/jquery.msgbox.css')}}">
 
+
 {% endblock%} 
 {% block javascript%} 
 {#{parent()}#}
+
 <script type="text/javascript" src="{{asset('plugins/jquery/jquery-1.8.3.js')}}"></script>
 
 <script type="text/javascript" src="{{asset('plugins/comboAdd/comboAdd.js')}}"></script>
@@ -31,6 +33,7 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
+
         $(".inhabilitar-pantalla").css("display", "none");
         carga_grilla_documento_proyecto();
 
@@ -49,6 +52,7 @@
                 data: "filtro=" + obj.val(),
                 url: "{{path('_cboFirmantes')}}",
                 success: function(e) {
+
                     $("#cbo_data1").html(e);
                 }
             });
@@ -111,27 +115,39 @@
             carga_grilla_documento(url);
         }
 
-        function carga_grilla_documento(url){
+
+
+
+        function carga_grilla_documento(url) {
             var grilla = "#table-documento";
+
             $(".ajax-icon").css("display", "block");
             $.ajax({
                 type: "POST",
                 dataType: "text",
                 url: url,
-                success: function(e){
+                success: function(e) {
+
                     $(".ajax-icon").css("display", "none");
+
                     var mydata = JSON.parse(e);
+
                     $(grilla).clearGridData(true).trigger("reloadGrid");
                     $(grilla).jqGrid('setGridParam', {data: mydata, autowidth: true}).trigger('reloadGrid');
+
                 }
             });
+
         }
+
+
 
         /*--------------END INSTANCIA DE PLUGINS--------------------*/
         $(".buscar-data").button();
         $(".upload").button();
         $("#link_enProyecto").css("background", "#666666");
         $("#link_enProyecto").css("color", "#ffffff");
+
         $(".item_menu").click(function() {
             var menu_option = $(this).attr("id");
             switch (menu_option) {
@@ -192,7 +208,7 @@
                     data: $("#nuevoDocumento").serialize(),
                     dataType: "text",
                     success: function(e) {
-                        jAlert(e, "Mantenimiento Sitradoc");
+                        alert(e);
                         $("#link_enProyecto").click();
                     }
                 });
@@ -201,16 +217,18 @@
 
 
         $("#editarDocumentoAction").live("click", function() {
-            if (valida_formulario() === true){
+
+            if (valida_formulario() === true) {
+
                 jConfirm('¿Estas seguro que deseas modificar el documento?', 'Mantenimiento Sitradoc', function(r) {
-                    if (r === true){
+                    if (r === true) {
                         $.ajax({
                             type: "POST",
                             url: "{{path('_editarDocumento')}}",
                             data: $("#nuevoDocumento").serialize() + "&num_doc=" + $("#editarDocumentoAction").attr("rel"),
                             dataType: "text",
                             success: function(e) {
-                                jAlert(e, "Mantenimiento Sitradoc");
+                                alert(e);
                                 $("#link_enProyecto").click();
                             }
                         });
@@ -220,12 +238,15 @@
         });
 
 
-        $(".generar_word").live("click", function(){
+
+
+        $(".generar_word").live("click", function() {
             var id_docu = $(this).attr("rel");
             generarword(id_docu);
+
         });
 
-        $(".subir_documento").live("click", function(){
+        $(".subir_documento").live("click", function() {
             $(".inhabilitar-pantalla").css("display", "block");
             $(".frmcapa").css("display", "none");
             $(".capa-upload-documento").css("display", "block");
@@ -306,7 +327,7 @@
                         data: "id_docu=" + id_doc,
                         url: "{{path('_ajax_retornar_estado_Documento')}}",
                         success: function(e) {
-                            jAlert(e, "Mantenimiento Sitradoc");
+                           alert(e);
                             $("#link_enProyecto").click();
                         }
                     });
@@ -322,10 +343,10 @@
                 if (extension[punto - 1] === "pdf" || extension[punto - 1] === "PDF") {
                     $("#uploading-doc").submit();
                 } else {
-                    jAlert("La extension del archivo no es del formato pdf.", "Mantenimiento Sitradoc");
+                   alert("La extension del archivo no es del formato pdf.", "Mantenimiento Sitradoc");
                 }
             } else {
-                jAlert("No se agrego ningun archivo.", "Mantenimiento Sitradoc");
+                alert("No se agrego ningun archivo.", "Mantenimiento Sitradoc");
             }
         });
 
@@ -460,7 +481,7 @@
 
 
             if (valido === false) {
-                jAlert(mensaje, 'Mantenimiento Sitradoc');
+                alert(mensaje);
                 return mensaje;
             }
             return valido;

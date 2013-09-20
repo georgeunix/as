@@ -112,20 +112,36 @@ table{
     background-image: -webkit-gradient(linear, 0% 12%, 0% 120%, from(#004467), to(#2E6C91));
     background-image: -webkit-linear-gradient(top, #004467 7%, #2E6C91 93%);
     -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr='#004467', endColorstr='#2E6C91', gradientType='0')';
-    padding: 5px;
-
-}
+    padding: 5px;                                                                                                                   
+                                                                                                                                
+}                                                               
 
 #receptores{
     /*display:none;*/
     border-radius:8px 8px 8px 8px;}
 
 #deco_1{
-
     background: -moz-linear-gradient(center top , white 19%, silver 90%) repeat scroll 0 0 #004467;
     background-image: -webkit-linear-gradient(top, white 19%, silver 90%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='silver', gradientType='0'); 
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='silver', gradientType='0');
 }
+#deco_1_2{                                                                                                                          
+    background: -moz-linear-gradient(center top , white 19%, #fbbfbf 90%) repeat scroll 0 0 red;                                    
+    background-image: -webkit-linear-gradient(top, white 19%, #fbbfbf 90%);                                                         
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#fbbfbf', gradientType='0');             
+}                                                                                                                               
+#deco_1_3{
+    background: -moz-linear-gradient(center top , white 19%, #67b3e5 90%) repeat scroll 0 0 blue;
+    background-image: -webkit-linear-gradient(top, white 19%, #67b3e5 90%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#67b3e5', gradientType='0');
+}
+#deco_1_4{
+    background: -moz-linear-gradient(center top , white 19%, #ccafaf 90%) repeat scroll 0 0 blue;
+    background-image: -webkit-linear-gradient(top, white 19%, #ccafaf 90%);            
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#ccafaf', gradientType='0');
+}
+
+
 #deco_1 td{
     text-align: center; 
 }

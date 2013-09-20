@@ -1,0 +1,108 @@
+<?php
+
+namespace Produce\ServiciosBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Products
+ *
+ * @ORM\Table(name="Products")
+ * @ORM\Entity
+ */
+class Products
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ProductID", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $productid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ProductName", type="string", length=40, nullable=false)
+     */
+    private $productname;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="QuantityPerUnit", type="string", length=20, nullable=true)
+     */
+    private $quantityperunit;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="UnitPrice", type="integer", nullable=true)
+     */
+    private $unitprice;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="UnitsInStock", type="smallint", nullable=true)
+     */
+    private $unitsinstock;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="UnitsOnOrder", type="smallint", nullable=true)
+     */
+    private $unitsonorder;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="ReorderLevel", type="smallint", nullable=true)
+     */
+    private $reorderlevel;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Discontinued", type="boolean", nullable=false)
+     */
+    private $discontinued;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Orders", mappedBy="productid")
+     */
+    private $orderid;
+
+    /**
+     * @var \Categories
+     *
+     * @ORM\ManyToOne(targetEntity="Categories")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="CategoryID", referencedColumnName="CategoryID")
+     * })
+     */
+    private $categoryid;
+
+    /**
+     * @var \Suppliers
+     *
+     * @ORM\ManyToOne(targetEntity="Suppliers")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="SupplierID", referencedColumnName="SupplierID")
+     * })
+     */
+    private $supplierid;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->orderid = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+}

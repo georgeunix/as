@@ -14,18 +14,22 @@
 {% block javascript%}
 {{parent()}}
  
-<script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>
-<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>
-<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('plugins/jqgrid/js/i18n/grid.locale-es.js')}}"></script>
-<script type="text/javascript" src="{{asset('plugins/jqgrid/js/jquery.jqGrid.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/datatable/media/js/jquery.js')}}"></script>                        
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.js')}}"></script>             
+<script type="text/javascript" src="{{asset('plugins/jquery-ui/js/jquery-ui-1.10.3.custom.min.js')}}"></script>     
+                
+ 
+  
+ 
+  
+  
 
 <script type="text/javascript" src="{{asset('plugins/JAlert/jquery.alerts.js')}}"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
-
-
+  
+        var CUOTA_TOTAL_ASIGNADA=810000;
         /* LUIS SANTOS*/
         $("#radio").buttonset();
         $("#magnitud").buttonset();
@@ -41,12 +45,23 @@
         $(".capa-negra").css("display", "none");
         $(".capa-negra-papa").css("display", "none");
 
-        $("#procesar").click(function() {
+        $("#procesar").click(function(){
             $("#contend-tabla1").empty();
             $("#contend-tabla2").empty();
             $("#_disabled").attr('id', 'calcul')
             var slec1 = $("#Category_options1").val();
             var slec2 = $("#Category_options2").val();
+            if((slec1==1) && (slec2==1)){
+            $("input[name='radio-proporcion']").attr("value", "radio2");
+      //            jQuery("input[name='radio-proporcion']").attr('checked', 'checked');
+//$("input[name='radio-proporcion']").attr("value", "radio2");
+// $(this).attr("value", "radio2");
+//    $( "input[type='text']" )               
+//    radio1
+//      type="radio"
+//     $('input[type=radio].radio-proporcion').val('radio2');                           
+//    $("input[name='radio-proporcion']:checked");//.val('radio2');    
+            }
             agregar_listaaporta(slec1);
             $("#aportantes").css("display", "block");
             agregar_listarecepto(slec2);
@@ -54,12 +69,12 @@
             $("#calcul").css("display", "block");
         });
 
-        function agregar_listaaporta(data) {
+        function agregar_listaaporta(data){
             var content_listaaporta = "";
             for (var l = 0; l < data; l++) {
                 content_listaaporta += "<tr>";
                 for (var i = 0; i < 12; i++) {
-                    if (i == 0)
+                    if (i == 0 || i == 6 || i == 8 || i == 9)
                         content_listaaporta += "<td> <input type='text' class='listt input-id" + i + "'  > </td>";
                     else
                         content_listaaporta += "<td> <input type='text' class='listt input-id" + i + "' readonly > </td>";
@@ -74,7 +89,7 @@
             for (var n = 0; n < data; n++) {
                 content_listarecepto += "<tr>";
                 for (var i = 0; i < 13; i++) {
-                    if (i == 0 || i == 12)
+                    if (i == 0 || i == 6 || i == 12 || i == 9  )
                         content_listarecepto += "<td> <input type='text' class='listt input-id" + i + " ' > </td>";
                     else
                         content_listarecepto += "<td> <input type='text' class='listt input-id" + i + " ' readonly > </td>";
@@ -83,84 +98,47 @@
                 content_listarecepto += "</tr>";
             }
         }
-        var content = [];
-        var data0 = ["4052", "COMANCHE II", "Ley N25977", "314,75", "VIGENTE", "0,16965%", "1.374,38", "1.374,17", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
-        var data1 = ["22904", "COSTA DE ORO", "Ley N25977", "300", "VIGENTE", "0,15378%", "1.245,81", "1.245,62", "0,00", "0,19", "NO BENEFICIO", "NO BENEFICIO"];
-        var data2 = ["14964", "GUANAY", "Ley N25977", "298,05", "VIGENTE", "0,17018%", "1.378,67", "1.378,46", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
-        var data3 = ["14268", "IPANEMA", "Ley N25977", "296,44", "VIGENTE", "0,16626%", "1.346,92", "1.346,71", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
-        var data4 = ["10437", "CARMEN JUDITH 1", "Ley N25977", "296,39", "SUSPENDIDO", "0,11919%", "965,59", "965,44", "0,00", "0,15", "NO BENEFICIO", "NO BENEFICIO"];
-        var data5 = ["192", "SUSANA", "Ley N25977", "295,87", "VIGENTE", "0,11321%", "917,14", "917", "0,00", "0,14", "NO BENEFICIO", "NO BENEFICIO"];
-
-        var data6 = ["17970", "ARCA DE NOE", "Ley N26920", "62,89", "VIGENTE", "0,034050%", "275,85", "275,81", "0,00", "0,04", "NO BENEFICIO", "NO BENEFICIO"];
-        var data7 = ["20333", "SIEMPRE ROSITA YANET", "Ley N26920", "62,49", "VIGENTE", "0,040660%", "329,40", "329,35", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO"];
-        var data8 = ["15664", "ISABELLA", "Ley N26920", "62,49", "VIGENTE", "0,040850%", "330,94", "330,89", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO", "NO BENEFICIO"];
-
-        var data9 = ["4826", "CAJAMARCA 6", "Ley N25977", "395,14", "VIGENTE", "0,168910%", "1.368,38", "1.368,17", "0,00", "0,21", "NO BENEFICIO", "NO BENEFICIO"];
-        var data10 = ["11394", "FABIOLA", "Ley N25977", "390,15", "VIGENTE", "0,208960%", "1.692,84", "1.692,58", "0,00", "0,26", "NO BENEFICIO", "NO BENEFICIO"];
-        var data11 = ["12517", "SALMON", "Ley N25977", "384,70", "VIGENTE", "0,155460%", "1.259,42", "1.259,23", "0,00", "0,19", "NO BENEFICIO", "NO BENEFICIO"];
-        var data12 = ["10418", "ALEXANDRA", "Ley N25977", "381,60", "VIGENTE", "0,179400%", "1.453,36", "1.453,14", "0,00", "0,22", "NO BENEFICIO", "NO BENEFICIO"];
-
-        var data13 = ["17970", "ARCA DE NOE", "Ley N26920", "62.89", "VIGENTE", "0.034050%", "275.85", "275.81", "0,00", "0,04", "NO BENEFICIO", "NO BENEFICIO"];
-        var data14 = ["20333", "SIEMPRE ROSITA YANET", "Ley N26920", "62.49", "VIGENTE", "0.040660%", "329.40", "329.35", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO"];
-        var data15 = ["15664", "ISABELLA", "Ley N26920", "62.49", "VIGENTE", "0.040850%", "330.94", "330.89", "0,00", "0,05", "NO BENEFICIO", "NO BENEFICIO"];
+        
+       
 
 
-
-        content.push(data0);
-        content.push(data1);
-        content.push(data2);
-        content.push(data3);
-        content.push(data4);
-        content.push(data5);
-        content.push(data6);
-        content.push(data7);
-        content.push(data8);
-        content.push(data9);
-        content.push(data10);
-        content.push(data11);
-        content.push(data12);
-        content.push(data13);
-        content.push(data14);
-        content.push(data15);
-
-
-        $(".agrega").click(function() {
-            var pos_fila = $(".agrega").attr("rel");
+        $(".agrega").click(function(){
             var pos = $(".search2").val();
-            console.log(" :" + pos);
-            buscatext(content, pos);
-            var ar = pos_fila.split("-");
-            var tt = ar[0];
-            for (var r = 0; r <= 12; r++) {
-                $(".input-id" + r).eq(tt).val(content[pos][r]);
-            }
-            $(".capa-negra-papa").css("display", "none");
-        });
-
-        $("#clibuscar").live("click", function() {
-            var al = $(this).val();
-            alert(al);
-            $(".capa-negra-papa").css("display", "none");
-        });
-
-        function buscatext(data, text) {
-            $("#log").empty();
-            for (var i in data) {
-                for (var a = 2; a <= data[i][1].length; a++) {
-                    if (text.toUpperCase() === data[i][1].substring(0, a)) {
-                        $("#log").append('<li id=clibuscar >' + data[i][1] + '</li>');
-                        console.log(data[i][1]);
+            var row= $(this).attr("rel");
+        $.ajax({
+                    type: "POST",
+                    dataType: "text",
+                    data: "embar=" + pos,
+                    url: "{{path('_all_embarcaciones')}}",
+                    success: function(e){
+                        $(".ajax-icon").css("display", "none");
+                        var mydata = $.parseJSON(e);   
+                         
+                         for (var n = 0; n < mydata.length; n++){
+                         $("#log").append('<li id=clibuscar rel='+mydata[n]["ID_EMB"]+' class='+row+'  style=float:left;width:100%; >' +mydata[n]["EMBARCACION"]+'  <div style=float:right;font-size:11px; >'+mydata[n]["MATRICULA"]+'</div> </li>'); 
+                         }
                     }
-                }
-                console.log("---");
-            }
-            return data[i][1];
-        }
+                });
+             });
+        
+        
+        $("#clibuscar").live("click", function(){
+             var pos = $(this).attr("rel");
+             var hi = $(this).attr("class");
 
-        $(".input-id1").live("click", function(ev) {
+             buscar_embarcaciones(pos,hi);
+            $(".capa-negra-papa").css("display", "none");
+                        $("#log").empty();
+                        $("#search2").val('');
+//                        $("input[name='proporcion']").val('');
+                        
+        });
+
+ 
+        $(".input-id1").live("click", function(ev){
             $(".capa-negra-papa").css("display", "block");
             var hi = $(".input-id1").index(this);
-            $(".agrega").attr("rel", hi + "-1");
+            $(".agrega").attr("rel", hi);
         });
 
         $(".cierre").live("click", function() {
@@ -168,43 +146,13 @@
         });
 
 
-        $(".input-id0").live("keydown", function(tecla) {
+        $(".input-id0").live("keydown", function(tecla){
             var hi = $(".input-id0").index(this);
             if (tecla.keyCode == 13) {
                 var pos = $(".input-id0").eq(hi).val();
-                console.log(hi + pos + "---");
-
-                $.ajax({
-                    type: "POST",
-                    dataType: "text",
-                    data: "id_embar=" + pos,
-                    url: "{{path('_datos_embarcaciones')}}",
-                    success: function(e){
-                        $(".ajax-icon").css("display", "none");
-                        var mydata = $.parseJSON(e);  // var mydata = jQuery.parseJSON(e);// JSON.parse(e);
-                        
-                   //         if(mydata=="")){}
-                    
-                        console.log(mydata);
-                        
-                        var myarray=[];
-                            myarray.push(mydata[0]["ID_EMB"]);
-                            myarray.push(mydata[0]["EMBARCACION"]);
-                            myarray.push(mydata[0]["REGIMEN"]);
-                            myarray.push(mydata[0]["CAP_BOD_AUT"]);
-                            myarray.push(mydata[0]["ESTADO_PERMISO"]);
-                            myarray.push(mydata[0]["PMCE"]);
-                            myarray.push(mydata[0]["LMCE"]);
-                            myarray.push(mydata[0]["ID_EMB"]);
-                            myarray.push(mydata[0]["DSCTO_LMCE"]);
-                            myarray.push(mydata[0]["REDISTRIB_DSCTO"]);
-                            myarray.push("NO FIGURA");//mydata[0]["ZONA"]   //mydata[0]["USUARIO"]
-                            myarray.push("NO FIGURA");
-                         for (var n = 0; n < 12; n++){
-                         $(".input-id" + n).eq(hi).val(myarray[n]);         
-                         }
-                    }
-                });
+                
+                 buscar_embarcaciones(pos,hi)
+                
             }
             else if (tecla.which == 38) {
                 $(".input-id0").eq(hi - 1).focus();
@@ -213,7 +161,50 @@
             }
         });
 
+        $(".input-id9").live("keyup", function(e){
+            var code = $(this).val();
+            var id6=$(".input-id6").val();
+                                
+            $(".input-id6").attr("value",id6+code.parseInt);
+        });
+        
+        
+            // allow backspace, tab, delete, arrows, numbers and keypad numbers ONLY 
+         
+        
 
+        function  buscar_embarcaciones(pos,hi){
+
+                $.ajax({
+                          type: "POST",
+                          dataType: "text",
+                          data: "id_embar=" + pos,
+                          url: "{{path('_datos_embarcaciones')}}",
+                          success: function(e){
+                          $(".ajax-icon").css("display", "none");
+                          var mydata = $.parseJSON(e);  // var mydata = jQuery.parseJSON(e);// JSON.parse(e);
+                          console.log(mydata);
+                          var myarray=[];
+                          myarray.push(mydata[0]["ID_EMB"]);
+                          myarray.push(mydata[0]["EMBARCACION"]);
+                          myarray.push(mydata[0]["REGIMEN"]);
+                          myarray.push(mydata[0]["CAP_BOD_AUT"]);
+                          myarray.push(mydata[0]["ESTADO_PERMISO"]);
+                          myarray.push(mydata[0]["PMCE"]);
+                          myarray.push(mydata[0]["LMCE"]);
+                          myarray.push(mydata[0]["PMCE"]*CUOTA_TOTAL_ASIGNADA/100);
+                          myarray.push(mydata[0]["DSCTO_LMCE"]);
+                          myarray.push(mydata[0]["REDISTRIB_DSCTO"]);
+                          myarray.push("NO FIGURA");//mydata[0]["ZONA"]   //mydata[0]["USUARIO"]
+                          myarray.push("NO FIGURA");
+                          for (var n = 0; n < 12; n++){
+                          $(".input-id" + n).eq(hi).val(myarray[n]);         
+                          }
+                          }
+                          });                
+        }
+                   
+                
 
 $("input[name='radio-proporcion']").click(function(){
   if($(this).val()=="radio2")
@@ -223,17 +214,15 @@ $("input[name='radio-proporcion']").click(function(){
    $(".input-id12").css("display", "block");
  });                                                                          
  
-
-
-
-        $("#calcul").click(function() {
+ 
+        $("#calcul").click(function(){
             var validar = 0;
             $("#calcul").attr('id', '_disabled');
 
             var cad = "";
             $(".input-id0").each(function(i) {
                 var po = $(".input-id0").eq(i).val();
-                if (po === "") {
+                if(po === ""){
                     JAlert("Debe ingresar Embarcaciones","Falta Embarcacion");
                 
                     validar = 1;
@@ -246,11 +235,10 @@ $("input[name='radio-proporcion']").click(function(){
                 return false;
 
             var distri = "";
-            if ($("input[name='radio-proporcion']:checked").val() == "radio1") {
-
+            if ($("input[name='radio-proporcion']:checked").val() == "radio1"){
                 $(".input-id12 ").each(function(n) {
                     var dat = $(".input-id12").eq(n).val();
-                    if (dat === "") {
+                    if (dat === ""){
                         validar = 2;
                         alert("Falta ingresar " + (n + 1) + "º distribucion!");
                         return false;
@@ -268,7 +256,7 @@ $("input[name='radio-proporcion']").click(function(){
         });
 
 
-        function insertar_solicitud(cad) {
+        function insertar_solicitud(cad){
             $.ajax({
                 type: "POST",
                 url: "{{path('_insert_wem')}}",
@@ -344,35 +332,37 @@ $("input[name='radio-proporcion']").click(function(){
                              <td width="10%"><input type="button" id="procesar" class="boton" value="Procesar"></td>
                          </tr>
 
-
                      </table>
                  </form>
-             </div>   
-         </div> 
+             </div>
+         </div>
 
 
          <div id="conten">
              <div class="capa-negra-papa" style="position: absolute">
                  <div class="capa-negra-sub2" >
                  </div>       
-
+                     
                  <div id="tolltip" style="z-index:11;width: 300px;height: 300px; margin: auto;margin-top:5%;background-color: white; border:4px solid skyblue; position:relative;top: 50%;left:50%">
                      <div style="
                           background-image: -moz-linear-gradient(center top,#46b9ed 7%, #2E6C91 93%);
                           background-image: -webkit-linear-gradient(top, #46b9ed 7%, #2E6C91  93%);
                           color: #FFFFFF;font-size: 13px;font-weight: bold;padding: 10px 4px 4px 0;
                           position: relative;text-align: center;margin-bottom: 27px;" >
-                              Busqueda por Enbarcaci&oacute;n  <div class="cierre" > <i class="cus cus-cancel"></i> </div>
+                              Busqueda por Embarcaci&oacute;n  <div class="cierre" > <i class="cus cus-cancel"></i> </div>
 
                           </div>
-                          <div class="ui-widget">
+                         <div style=" margin-left: 20px;">  
+                          <div class="ui-widget" >
                               <div class="cont_id"></div>
-                              <input class="search2" id="search2" value="3"  />  <input type="submit" class="agrega" value="buscar" />
+                              <input class="search2" id="search2" value=""  />  <input type="submit" class="agrega" value="buscar" />
+                             
                           </div>
-                          <div class="ui-widget" style="margin-top: 2em; font-family: Arial;">
+                          <div class="ui-widget" style="margin-top: 1em; font-family: Arial;">
                               Resultado:
-                              <div id="log" style="height:164px;width: 300px; overflow: auto;" class="ui-widget-content"></div>
+                              <div id="log" style="height:164px;width: 255px; overflow: auto;" class="ui-widget-content"></div>
                           </div>
+                        </div>
                      </div>
                  </div>
 

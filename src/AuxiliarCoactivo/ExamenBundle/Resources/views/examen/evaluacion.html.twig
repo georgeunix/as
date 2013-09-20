@@ -70,12 +70,21 @@ return Globalize.format( new Date(value), "t" );
 });
 $(function() {
 $( "#spinner" ).timespinner();
+
+$( "#spinner1" ).timespinner();
+$( "#spinner2" ).timespinner();
+$( "#spinner3" ).timespinner();
+
+
 $( "#culture" ).change(function() {
 var current = $( "#spinner" ).timespinner( "value" );
 Globalize.culture( $(this).val() );
 $( "#spinner" ).timespinner( "value", current );
 });
 });
+
+ 
+  
 
             $(document).ready(function() {
                 fecha_hoy();
@@ -155,13 +164,14 @@ $( "#spinner" ).timespinner( "value", current );
                 <input type="button" class='init-quiz'value="Iniciar el test">
             </div>
             <div class='hoja'>
+                 
                 <form id="cuestionario">
                                             
                                             
                         
                     <div class="cabecera">
                         <div class="logo-produce_2"></div>
-                        <div class="titulo-principal"> TEST DE VERACIDAD </div>
+                        <div class="titulo-principal"> TEST DE ASTROLOGIA </div>
                         <div class="datos-personales">
                             &nbsp; <input class='datos-personales fecha-hoy' type="text" disabled="true" size="32px">
                         </div>
@@ -175,10 +185,39 @@ $( "#spinner" ).timespinner( "value", current );
                                                         <input id="spinner" name="spinner" value="08:30 PM" />
                         </p>
                         <br></br>        
-
+                                
+                                <p>
+                                    <label for="spinner">Pais: &zwj;  &zwj;   &NonBreakingSpace;    </label>
+                                        <select>
+                                        <option value="volvo">Peru</option>
+                                        <option value="saab">Brazil</option>
+                                        <option value="mercedes">Colombia</option>
+                                        <option value="audi">Peru</option>
+                                        </select>
+                                    
+                                </p>
+                                <p>
+                                <label for="spinner">Ciudad:</label>
+                                <select>
+                                        <option value="volvo">     </option>
+                                        <option value="saab">Cajamarca</option>
+                                        <option value="mercedes">Ayacucho</option>
+                                        <option value="audi">Tacna</option>
+                                </select>
+                                </p>
+                                <p>
+                                <label for="spinner">Distrito:</label>
+                                <select>
+                                        <option value="volvo">     </option>
+                                        <option value="saab">Lima</option>
+                                        <option value="mercedes">Chosica</option>
+                                        <option value="audi">Huarochiri</option>
+                                </select>
+                                </p>
                         
                         <input type="checkbox" id="check" /><label for="check">Elegir</label>
-                          
+                      
+                        <br><br><br>
                           
                         <div id="accordion">
                             <h3>Opcion 1</h3>
@@ -212,7 +251,7 @@ $( "#spinner" ).timespinner( "value", current );
 
                     </div>
                     <div class="div-confirmacion">
-                        <div>
+                        <div style="margin-top: 80%">
                             <div class='timelabel'>Tienes un tiempo estimado de <span class="minuto">00</span>:<span class="segundo">00</span> minutos.</div>
                             <input type="button" class="exit-quiz" value="Terminar">
                         </div>

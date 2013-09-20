@@ -8,10 +8,12 @@ body {
 .hoja{
     margin: 10px auto;
     width: 1000px;
+    height: 650px;
     border:1px #666666 solid;
     background: #ffffff;
     padding: 1% 5%;
 }
+
 .instrucciones{
     font-size: 14px;
     text-align: justify;
@@ -89,6 +91,7 @@ body {
     font-size: 15px;
     font-weight: bold;
     color: #666666;
+    margin-top:12px;
 }
 .logo-produce{
     background: url('../img/logo-ogrh.jpg') no-repeat;

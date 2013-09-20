@@ -4,6 +4,7 @@ namespace Produce\ConflictossocialesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Produce\ServiciosBundle\Util\ServiciosGenerales\SessionProduce\SessionManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Ps\PdfBundle\Annotation\Pdf;
@@ -13,20 +14,26 @@ class MapaController extends Controller {
     /**
      * @Route("/mapa", name="_mapa")
      */
-    public function mapaAction() {
-
-        $anio = date("Y");
-        $mes = date("m");
-
-        $DB_CONFLICTOS_SOCIALES = $this->getDoctrine()->getConnection("DB_CONFLICTOS_SOCIALES");
-        $sql = " select co.conflicto_id,re.region_nombre,re.region_variable ";
-        $sql .=" from conflictos co inner join dbo.REGION re on co.region_id=re.region_id";
-        $sql .=" where co.anio=$anio and mes=$mes";
-
-        $query = $DB_CONFLICTOS_SOCIALES->prepare($sql); //preparo consulta
-        $query->execute(); //ejecuto la consulta
-        $result = $query->fetchAll();
-        return $this->render("ConflictosSocialesBundle:mapa:mapa_conflictos_sociales.html.twig", array("punto_conflicto" => $result));
+    public function mapaAction(){
+        
+        $anio = date("Y"); 
+            $mes = date("m");  
+            $DB_CONFLICTOS_SOCIALES = $this->getDoctrine()->getConnection("DB_CONFLICTOS_SOCIALES");
+            $sql = " select co.conflicto_id,re.region_nombre,re.region_variable ";
+            $sql .=" from conflictos co inner join dbo.REGION re on co.region_id=re.region_id";
+            $sql .=" where co.anio=$anio and mes=$mes";
+            $query = $DB_CONFLICTOS_SOCIALES->prepare($sql); //preparo consulta
+            $query->execute(); //ejecuto la consulta
+            $result = $query->fetchAll();       
+            
+        $sesi =new SessionManager(); 
+        $perate=$sesi->valida_session($this);
+        $response= $perate["response"];
+        if ($response == true){
+            return $this->render("ConflictosSocialesBundle:mapa:mapa_conflictos_sociales.html.twig", array("punto_conflicto" => $result));
+        } else {
+            return $this->render("ConflictosSocialesBundle:mapa:mapa_vista_conflictos_sociales.html.twig", array("punto_conflicto" => $result));
+        }
     }
 
     /**
@@ -51,13 +58,12 @@ class MapaController extends Controller {
     /**
      * @Route("/buscarMapa", name="_buscarMapa")
      */
-    public function buscarMapaAction(Request $request) {
+    public function buscarMapaAction(Request $request){
         if ($request->isXmlHttpRequest()){
-
+            
             $cbo_mes = $request->request->get("cbo_mes");
             $cbo_anio = $request->request->get("cbo_anio");
-
-
+            
             $DB_CONFLICTOS_SOCIALES = $this->getDoctrine()->getConnection("DB_CONFLICTOS_SOCIALES");
             $sql = "select co.conflicto_id, re.region_nombre, re.region_variable from conflictos co inner join REGION re on co.region_id = re.region_id";
             $sql .= " where co.anio = $cbo_anio and co.mes = $cbo_mes";
@@ -68,8 +74,8 @@ class MapaController extends Controller {
             foreach ($result as $value){
                 $contenido.= '<div class="' . $value["region_variable"] . '-area" >';
                 $contenido.= '<div class="div-tooltip ' . $value["region_variable"] . '-alert alert-icon" rel="' . $value["conflicto_id"] . '" title="' . $value["region_nombre"] . '">';
-                $contenido.= '<div class="flecha_nube"></div>';
-                $contenido.= '<div class="Info-Section"></div>';
+                $contenido.= '<div class="flecha_nube"></div>';                 
+                $contenido.= '<div class="Info-Section"></div>';                
                 $contenido.= '</div>';
                 $contenido.= '</div>';
             }
@@ -97,7 +103,7 @@ class MapaController extends Controller {
             $query = $DB_CONFLICTOS_SOCIALES->prepare($sql);
             $query->execute();
 
-            for ($i = 0; $i < count($data_detalles); $i++) {
+            for ($i = 0; $i < count($data_detalles); $i++){
                 $sql2 = "insert into DETALLE_CONFLICTO values('" . $data_detalles[$i] . "', ";
                 $sql2 .= "(select co.conflicto_id from CONFLICTOS co where co.anio = $anio and co.mes = $mes and region_id = $region))";
                 $query2 = $DB_CONFLICTOS_SOCIALES->prepare($sql2);
@@ -126,20 +132,15 @@ class MapaController extends Controller {
             $query2 = $DB_CONFLICTOS_SOCIALES->prepare($sql2);
             $query2->execute();
             $regiones = $query2->fetchAll();
-
-            foreach ($conflictos as $con) {
+            foreach ($conflictos as $con){
                 $posicion = $con["region_id"];
                 unset($regiones[($posicion - 1)]);
             }
             $regiones = array_filter($regiones);
-
             $response = "";
             foreach ($regiones as $reg) {
                 $response.="<option value = '" . $reg["region_id"] . "' > " . $reg["region_nombre"] . "</option>";
             }
-
-
-
             return new Response($response);
         }
     }
@@ -147,7 +148,7 @@ class MapaController extends Controller {
     /**
      * @Route("/listaObservaciones", name="_listaObservaciones")
      */
-    public function listaObservacionesAction(Request $request) {
+    public function listaObservacionesAction(Request $request){
         if ($request->isXmlHttpRequest()) {
             $conflicto_id = $request->request->get("conflicto_id");
             $DB_CONFLICTOS_SOCIALES = $this->getDoctrine()->getConnection("DB_CONFLICTOS_SOCIALES");
@@ -169,7 +170,7 @@ class MapaController extends Controller {
      * @Pdf()
      * @Route("/pdf", name="_pdf")
      */
-    public function pdfAction() {
+    public function pdfAction(){
         /*
          * https://github.com/psliwa/PHPPdf#intro
          */
